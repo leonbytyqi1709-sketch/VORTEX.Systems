@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zubehör – VORTEX Systems Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #050508;
+            --bg-tertiary: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --bg-card-hover: rgba(255, 255, 255, 0.05);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --text-tertiary: rgba(255, 255, 255, 0.4);
+            --neon-cyan: #00f0ff;
+            --neon-purple: #bf5af2;
+            --neon-pink: #ff375f;
+            --neon-green: #39ff14;
+            --neon-orange: #ff6b35;
+            --gradient-main: linear-gradient(135deg, #00f0ff 0%, #bf5af2 50%, #ff375f 100%);
+            --gradient-pink: linear-gradient(135deg, #ff375f 0%, #bf5af2 100%);
+            --glow-cyan: 0 0 30px rgba(0, 240, 255, 0.4);
+            --glow-purple: 0 0 30px rgba(191, 90, 242, 0.4);
+            --glow-pink: 0 0 30px rgba(255, 55, 95, 0.4);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        ::selection { background: var(--neon-pink); color: var(--bg-primary); }
+
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 40px; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-subtle); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-primary); }
+        .logo-icon { width: 42px; height: 42px; background: var(--gradient-main); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 22px; color: var(--bg-primary); box-shadow: var(--glow-cyan); }
+        .logo-text { font-weight: 700; font-size: 20px; }
+        .logo-text span { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; padding: 10px 18px; font-size: 14px; font-weight: 500; border-radius: 8px; transition: all 0.2s; }
+        .nav-link:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+        .nav-link.active { color: var(--neon-pink); }
+        .nav-cta { background: var(--gradient-main); color: var(--bg-primary); padding: 10px 22px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; margin-left: 16px; }
+        .cart-icon { position: relative; cursor: pointer; font-size: 24px; padding: 8px; transition: transform 0.2s; }
+        .cart-icon:hover { transform: scale(1.1); }
+        .cart-badge { position: absolute; top: 0; right: 0; background: var(--neon-pink); color: var(--bg-primary); border-radius: 50%; width: 20px; height: 20px; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: var(--glow-pink); }
+
+        .page-header { padding: 140px 40px 80px; text-align: center; position: relative; overflow: hidden; }
+        .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 0%, rgba(255, 55, 95, 0.12) 0%, transparent 50%), radial-gradient(ellipse at 70% 100%, rgba(191, 90, 242, 0.1) 0%, transparent 50%); }
+        .page-header-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .page-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-card); border: 1px solid var(--neon-pink); padding: 8px 16px; border-radius: 100px; font-size: 13px; color: var(--neon-pink); margin-bottom: 24px; }
+        .page-title { font-size: clamp(42px, 6vw, 72px); font-weight: 900; letter-spacing: -2px; margin-bottom: 20px; }
+        .page-title span { background: var(--gradient-pink); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-subtitle { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        .products-section { padding: 60px 40px; }
+        .products-container { max-width: 1400px; margin: 0 auto; }
+        .category-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--border-subtle); }
+        .category-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .category-title { font-size: 28px; font-weight: 700; }
+        .category-count { font-size: 14px; color: var(--text-tertiary); margin-left: auto; font-family: 'JetBrains Mono', monospace; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; margin-bottom: 80px; }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; overflow: hidden; transition: all 0.4s; }
+        .product-card:hover { transform: translateY(-8px); border-color: var(--border-hover); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4); }
+        .product-image { height: 200px; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 64px; position: relative; }
+        .product-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(to top, var(--bg-card), transparent); }
+        .product-badge { position: absolute; top: 16px; right: 16px; padding: 6px 14px; border-radius: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; z-index: 2; }
+        .product-badge.bundle { background: var(--neon-purple); color: #fff; box-shadow: var(--glow-purple); }
+        .product-badge.new { background: var(--neon-green); color: #000; }
+        .product-badge.premium { background: var(--neon-pink); color: #fff; box-shadow: var(--glow-pink); }
+        .product-colors { position: absolute; bottom: 16px; left: 16px; display: flex; gap: 6px; z-index: 2; }
+        .color-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); }
+        .product-content { padding: 28px; }
+        .product-category { font-size: 11px; color: var(--neon-pink); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 8px; }
+        .product-name { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+        .product-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
+        .product-includes { margin-bottom: 20px; }
+        .product-includes h4 { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .product-includes ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+        .product-includes li { padding: 6px 12px; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 6px; font-size: 12px; color: var(--text-secondary); }
+        .product-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border-subtle); }
+        .product-price { font-size: 28px; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: var(--neon-cyan); }
+        .product-price-old { font-size: 16px; color: var(--text-tertiary); text-decoration: line-through; margin-left: 8px; font-weight: 400; }
+        .cart-controls { display: flex; align-items: center; gap: 12px; }
+        .qty-selector { display: flex; align-items: center; gap: 8px; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 4px; }
+        .qty-btn { width: 32px; height: 32px; border: none; background: var(--bg-card-hover); color: var(--text-primary); border-radius: 6px; font-size: 18px; cursor: pointer; transition: all 0.2s; font-weight: 600; }
+        .qty-btn:hover { background: var(--neon-pink); color: var(--bg-primary); }
+        .qty-display { min-width: 30px; text-align: center; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+        .product-btn { padding: 12px 24px; background: var(--bg-card-hover); border: 1px solid var(--border-subtle); border-radius: 10px; color: var(--text-primary); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .product-btn:hover { background: var(--neon-pink); color: var(--bg-primary); border-color: var(--neon-pink); }
+
+        .usb-section { background: var(--bg-secondary); padding: 80px 40px; }
+        .usb-container { max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-label { display: inline-block; font-size: 13px; font-weight: 600; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+        .section-title { font-size: clamp(32px, 4vw, 48px); font-weight: 800; margin-bottom: 16px; }
+        .section-subtitle { font-size: 17px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        .usb-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 60px; }
+        .usb-visual { display: flex; align-items: center; justify-content: center; }
+        .usb-icon { font-size: 180px; filter: drop-shadow(0 0 40px rgba(0, 240, 255, 0.3)); }
+        .usb-content h3 { font-size: 32px; font-weight: 700; margin-bottom: 20px; }
+        .usb-content p { color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 24px; }
+        .usb-specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+        .usb-spec { display: flex; align-items: center; gap: 12px; padding: 16px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; }
+        .usb-spec-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 102, 255, 0.2)); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .usb-spec span { font-size: 14px; color: var(--text-secondary); }
+
+        .usb-sizes { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+        .usb-size { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 24px; text-align: center; transition: all 0.3s; cursor: pointer; position: relative; }
+        .usb-size:hover { transform: translateY(-5px); border-color: var(--neon-cyan); box-shadow: var(--glow-cyan); }
+        .usb-size-capacity { font-size: 28px; font-weight: 800; margin-bottom: 8px; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .usb-size-price { font-size: 20px; font-weight: 700; color: var(--neon-cyan); font-family: 'JetBrains Mono', monospace; margin-bottom: 12px; }
+        .usb-size .cart-controls { justify-content: center; margin-top: 12px; }
+
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(10px); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+        .modal.active { display: flex; }
+        .modal-content { background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 24px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+        .modal-header { padding: 32px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; }
+        .modal-title { font-size: 28px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        .modal-close { background: none; border: none; color: var(--text-secondary); font-size: 32px; cursor: pointer; transition: all 0.2s; }
+        .modal-close:hover { color: var(--neon-pink); transform: rotate(90deg); }
+        .modal-body { padding: 32px; }
+        .cart-empty { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
+        .cart-empty-icon { font-size: 80px; margin-bottom: 20px; opacity: 0.3; }
+        .cart-item { display: flex; gap: 20px; padding: 20px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; margin-bottom: 16px; }
+        .cart-item-emoji { font-size: 48px; flex-shrink: 0; }
+        .cart-item-info { flex: 1; }
+        .cart-item-name { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+        .cart-item-price { font-size: 14px; color: var(--neon-cyan); font-family: 'JetBrains Mono', monospace; }
+        .cart-item-controls { display: flex; align-items: center; gap: 12px; }
+        .cart-item-remove { background: var(--bg-tertiary); border: 1px solid var(--border-subtle); color: var(--text-secondary); padding: 8px 16px; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-size: 13px; }
+        .cart-item-remove:hover { background: var(--neon-pink); color: var(--bg-primary); border-color: var(--neon-pink); }
+        .cart-summary { background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 24px; margin-top: 24px; }
+        .cart-summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 15px; }
+        .cart-summary-row.total { font-size: 24px; font-weight: 800; color: var(--neon-cyan); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border-subtle); }
+        .checkout-btn { width: 100%; padding: 16px; background: var(--gradient-main); border: none; border-radius: 12px; color: var(--bg-primary); font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 20px; transition: all 0.3s; }
+        .checkout-btn:hover { transform: translateY(-2px); box-shadow: var(--glow-pink); }
+
+        .checkout-form { display: grid; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-label { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; }
+        .form-input { background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 14px 16px; color: var(--text-primary); font-size: 15px; font-family: inherit; transition: all 0.2s; }
+        .form-input:focus { outline: none; border-color: var(--neon-cyan); box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .footer { background: var(--bg-primary); border-top: 1px solid var(--border-subtle); padding: 60px 40px 40px; }
+        .footer-container { max-width: 1400px; margin: 0 auto; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+        .footer-copyright { font-size: 13px; color: var(--text-tertiary); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--neon-cyan); }
+
+        @media (max-width: 1200px) { .usb-sizes { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 968px) { .nav-links { display: none; } .usb-hero { grid-template-columns: 1fr; } .usb-sizes { grid-template-columns: repeat(2, 1fr); } .form-row { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .page-header { padding: 120px 24px 60px; } .products-section, .usb-section { padding: 40px 24px; } .products-grid { grid-template-columns: 1fr; } .usb-specs { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">V</div>
+                <span class="logo-text">VORTEX <span>Systems</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Startseite</a>
+                <a href="hardware.html" class="nav-link">Hardware</a>
+                <a href="software.html" class="nav-link">Software</a>
+                <a href="zubehoer.html" class="nav-link active">Zubehör</a>
+                <a href="vortcoin.html" class="nav-link"> VORTEX Aktien</a>
+                <a href="vortex-code-ki.html" class="nav-link">Code KI</a>
+                <a href="login.html" class="nav-link">LOGIN</a>
+                <a href="contact.html" class="nav-cta">Kontakt</a>
+                <a href="account.html" class="nav-link">Benutzer</a>
+                <div class="cart-icon" onclick="openCart()">
+                    🛒
+                    <span class="cart-badge" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-content">
+            <div class="page-badge">🔧 Zubehör Shop</div>
+            <h1 class="page-title">Premium <span>Zubehör</span></h1>
+            <p class="page-subtitle">Perfektioniere dein Setup mit unserem hochwertigen Zubehör – von RGB-Beleuchtung bis Kabel-Management.</p>
+        </div>
+    </header>
+
+    <section class="products-section">
+        <div class="products-container">
+            
+            <!-- REINIGUNG -->
+            <div class="category-header" style="--cat-color: #39ff14;">
+                <div class="category-icon" style="background: linear-gradient(135deg, rgba(57, 255, 20, 0.2), rgba(0, 240, 255, 0.2));">🧹</div>
+                <h2 class="category-title">Reinigung & Pflege</h2>
+                <span class="category-count">1 Produkt</span>
+            </div>
+            <div class="products-grid">
+                <div class="product-card" data-id="clean-kit-ultimate" data-name="Vortex Clean Kit Ultimate" data-price="75" data-emoji="🧹">
+                    <div class="product-image">🧹<span class="product-badge premium">Ultimate</span></div>
+                    <div class="product-content">
+                        <div class="product-category">Reinigungsset</div>
+                        <h3 class="product-name">Vortex Clean Kit Ultimate</h3>
+                        <p class="product-desc">Das komplette Reinigungsset für dein Setup – antistatisch, umweltfreundlich und professionell.</p>
+                        <div class="product-includes">
+                            <h4>Inhalt:</h4>
+                            <ul>
+                                <li>4x Mikrofasertücher</li>
+                                <li>5x 800ml Druckluft</li>
+                                <li>4x Antistatik-Pinsel</li>
+                                <li>250ml Bildschirmreiniger</li>
+                                <li>2x Slime Cleaner</li>
+                                <li>500x Wattestäbchen</li>
+                                <li>Hartschalen-Etui</li>
+                            </ul>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">75€</div>
+                            <div class="cart-controls">
+                                <div class="qty-selector">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <span class="qty-display">1</span>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                                <button class="product-btn" onclick="addToCart(this)">Kaufen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RGB BELEUCHTUNG -->
+            <div class="category-header">
+                <div class="category-icon" style="background: linear-gradient(135deg, rgba(191, 90, 242, 0.2), rgba(255, 55, 95, 0.2));">💡</div>
+                <h2 class="category-title">RGB & Beleuchtung</h2>
+                <span class="category-count">1 Bundle</span>
+            </div>
+            <div class="products-grid">
+                <div class="product-card" data-id="lumina-bundle" data-name="Vortex Lumina Complete Bundle" data-price="140" data-emoji="💡">
+                    <div class="product-image">💡<span class="product-badge bundle">Bundle</span></div>
+                    <div class="product-content">
+                        <div class="product-category">RGB Bundle</div>
+                        <h3 class="product-name">Vortex Lumina Complete Bundle</h3>
+                        <p class="product-desc">Panels + Ambient – Das ultimative RGB-Erlebnis. Beide Produkte über eine App steuerbar.</p>
+                        <div class="product-includes">
+                            <h4>Lumina Panels (6er Set):</h4>
+                            <ul>
+                                <li>Hexagon-Form</li>
+                                <li>20cm pro Panel</li>
+                                <li>16.8 Mio. Farben</li>
+                                <li>Magnetisch</li>
+                                <li>25+ Effekte</li>
+                            </ul>
+                        </div>
+                        <div class="product-includes" style="margin-top: 12px;">
+                            <h4>Lumina Ambient:</h4>
+                            <ul>
+                                <li>3m LED-Streifen</li>
+                                <li>Musik-Sync</li>
+                                <li>Bildschirm-Sync</li>
+                                <li>USB-Powered</li>
+                            </ul>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">140€</div>
+                            <div class="cart-controls">
+                                <div class="qty-selector">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <span class="qty-display">1</span>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                                <button class="product-btn" onclick="addToCart(this)">Kaufen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KABEL KITS -->
+            <div class="category-header">
+                <div class="category-icon" style="background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 102, 255, 0.2));">🔌</div>
+                <h2 class="category-title">Kabel-Kits</h2>
+                <span class="category-count">3 Produkte</span>
+            </div>
+            <div class="products-grid">
+                <div class="product-card" data-id="kabel-starter" data-name="Vortex Kabel Kit Starter" data-price="35" data-emoji="🔌">
+                    <div class="product-image">🔌
+                        <div class="product-colors"><div class="color-dot" style="background:#1a1a1a"></div><div class="color-dot" style="background:#fff"></div><div class="color-dot" style="background:#4a4a4a"></div></div>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">Kabel-Kit</div>
+                        <h3 class="product-name">Vortex Kabel Kit Starter</h3>
+                        <p class="product-desc">Grundausstattung für sauberes Kabelmanagement.</p>
+                        <div class="product-includes">
+                            <h4>Inhalt:</h4>
+                            <ul>
+                                <li>1x 24-Pin ATX</li>
+                                <li>1x 8-Pin CPU</li>
+                                <li>1x 8-Pin PCIe</li>
+                                <li>10x Kabelbinder</li>
+                                <li>5x Kabelclips</li>
+                            </ul>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">35€</div>
+                            <div class="cart-controls">
+                                <div class="qty-selector">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <span class="qty-display">1</span>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                                <button class="product-btn" onclick="addToCart(this)">Kaufen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="kabel-pro" data-name="Vortex Kabel Kit Pro" data-price="60" data-emoji="🔌">
+                    <div class="product-image">🔌<span class="product-badge new">Beliebt</span>
+                        <div class="product-colors"><div class="color-dot" style="background:#1a1a1a"></div><div class="color-dot" style="background:#fff"></div><div class="color-dot" style="background:#8B0000"></div><div class="color-dot" style="background:#00008B"></div></div>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">Kabel-Kit</div>
+                        <h3 class="product-name">Vortex Kabel Kit Pro</h3>
+                        <p class="product-desc">Komplettset für Mid-Range Builds mit Kabelkämmen.</p>
+                        <div class="product-includes">
+                            <h4>Inhalt:</h4>
+                            <ul>
+                                <li>1x 24-Pin ATX</li>
+                                <li>2x 8-Pin CPU</li>
+                                <li>3x 8-Pin PCIe</li>
+                                <li>3x SATA Kabel</li>
+                                <li>2m Kabelschlauch</li>
+                                <li>Kabelkämme Set</li>
+                            </ul>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">60€</div>
+                            <div class="cart-controls">
+                                <div class="qty-selector">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <span class="qty-display">1</span>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                                <button class="product-btn" onclick="addToCart(this)">Kaufen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="kabel-ultimate" data-name="Vortex Kabel Kit Ultimate" data-price="110" data-emoji="🔌">
+                    <div class="product-image">🔌<span class="product-badge premium">Ultimate</span></div>
+                    <div class="product-content">
+                        <div class="product-category">Kabel-Kit</div>
+                        <h3 class="product-name">Vortex Kabel Kit Ultimate</h3>
+                        <p class="product-desc">Premium Set für High-End Enthusiasten mit RTX 40 Support.</p>
+                        <div class="product-includes">
+                            <h4>Inhalt:</h4>
+                            <ul>
+                                <li>Doppelt gesleevt</li>
+                                <li>12VHPWR Kabel</li>
+                                <li>4x 8-Pin PCIe</li>
+                                <li>15x Alu-Clips</li>
+                                <li>Aufbewahrungstasche</li>
+                                <li>Lebenslange Garantie</li>
+                            </ul>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">110€</div>
+                            <div class="cart-controls">
+                                <div class="qty-selector">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <span class="qty-display">1</span>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                                <button class="product-btn" onclick="addToCart(this)">Kaufen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MONITOR ARME -->
+            <div class="category-header">
+                <div class="category-icon" style="background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 55, 95, 0.2));">🖥️</div>
+                <h2 class="category-title">Monitor-Ständer</h2>
+                <span class="category-count">3 Produkte</span>
+            </div>
+            <div class="products-grid">
+                <div class="product-card" data-id="arm-dual" data-name="Vortex Arm Dual Pro" data-price="85" data-emoji="🖥️">
+                    <div class="product-image">🖥️
+                        <div class="product-colors"><div class="color-dot" style="background:#1a1a1a"></div><div class="color-dot" style="background:#fff"></div><div class="color-dot" style="background:#4a4a4a"></div></div>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">Monitor-Arm</div>
+                        <h3 class="product-name">Vortex Arm Dual Pro</h3>
+                        <p class="product-desc">Für 2 Monitore (13"–32") – Gas-Feder System, Ein-Hand Verstellung.</p>
+                        <div class="product-includes">
+                            <h4>Specs:</h4>
+                            <ul>
+                                <li>Bis 10kg/Arm</li>
+                                <li>VESA 75x75/100x100</li>
+                                <li>360° Rotation</li>
+                                <li>Höhe: 0-45cm</li>
+                                <li>Kabelmanagement</li>
+                            </ul>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">85€</div>
+                            <div class="cart-controls">
+                                <div class="qty-selector">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <span class="qty-display">1</span>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                                <button class="product-btn" onclick="addToCart(this)">Kaufen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="arm-triple" data-name="Vortex Arm Triple Ultimate" data-price="130" data-emoji="🖥️">
+                    <div class="product-image">🖥️<span class="product-badge new">Ultrawide</span>
+                        <div class="product-colors"><div class="color-dot" style="background:#1a1a1a"></div><div class="color-dot" style="background:#fff"></div><div class="color-dot" style="background:#4a4a4a"></div></div>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">Monitor-Arm</div>
+                        <h3 class="product-name">Vortex Arm Triple Ultimate</h3>
+                        <p class="product-desc">Für 3 Monitore (13"–34") – perfekt für Streaming & Gaming Setups.</p>
+                        <div class="product-includes">
+                            <h4>Specs:</h4>
+                            <ul>
+                                <li>Bis 12kg/Arm</li>
+                                <li>Ultrawide Support</li>
+                                <li>Curved kompatibel</li>
+                                <li>Verstärkte Basis</li>
+                                <li>Werkzeug inkl.</li>
+                            </ul>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">130€</div>
+                            <div class="cart-controls">
+                                <div class="qty-selector">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <span class="qty-display">1</span>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                                <button class="product-btn" onclick="addToCart(this)">Kaufen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-id="arm-quad" data-name="Vortex Arm Quad Elite" data-price="180" data-emoji="🖥️">
+                    <div class="product-image">🖥️<span class="product-badge premium">Quad</span>
+                        <div class="product-colors"><div class="color-dot" style="background:#1a1a1a"></div><div class="color-dot" style="background:#fff"></div></div>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">Monitor-Arm</div>
+                        <h3 class="product-name">Vortex Arm Quad Elite</h3>
+                        <p class="product-desc">Für 4 Monitore (13"–27") – die Kommandozentrale für Profis.</p>
+                        <div class="product-includes">
+                            <h4>Specs:</h4>
+                            <ul>
+                                <li>Bis 8kg/Arm</li>
+                                <li>Extra stabil</li>
+                                <li>Standfuß optional</li>
+                                <li>10cm Tischklemme</li>
+                                <li>Premium Aluminium</li>
+                            </ul>
+                        </div>
+                        <div class="product-footer">
+                            <div class="product-price">180€</div>
+                            <div class="cart-controls">
+                                <div class="qty-selector">
+                                    <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                                    <span class="qty-display">1</span>
+                                    <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                                </div>
+                                <button class="product-btn" onclick="addToCart(this)">Kaufen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USB STICKS SECTION -->
+    <section class="usb-section" id="usb-sticks">
+        <div class="usb-container">
+            <div class="section-header">
+                <div class="section-label">💾 Speicherlösungen</div>
+                <h2 class="section-title">Vortex Flash Drive Pro</h2>
+                <p class="section-subtitle">Schnell. Kompakt. Zuverlässig. Mit USB 3.2 Gen2 + USB-C Dual Connector.</p>
+            </div>
+
+            <div class="usb-hero">
+                <div class="usb-visual">
+                    <div class="usb-icon">💾</div>
+                </div>
+                <div class="usb-content">
+                    <h3>Der ultimative USB-Stick</h3>
+                    <p>Unser Flash Drive Pro kombiniert höchste Geschwindigkeit mit robustem Design. Stoßfest, spritzwassergeschützt (IP55) und mit 5 Jahren Garantie.</p>
+                    <div class="usb-specs">
+                        <div class="usb-spec">
+                            <div class="usb-spec-icon">⚡</div>
+                            <span>Bis 400 MB/s Lesen</span>
+                        </div>
+                        <div class="usb-spec">
+                            <div class="usb-spec-icon">📝</div>
+                            <span>Bis 250 MB/s Schreiben</span>
+                        </div>
+                        <div class="usb-spec">
+                            <div class="usb-spec-icon">🔌</div>
+                            <span>USB-A + USB-C Dual</span>
+                        </div>
+                        <div class="usb-spec">
+                            <div class="usb-spec-icon">💧</div>
+                            <span>IP55 Wassergeschützt</span>
+                        </div>
+                    </div>
+                    <p style="font-size: 14px; color: var(--text-tertiary);">Verfügbare Farben: Schwarz, Silber, Space Grau</p>
+                </div>
+            </div>
+
+            <div class="usb-sizes">
+                <div class="usb-size" data-id="usb-32gb" data-name="Vortex Flash Drive Pro 32GB" data-price="5" data-emoji="💾">
+                    <div class="usb-size-capacity">32GB</div>
+                    <div class="usb-size-price">5€</div>
+                    <div class="cart-controls">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                            <span class="qty-display">1</span>
+                            <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                        </div>
+                        <button class="product-btn" onclick="addToCart(this)" style="padding: 8px 16px; font-size: 13px;">Kaufen</button>
+                    </div>
+                </div>
+                <div class="usb-size" data-id="usb-64gb" data-name="Vortex Flash Drive Pro 64GB" data-price="14" data-emoji="💾">
+                    <div class="usb-size-capacity">64GB</div>
+                    <div class="usb-size-price">14€</div>
+                    <div class="cart-controls">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                            <span class="qty-display">1</span>
+                            <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                        </div>
+                        <button class="product-btn" onclick="addToCart(this)" style="padding: 8px 16px; font-size: 13px;">Kaufen</button>
+                    </div>
+                </div>
+                <div class="usb-size" data-id="usb-128gb" data-name="Vortex Flash Drive Pro 128GB" data-price="20" data-emoji="💾">
+                    <div class="usb-size-capacity">128GB</div>
+                    <div class="usb-size-price">20€</div>
+                    <div class="cart-controls">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                            <span class="qty-display">1</span>
+                            <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                        </div>
+                        <button class="product-btn" onclick="addToCart(this)" style="padding: 8px 16px; font-size: 13px;">Kaufen</button>
+                    </div>
+                </div>
+                <div class="usb-size" data-id="usb-256gb" data-name="Vortex Flash Drive Pro 256GB" data-price="42" data-emoji="💾">
+                    <div class="usb-size-capacity">256GB</div>
+                    <div class="usb-size-price">42€</div>
+                    <div class="cart-controls">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                            <span class="qty-display">1</span>
+                            <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                        </div>
+                        <button class="product-btn" onclick="addToCart(this)" style="padding: 8px 16px; font-size: 13px;">Kaufen</button>
+                    </div>
+                </div>
+                <div class="usb-size" data-id="usb-512gb" data-name="Vortex Flash Drive Pro 512GB" data-price="70" data-emoji="💾">
+                    <div class="usb-size-capacity">512GB</div>
+                    <div class="usb-size-price">70€</div>
+                    <div class="cart-controls">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                            <span class="qty-display">1</span>
+                            <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                        </div>
+                        <button class="product-btn" onclick="addToCart(this)" style="padding: 8px 16px; font-size: 13px;">Kaufen</button>
+                    </div>
+                </div>
+                <div class="usb-size" data-id="usb-1tb" data-name="Vortex Flash Drive Pro 1TB" data-price="100" data-emoji="💾">
+                    <div class="usb-size-capacity">1TB</div>
+                    <div class="usb-size-price">100€</div>
+                    <div class="cart-controls">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="changeQty(this, -1)">−</button>
+                            <span class="qty-display">1</span>
+                            <button class="qty-btn" onclick="changeQty(this, 1)">+</button>
+                        </div>
+                        <button class="product-btn" onclick="addToCart(this)" style="padding: 8px 16px; font-size: 13px;">Kaufen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WARENKORB MODAL -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">🛒 Warenkorb</div>
+                <button class="modal-close" onclick="closeCart()">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="cartItems"></div>
+                <div class="cart-summary" id="cartSummary" style="display: none;">
+                    <div class="cart-summary-row">
+                        <span>Zwischensumme:</span>
+                        <span id="subtotal">0€</span>
+                    </div>
+                    <div class="cart-summary-row">
+                        <span>Versand:</span>
+                        <span id="shipping">0€</span>
+                    </div>
+                    <div class="cart-summary-row total">
+                        <span>Gesamt:</span>
+                        <span id="total">0€</span>
+                    </div>
+                    <button class="checkout-btn" onclick="openCheckout()">Zur Kasse →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">💳 Checkout</div>
+                <button class="modal-close" onclick="closeCheckout()">×</button>
+            </div>
+            <div class="modal-body">
+                <form class="checkout-form" onsubmit="completeOrder(event)">
+                    <div class="form-group">
+                        <label class="form-label">Vollständiger Name</label>
+                        <input type="text" class="form-input" placeholder="Max Mustermann" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">E-Mail Adresse</label>
+                        <input type="email" class="form-input" placeholder="max@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Straße & Hausnummer</label>
+                        <input type="text" class="form-input" placeholder="Musterstraße 123" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">PLZ</label>
+                            <input type="text" class="form-input" placeholder="12345" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Stadt</label>
+                            <input type="text" class="form-input" placeholder="Berlin" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Kartennummer</label>
+                        <input type="text" class="form-input" placeholder="1234 5678 9012 3456" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Gültig bis</label>
+                            <input type="text" class="form-input" placeholder="MM/JJ" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CVV</label>
+                            <input type="text" class="form-input" placeholder="123" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="checkout-btn">Jetzt kaufen · <span id="checkoutTotal">0€</span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <p class="footer-copyright">© 2025 VORTEX Systems. Alle Rechte vorbehalten.</p>
+                <div class="footer-links">
+                    <a href="index.html">Startseite</a>
+                    <a href="hardware.html">Hardware</a>
+                    <a href="software.html">Software</a>
+                    <a href="index.html#kontakt">Kontakt</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // WARENKORB SYSTEM
+        let cart = [];
+
+        function loadCart() {
+            const saved = localStorage.getItem('vortex_warenkorb');
+            if (saved) {
+                cart = JSON.parse(saved);
+                updateCartCount();
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('vortex_warenkorb', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        function changeQty(btn, delta) {
+            const qtyDisplay = btn.parentElement.querySelector('.qty-display');
+            let qty = parseInt(qtyDisplay.textContent);
+            qty = Math.max(1, qty + delta);
+            qtyDisplay.textContent = qty;
+        }
+
+        function addToCart(btn) {
+            const card = btn.closest('[data-id]');
+            const id = card.dataset.id;
+            const name = card.dataset.name;
+            const price = parseFloat(card.dataset.price);
+            const emoji = card.dataset.emoji;
+            const qty = parseInt(card.querySelector('.qty-display').textContent);
+
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity += qty;
+            } else {
+                cart.push({ id, name, price, emoji, quantity: qty });
+            }
+
+            saveCart();
+            
+            // Animation
+            btn.textContent = '✓ Hinzugefügt';
+            btn.style.background = 'var(--neon-green)';
+            btn.style.color = '#000';
+            setTimeout(() => {
+                btn.textContent = 'Kaufen';
+                btn.style.background = '';
+                btn.style.color = '';
+            }, 1500);
+
+            // Reset quantity
+            card.querySelector('.qty-display').textContent = '1';
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+            renderCart();
+        }
+
+        function updateCartItemQty(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity = Math.max(1, item.quantity + delta);
+                saveCart();
+                renderCart();
+            }
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            const summary = document.getElementById('cartSummary');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="cart-empty">
+                        <div class="cart-empty-icon">🛒</div>
+                        <p>Dein Warenkorb ist leer</p>
+                    </div>
+                `;
+                summary.style.display = 'none';
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-emoji">${item.emoji}</div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price}€ × ${item.quantity} = ${(item.price * item.quantity).toFixed(2)}€</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <div class="qty-selector">
+                            <button class="qty-btn" onclick="updateCartItemQty('${item.id}', -1)">−</button>
+                            <span class="qty-display">${item.quantity}</span>
+                            <button class="qty-btn" onclick="updateCartItemQty('${item.id}', 1)">+</button>
+                        </div>
+                        <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">Entfernen</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal > 100 ? 0 : 4.99;
+            const total = subtotal + shipping;
+
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2) + '€';
+            document.getElementById('shipping').textContent = shipping === 0 ? 'Kostenlos' : shipping.toFixed(2) + '€';
+            document.getElementById('total').textContent = total.toFixed(2) + '€';
+            document.getElementById('checkoutTotal').textContent = total.toFixed(2) + '€';
+
+            summary.style.display = 'block';
+        }
+
+        function openCart() {
+            renderCart();
+            document.getElementById('cartModal').classList.add('active');
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').classList.remove('active');
+        }
+
+        function openCheckout() {
+            closeCart();
+            document.getElementById('checkoutModal').classList.add('active');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.remove('active');
+        }
+
+        function completeOrder(e) {
+            e.preventDefault();
+            alert('🎉 Bestellung erfolgreich! Vielen Dank für deinen Einkauf bei VORTEX Systems!');
+            cart = [];
+            saveCart();
+            closeCheckout();
+        }
+
+        // Close modals on outside click
+        window.onclick = function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        }
+
+        // ANIMATION
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.product-card, .usb-size, .usb-spec').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.5s ease';
+            observer.observe(el);
+        });
+
+        // Load cart on page load
+        loadCart();
+    </script>
+</body>
+</html>

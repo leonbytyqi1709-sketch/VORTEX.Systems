@@ -1,0 +1,1152 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware — VORTEX Systems Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #050508;
+            --bg-tertiary: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --bg-card-hover: rgba(255, 255, 255, 0.05);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --text-tertiary: rgba(255, 255, 255, 0.4);
+            --neon-cyan: #00f0ff;
+            --neon-purple: #bf5af2;
+            --neon-pink: #ff375f;
+            --neon-green: #39ff14;
+            --gradient-main: linear-gradient(135deg, #00f0ff 0%, #bf5af2 50%, #ff375f 100%);
+            --gradient-cyan: linear-gradient(135deg, #00f0ff 0%, #0066ff 100%);
+            --glow-cyan: 0 0 30px rgba(0, 240, 255, 0.4);
+            --glow-purple: 0 0 30px rgba(191, 90, 242, 0.4);
+            --glow-pink: 0 0 30px rgba(255, 55, 95, 0.4);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        ::selection { background: var(--neon-cyan); color: var(--bg-primary); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 40px; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-subtle); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-primary); }
+        .logo-icon { width: 42px; height: 42px; background: var(--gradient-main); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 22px; color: var(--bg-primary); box-shadow: var(--glow-cyan); }
+        .logo-text { font-weight: 700; font-size: 20px; }
+        .logo-text span { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; padding: 10px 18px; font-size: 14px; font-weight: 500; border-radius: 8px; transition: all 0.2s; }
+        .nav-link:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+        .nav-link.active { color: var(--neon-cyan); }
+        .nav-cta { background: var(--gradient-main); color: var(--bg-primary); padding: 10px 22px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; margin-left: 16px; }
+
+        /* WARENKORB ICON IN NAV */
+        .cart-icon-wrapper { position: relative; margin-left: 16px; cursor: pointer; padding: 10px 18px; border-radius: 8px; transition: all 0.3s; }
+        .cart-icon-wrapper:hover { background: var(--bg-card-hover); }
+        .cart-icon { font-size: 20px; }
+        .cart-count { position: absolute; top: 2px; right: 8px; background: var(--neon-pink); color: #fff; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; box-shadow: var(--glow-pink); }
+
+        .page-header { padding: 140px 40px 80px; text-align: center; position: relative; }
+        .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 0%, rgba(0, 240, 255, 0.1) 0%, transparent 50%), radial-gradient(ellipse at 70% 100%, rgba(191, 90, 242, 0.1) 0%, transparent 50%); }
+        .page-header-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .page-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-card); border: 1px solid var(--neon-cyan); padding: 8px 16px; border-radius: 100px; font-size: 13px; color: var(--neon-cyan); margin-bottom: 24px; }
+        .page-title { font-size: clamp(42px, 6vw, 72px); font-weight: 900; letter-spacing: -2px; margin-bottom: 20px; }
+        .page-title span { background: var(--gradient-cyan); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-subtitle { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        .filter-section { padding: 0 40px 40px; position: sticky; top: 74px; z-index: 100; background: var(--bg-primary); border-bottom: 1px solid var(--border-subtle); }
+        .filter-container { max-width: 1400px; margin: 0 auto; display: flex; gap: 12px; overflow-x: auto; padding: 20px 0; }
+        .filter-btn { flex-shrink: 0; padding: 12px 24px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 100px; color: var(--text-secondary); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .filter-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+        .filter-btn.active { background: var(--gradient-cyan); border-color: transparent; color: var(--bg-primary); font-weight: 600; }
+
+        .products-section { padding: 60px 40px; width: 100%; }
+        .products-container { max-width: 1400px; margin: 0 auto; width: 100%; }
+        .category-header { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 1px solid var(--border-subtle); }
+        .category-icon { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 102, 255, 0.2)); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .category-title { font-size: 28px; font-weight: 700; }
+        .category-count { font-size: 14px; color: var(--text-tertiary); margin-left: auto; font-family: 'JetBrains Mono', monospace; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 80px; width: 100%; max-width: 100%; }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; overflow: hidden; transition: all 0.4s; }
+        .product-card:hover { transform: translateY(-8px); border-color: var(--border-hover); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4); }
+        .product-image { height: 220px; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 72px; position: relative; }
+        .product-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(to top, var(--bg-card), transparent); }
+        .product-badge { position: absolute; top: 16px; right: 16px; padding: 6px 14px; border-radius: 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; z-index: 2; }
+        .product-badge.beast { background: var(--neon-pink); color: #fff; box-shadow: var(--glow-pink); }
+        .product-badge.new { background: var(--neon-green); color: #000; }
+        .product-badge.premium { background: var(--neon-purple); color: #fff; box-shadow: var(--glow-purple); }
+        .product-badge.bestseller { background: var(--neon-cyan); color: #000; }
+        .product-colors { position: absolute; bottom: 16px; left: 16px; display: flex; gap: 6px; z-index: 2; }
+        .color-dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); }
+        .product-content { padding: 28px; }
+        .product-category { font-size: 11px; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 8px; }
+        .product-name { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+        .product-specs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .spec-tag { padding: 6px 12px; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 6px; font-size: 12px; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; }
+        .product-features { margin-bottom: 20px; list-style: none; }
+        .product-features li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+        .product-features li::before { content: '✓'; color: var(--neon-green); font-weight: 700; }
+        .product-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border-subtle); }
+        .product-price { font-size: 28px; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: var(--neon-cyan); }
+
+        /* WARENKORB CONTROLS */
+        .cart-controls { display: flex; align-items: center; gap: 12px; }
+        .quantity-selector { display: flex; align-items: center; gap: 6px; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 4px; }
+        .quantity-btn { width: 28px; height: 28px; background: var(--bg-card-hover); border: 1px solid var(--border-subtle); border-radius: 6px; color: var(--text-primary); font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-family: inherit; }
+        .quantity-btn:hover:not(:disabled) { background: var(--neon-cyan); color: var(--bg-primary); border-color: var(--neon-cyan); }
+        .quantity-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .quantity-input { width: 45px; text-align: center; background: transparent; border: none; color: var(--text-primary); font-size: 14px; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+        .quantity-input:focus { outline: none; }
+        .add-to-cart-btn { padding: 10px 20px; background: var(--bg-card-hover); border: 1px solid var(--border-subtle); border-radius: 10px; color: var(--text-primary); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: inherit; white-space: nowrap; }
+        .add-to-cart-btn:hover { background: var(--neon-cyan); color: var(--bg-primary); border-color: var(--neon-cyan); transform: translateY(-2px); }
+
+        /* TOAST NOTIFICATION */
+        .toast { position: fixed; top: 100px; right: 40px; background: var(--bg-card); border: 1px solid var(--neon-green); border-radius: 12px; padding: 16px 24px; display: flex; align-items: center; gap: 12px; box-shadow: var(--glow-cyan), 0 10px 30px rgba(0,0,0,0.5); z-index: 10000; opacity: 0; transform: translateX(400px); transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        .toast.show { opacity: 1; transform: translateX(0); }
+        .toast-icon { font-size: 24px; }
+        .toast-message { font-size: 14px; font-weight: 600; color: var(--neon-green); }
+
+        /* WARENKORB MODAL */
+        .cart-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 9999; display: none; align-items: center; justify-content: center; }
+        .cart-modal-overlay.active { display: flex; }
+        .cart-modal { background: var(--bg-secondary); border: 1px solid var(--border-hover); border-radius: 24px; width: 90%; max-width: 700px; max-height: 85vh; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-cyan), 0 20px 60px rgba(0,0,0,0.6); }
+        .cart-modal-header { padding: 24px 28px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; }
+        .cart-modal-title { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        .cart-modal-close { width: 36px; height: 36px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; color: var(--text-secondary); font-size: 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; font-family: inherit; }
+        .cart-modal-close:hover { background: var(--neon-pink); color: #fff; border-color: var(--neon-pink); }
+        .cart-modal-body { padding: 28px; overflow-y: auto; flex: 1; }
+        .cart-empty { text-align: center; padding: 60px 20px; color: var(--text-tertiary); }
+        .cart-empty-icon { font-size: 64px; margin-bottom: 16px; }
+        .cart-items { display: flex; flex-direction: column; gap: 16px; }
+        .cart-item { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 20px; display: flex; gap: 20px; align-items: center; transition: all 0.3s; }
+        .cart-item:hover { border-color: var(--border-hover); }
+        .cart-item-emoji { font-size: 48px; width: 70px; height: 70px; background: var(--bg-tertiary); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .cart-item-details { flex: 1; }
+        .cart-item-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .cart-item-price { font-size: 14px; color: var(--text-secondary); font-family: 'JetBrains Mono', monospace; }
+        .cart-item-quantity { font-size: 13px; color: var(--text-tertiary); margin-top: 4px; }
+        .cart-item-total { font-size: 20px; font-weight: 700; color: var(--neon-cyan); font-family: 'JetBrains Mono', monospace; margin-right: 16px; }
+        .cart-item-remove { padding: 8px 16px; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 8px; color: var(--text-secondary); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+        .cart-item-remove:hover { background: var(--neon-pink); color: #fff; border-color: var(--neon-pink); }
+        .cart-modal-footer { padding: 24px 28px; border-top: 1px solid var(--border-subtle); background: var(--bg-tertiary); }
+        .cart-total-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .cart-total-label { font-size: 16px; font-weight: 600; color: var(--text-secondary); }
+        .cart-total-value { font-size: 32px; font-weight: 800; color: var(--neon-cyan); font-family: 'JetBrains Mono', monospace; }
+        .cart-checkout-btn { width: 100%; padding: 16px; background: var(--gradient-main); border: none; border-radius: 12px; color: var(--bg-primary); font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .cart-checkout-btn:hover { transform: translateY(-2px); box-shadow: var(--glow-purple); }
+        .cart-checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* CHECKOUT MODAL */
+        .checkout-modal { background: var(--bg-secondary); border: 1px solid var(--border-hover); border-radius: 24px; width: 90%; max-width: 600px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--glow-purple), 0 20px 60px rgba(0,0,0,0.6); }
+        .checkout-form { padding: 28px; overflow-y: auto; }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .form-input { width: 100%; padding: 14px 16px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px; color: var(--text-primary); font-size: 14px; font-family: inherit; transition: all 0.2s; }
+        .form-input:focus { outline: none; border-color: var(--neon-cyan); box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1); }
+        .payment-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .payment-option { padding: 16px; background: var(--bg-card); border: 2px solid var(--border-subtle); border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.3s; }
+        .payment-option:hover { border-color: var(--border-hover); }
+        .payment-option.selected { border-color: var(--neon-cyan); background: rgba(0, 240, 255, 0.1); }
+        .payment-option-icon { font-size: 28px; margin-bottom: 8px; }
+        .payment-option-name { font-size: 12px; font-weight: 600; }
+        .order-summary { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+        .order-summary-title { font-size: 14px; font-weight: 700; color: var(--text-secondary); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+        .order-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border-subtle); font-size: 13px; }
+        .order-item:last-child { border-bottom: none; }
+        .order-item-name { color: var(--text-secondary); }
+        .order-item-price { font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+        .place-order-btn { width: 100%; padding: 18px; background: var(--gradient-main); border: none; border-radius: 12px; color: var(--bg-primary); font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .place-order-btn:hover { transform: translateY(-2px); box-shadow: var(--glow-purple); }
+
+        .bundle-section { padding: 80px 40px; background: var(--bg-secondary); }
+        .bundle-container { max-width: 1400px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-label { display: inline-block; font-size: 13px; font-weight: 600; color: var(--neon-purple); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+        .section-title { font-size: clamp(32px, 4vw, 48px); font-weight: 800; margin-bottom: 16px; }
+        .section-subtitle { font-size: 17px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        .bundles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+        .bundle-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 24px; overflow: hidden; transition: all 0.4s; position: relative; }
+        .bundle-card:hover { transform: translateY(-8px); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+        .bundle-card.featured { border-color: var(--neon-purple); box-shadow: var(--glow-purple); }
+        .bundle-header { padding: 32px 28px 20px; }
+        .bundle-popular { position: absolute; top: 0; left: 0; right: 0; background: linear-gradient(135deg, #bf5af2, #ff375f); color: #fff; text-align: center; padding: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+        .bundle-card.featured .bundle-header { padding-top: 52px; }
+        .bundle-icon { width: 64px; height: 64px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 20px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 102, 255, 0.2)); }
+        .bundle-card:nth-child(2) .bundle-icon { background: linear-gradient(135deg, rgba(191, 90, 242, 0.2), rgba(255, 55, 95, 0.2)); }
+        .bundle-card:nth-child(4) .bundle-icon { background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.2)); }
+        .bundle-card:nth-child(4) .bundle-price-value { color: #FFD700; }
+        .bundle-name { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+        .bundle-tagline { font-size: 14px; color: var(--text-secondary); }
+        .bundle-content { padding: 0 28px 28px; }
+        .bundle-includes h4 { font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle); }
+        .bundle-includes ul { list-style: none; }
+        .bundle-includes li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-secondary); padding: 10px 0; border-bottom: 1px solid var(--border-subtle); }
+        .bundle-includes li:last-child { border-bottom: none; }
+        .bundle-includes li::before { content: '✓'; color: var(--neon-green); font-weight: 700; }
+        .bundle-footer { padding: 24px 28px; background: var(--bg-tertiary); border-top: 1px solid var(--border-subtle); }
+        .bundle-price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px; }
+        .bundle-price-value { font-size: 36px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+        .bundle-card:nth-child(1) .bundle-price-value { color: var(--neon-cyan); }
+        .bundle-card:nth-child(2) .bundle-price-value { color: var(--neon-purple); }
+        .bundle-card:nth-child(3) .bundle-price-value { color: var(--neon-green); }
+        .bundle-price-label { font-size: 14px; color: var(--text-tertiary); }
+        .bundle-btn { width: 100%; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; text-align: center; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border-subtle); font-family: inherit; background: var(--bg-card-hover); color: var(--text-primary); }
+        .bundle-card:nth-child(3) .bundle-btn { background: linear-gradient(135deg, #bf5af2, #ff375f); border: none; }
+        .bundle-card:nth-child(4) .bundle-btn { background: linear-gradient(135deg, #bf5af2, #ff375f); border: none; }
+        .bundle-btn:hover { transform: translateY(-2px); box-shadow: var(--glow-cyan); }
+        .bundle-card:nth-child(3) .bundle-btn:hover { box-shadow: var(--glow-purple); }
+        .bundle-card:nth-child(4) .bundle-btn:hover { box-shadow: var(--glow-purple); }
+
+        .footer { background: var(--bg-primary); border-top: 1px solid var(--border-subtle); padding: 60px 40px 40px; }
+        .footer-container { max-width: 1400px; margin: 0 auto; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+        .footer-copyright { font-size: 13px; color: var(--text-tertiary); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--neon-cyan); }
+
+        @media (max-width: 1200px) { .bundles-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 900px) { .bundles-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 968px) { .nav-links { display: none; } .products-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { 
+        .bundles-grid { grid-template-columns: 1fr; } 
+        .page-header { padding: 120px 24px 60px; } 
+        .products-section, .bundle-section { padding: 40px 24px; }
+        .toast { right: 20px; left: 20px; }
+        .cart-modal { width: 95%; }
+        .payment-options { grid-template-columns: 1fr; }
+        }
+        </style>
+    </head>
+<body>
+        <nav class="nav"><div class="nav-container"><a href="index.html" class="logo"><div class="logo-icon">V</div><span class="logo-text">VORTEX <span>Systems</span></span></a>
+        <div class="nav-links"><a href="index.html" class="nav-link">Startseite</a>
+        <a href="hardware.html" class="nav-link active">Hardware</a>
+        <a href="software.html" class="nav-link">Software</a>
+        <a href="zubehoer.html" class="nav-link">Zubehör</a>
+        <a href="vortcoin.html" class="nav-link"> VORTEX Aktien</a>
+        <a href="vortex-code-ki.html" class="nav-link">Code KI</a>
+        <a href="contact.html" class="nav-cta">Kontakt</a>
+        <div class="cart-icon-wrapper" onclick="openCartModal()"><span class="cart-icon">🛒</span><span class="cart-count" id="cartCount">0</span></div>
+        <a href="login.html" class="nav-link">LOGIN</a>
+        <a href="account.html" class="nav-link">Benutzer</a>
+    </div>
+</div>
+</nav>
+<header class="page-header">
+    <div class="page-header-content">
+        <div class="page-badge">🖥️ Hardware Shop</div>
+        <h1 class="page-title">Premium <span>Hardware</span></h1>
+        <p class="page-subtitle">Von leistungsstarken Gaming-PCs über Laptops bis hin zu Monitoren – entdecke unsere Hardware-Kollektion.</p>
+    </div>
+</header>
+
+<div class="filter-section">
+    <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">Alle Produkte</button>
+        <button class="filter-btn" data-filter="laptops">Laptops</button>
+        <button class="filter-btn" data-filter="desktops">Desktop-PCs</button>
+        <button class="filter-btn" data-filter="tablets">Tablets</button>
+        <button class="filter-btn" data-filter="monitore">Monitore</button>
+        <button class="filter-btn" data-filter="tastaturen">Tastaturen</button>
+        <button class="filter-btn" data-filter="maeuse">Mäuse</button>
+        <button class="filter-btn" data-filter="audio">Audio</button>
+        <button class="filter-btn" data-filter="sonstiges">Sonstiges</button>
+    </div>
+</div>
+
+<section class="products-section">
+    <div class="products-container">
+        <!-- LAPTOPS -->
+        <div class="category-header" id="laptops"><div class="category-icon">💻</div><h2 class="category-title">Laptops</h2><span class="category-count">2 Produkte</span></div>
+        <div class="products-grid" data-category="laptops">
+            <div class="product-card" data-id="laptop-x98x" data-name="Alura Laptop x98x" data-price="2250" data-emoji="💻">
+                <div class="product-image">💻<span class="product-badge premium">Premium</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#00CED1"></div><div class="color-dot" style="background:#DC143C"></div><div class="color-dot" style="background:#722F37"></div><div class="color-dot" style="background:#FFF"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Gaming Laptop</div>
+                    <h3 class="product-name">Alura Laptop x98x</h3>
+                    <div class="product-specs"><span class="spec-tag">i9-14900HX</span><span class="spec-tag">RTX 4080</span><span class="spec-tag">32GB DDR5</span><span class="spec-tag">2TB SSD</span></div>
+                    <ul class="product-features"><li>17.3" QHD 240Hz G-Sync Display</li><li>VORTEX HyperCool Dual-Fan</li><li>Per-Key RGB Beleuchtung</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">2.250€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-id="laptop-x85" data-name="VORTEX Alura x85" data-price="1600" data-emoji="💻">
+                <div class="product-image">💻<span class="product-badge new">Kompakt</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#722F37"></div><div class="color-dot" style="background:#89CFF0"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Gaming Laptop</div>
+                    <h3 class="product-name">VORTEX Alura x85</h3>
+                    <div class="product-specs"><span class="spec-tag">i7-14700HX</span><span class="spec-tag">RTX 4070</span><span class="spec-tag">32GB DDR5</span><span class="spec-tag">1TB SSD</span></div>
+                    <ul class="product-features"><li>15.6" FHD 165Hz Display</li><li>Kompakt und leicht: 2.2kg</li><li>Der Power-Bruder</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">1.600€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DESKTOPS -->
+        <div class="category-header" id="desktops"><div class="category-icon">🖥️</div><h2 class="category-title">Desktop-PCs</h2><span class="category-count">3 Produkte</span></div>
+        <div class="products-grid" data-category="desktops">
+            <div class="product-card" data-id="desktop-x70" data-name="VORTEX Forge X70" data-price="1300" data-emoji="🖥️">
+                <div class="product-image">🖥️<span class="product-badge bestseller">Bestseller</span></div>
+                <div class="product-content">
+                    <div class="product-category">Gaming Desktop</div>
+                    <h3 class="product-name">VORTEX Forge X70</h3>
+                    <div class="product-specs"><span class="spec-tag">i7-14700K</span><span class="spec-tag">RTX 4070 Ti SUPER</span><span class="spec-tag">32GB DDR5</span><span class="spec-tag">1TB NVMe</span></div>
+                    <ul class="product-features"><li>1440p Ultra Gaming (144+ FPS)</li><li>be quiet! Kühlung</li><li>ATX Mid-Tower, Tempered Glass</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">1.300€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-id="desktop-x95" data-name="VORTEX Apex X95" data-price="5200" data-emoji="🖥️">
+                <div class="product-image">🖥️<span class="product-badge beast">Beast</span></div>
+                <div class="product-content">
+                    <div class="product-category">Workstation</div>
+                    <h3 class="product-name">VORTEX Apex X95</h3>
+                    <div class="product-specs"><span class="spec-tag">i9-14900KS</span><span class="spec-tag">RTX 4090</span><span class="spec-tag">128GB DDR5</span><span class="spec-tag">4TB RAID</span></div>
+                    <ul class="product-features"><li>4K Ultra Gaming (120+ FPS)</li><li>360mm AIO mit LCD</li><li>Full ARGB (10+ Zonen)</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">5.200€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-id="desktop-mini" data-name="VORTEX Mini Core" data-price="650" data-emoji="🖥️">
+                <div class="product-image">🖥️<span class="product-badge new">Kompakt</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#4A4A4A"></div><div class="color-dot" style="background:#C0C0C0"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Mini PC</div>
+                    <h3 class="product-name">VORTEX Mini Core</h3>
+                    <div class="product-specs"><span class="spec-tag">i5-14500</span><span class="spec-tag">Intel UHD 770</span><span class="spec-tag">16GB DDR5</span><span class="spec-tag">1TB NVMe</span></div>
+                    <ul class="product-features"><li>Ultra kompakt: 12x12x5cm</li><li>VESA-Mount kompatibel</li><li>WiFi 6E & 2.5G Ethernet</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">650€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLETS -->
+        <div class="category-header" id="tablets"><div class="category-icon">📱</div><h2 class="category-title">Tablets</h2><span class="category-count">2 Produkte</span></div>
+        <div class="products-grid" data-category="tablets">
+            <div class="product-card" data-id="tablet-z15" data-name="VORTEX Slate Pro Z15" data-price="1200" data-emoji="📱">
+                <div class="product-image">📱<span class="product-badge premium">Premium</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#4A4A4A"></div><div class="color-dot" style="background:#00CED1"></div><div class="color-dot" style="background:#2E8B57"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Pro Tablet</div>
+                    <h3 class="product-name">VORTEX Slate Pro Z15</h3>
+                    <div class="product-specs"><span class="spec-tag">15" 4K OLED</span><span class="spec-tag">i7</span><span class="spec-tag">16GB RAM</span><span class="spec-tag">512GB SSD</span></div>
+                    <ul class="product-features"><li>Ultra-dünn: nur 5.9mm</li><li>Inkl. Pen Pro & Keyboard Case</li><li>Nur 680g Gewicht</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">1.200€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-id="tablet-mini" data-name="VORTEX Slate Mini" data-price="520" data-emoji="📱">
+                <div class="product-image">📱<span class="product-badge new">Kompakt</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#1a1a1a"></div><div class="color-dot" style="background:#C0C0C0"></div><div class="color-dot" style="background:#1E90FF"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Kompakt Tablet</div>
+                    <h3 class="product-name">VORTEX Slate Mini</h3>
+                    <div class="product-specs"><span class="spec-tag">8.4" 2K AMOLED</span><span class="spec-tag">120Hz</span><span class="spec-tag">8GB RAM</span><span class="spec-tag">ab 128GB</span></div>
+                    <ul class="product-features"><li>Nur 298g – immer dabei</li><li>VORTEX Pencil Support</li><li>IP68 Wasser- & Staubschutz</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">ab 520€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MONITORE -->
+        <div class="category-header" id="monitore"><div class="category-icon">🖥️</div><h2 class="category-title">Monitore</h2><span class="category-count">4 Produkte</span></div>
+        <div class="products-grid" data-category="monitore">
+            <div class="product-card" data-id="monitor-27" data-name="Vision Pro 27" data-price="550" data-emoji="🖥️">
+                <div class="product-image">🖥️<span class="product-badge bestseller">Bestseller</span></div>
+                <div class="product-content">
+                    <div class="product-category">Gaming Monitor</div>
+                    <h3 class="product-name">Vision Pro 27</h3>
+                    <div class="product-specs"><span class="spec-tag">27" QHD</span><span class="spec-tag">240Hz</span><span class="spec-tag">Fast IPS</span><span class="spec-tag">1ms</span></div>
+                    <ul class="product-features"><li>G-Sync & FreeSync Pro</li><li>USB-C 15W Power Delivery</li><li>Höhenverstellbar, Pivot</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">550€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-id="monitor-34" data-name="Vision Ultra 34 5K Curved" data-price="1400" data-emoji="🖥️">
+                <div class="product-image">🖥️<span class="product-badge beast">Ultra</span></div>
+                <div class="product-content">
+                    <div class="product-category">Ultrawide Monitor</div>
+                    <h3 class="product-name">Vision Ultra 34 5K Curved</h3>
+                    <div class="product-specs"><span class="spec-tag">34" UWQHD</span><span class="spec-tag">240Hz</span><span class="spec-tag">QD-OLED</span><span class="spec-tag">0.03ms</span></div>
+                    <ul class="product-features"><li>∞:1 Kontrast (OLED)</li><li>90W USB-C Power Delivery</li><li>Ambient Lighting</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">1.400€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-id="monitor-8k" data-name="VORTEX Infinity 8K" data-price="2200" data-emoji="🖥️">
+                <div class="product-image">🖥️<span class="product-badge beast">8K Beast</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#4A4A4A"></div><div class="color-dot" style="background:#C0C0C0"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Profi Monitor</div>
+                    <h3 class="product-name">VORTEX Infinity 8K</h3>
+                    <div class="product-specs"><span class="spec-tag">57" Curved</span><span class="spec-tag">8K</span><span class="spec-tag">360Hz</span><span class="spec-tag">Mini-LED</span></div>
+                    <ul class="product-features"><li>Perfekt für Coder & Office</li><li>KVM-Switch (2 PCs, 1 Maus)</li><li>90W USB-C Power Delivery</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">2.200€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TASTATUREN -->
+        <div class="category-header" id="tastaturen"><div class="category-icon">⌨️</div><h2 class="category-title">Tastaturen</h2><span class="category-count">3 Produkte</span></div>
+        <div class="products-grid" data-category="tastaturen">
+            <div class="product-card" data-id="keyboard-v3" data-name="Vex Ornata V3" data-price="95" data-emoji="⌨️">
+                <div class="product-image">⌨️<span class="product-badge bestseller">Beliebt</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#1a1a1a"></div><div class="color-dot" style="background:#fff"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Wireless Tastatur</div>
+                    <h3 class="product-name">Vex Ornata V3</h3>
+                    <div class="product-specs"><span class="spec-tag">Bluetooth</span><span class="spec-tag">10-Zonen RGB</span><span class="spec-tag">Wireless</span></div>
+                    <ul class="product-features"><li>Kabellos via Bluetooth</li><li>10-Zonen RGB</li><li>USB-C Ladekabel inkl.</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">95€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-id="keyboard-150" data-name="Vortex 150 Office Mega" data-price="55" data-emoji="⌨️">
+                <div class="product-image">⌨️<span class="product-badge new">Innovation</span></div>
+                <div class="product-content">
+                    <div class="product-category">Office Tastatur</div>
+                    <h3 class="product-name">Vortex 150 Office Mega</h3>
+                    <div class="product-specs"><span class="spec-tag">wired keyboard</span><span class="spec-tag">108 Tasten</span></div>
+                    <ul class="product-features"><li>Flaches Design</li><li>in 2 Farben schwarz & weiß</li><li>Perfekt fürs Büro</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">55€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <!-- MÄUSE -->
+        <div class="category-header" id="maeuse"><div class="category-icon">🖱️</div><h2 class="category-title">Mäuse & Trackpads</h2><span class="category-count">3 Produkte</span></div>
+        <div class="products-grid" data-category="maeuse">
+            <div class="product-card" data-id="trackpad-zx" data-name="Voro Trackpad ZX" data-price="65" data-emoji="🖲️">
+                <div class="product-image">🖲️<span class="product-badge bestseller">Gaming und Office</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#1a1a1a"></div><div class="color-dot" style="background:#fff"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Office Trackpad</div>
+                    <h3 class="product-name">Voro Trackpad ZX</h3>
+                    <div class="product-specs"><span class="spec-tag">Wired Trackpad</span><span class="spec-tag">Multi Touch</span><span class="spec-tag">USB-C Anschluss</span></div>
+                    <ul class="product-features"><li>Flaches Design</li><li>Größe 16x16cm</li><li>Perfekt für mehrere Monitore</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">65€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-id="mouse-office" data-name="Vortex Super Office Maus" data-price="50" data-emoji="🖱️">
+                <div class="product-image">🖱️<span class="product-badge bestseller">Office</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#1a1a1a"></div><div class="color-dot" style="background:#fff"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Office Maus</div>
+                    <h3 class="product-name">Vortex Super Office Maus</h3>
+                    <div class="product-specs"><span class="spec-tag">Wired Maus</span><span class="spec-tag">Weißes LED</span><span class="spec-tag">USB Chip Anschluss</span></div>
+                    <ul class="product-features"><li>Flaches Design</li><li>liegt gut auf der Hand</li><li>für Gaming und Office</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">50€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button></div>
+                                <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- AUDIO -->
+        <div class="category-header" id="audio"><div class="category-icon">🎧</div><h2 class="category-title">Audio</h2><span class="category-count">1 Produkt</span></div>
+        <div class="products-grid" data-category="audio">
+            <div class="product-card" data-id="headset-g321" data-name="Logitech Vortex G321v" data-price="60" data-emoji="🎧">
+                <div class="product-image">🎧<span class="product-badge premium">Premium</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#1a1a1a"></div><div class="color-dot" style="background:#fff"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Gaming Headset</div>
+                    <h3 class="product-name">Logitech Vortex G321v</h3>
+                    <div class="product-specs"><span class="spec-tag">Bluetooth</span><span class="spec-tag">RGB</span><span class="spec-tag">14h Akku</span></div>
+                    <ul class="product-features"><li>Entwickelt mit Logitech</li><li>RGB am Gehäuse</li><li>Inkl. Headset-Ständer</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">60€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SONSTIGES -->
+        <div class="category-header" id="sonstiges"><div class="category-icon">📦</div><h2 class="category-title">Sonstiges</h2><span class="category-count">2 Produkte</span></div>
+        <div class="products-grid" data-category="sonstiges">
+            <div class="product-card" data-id="mousepad-nyf" data-name="NYFVORTEX Mousepad" data-price="50" data-emoji="🎮">
+                <div class="product-image">🎮<span class="product-badge new">Comfort</span></div>
+                <div class="product-content">
+                    <div class="product-category">Gaming Mousepad</div>
+                    <h3 class="product-name">NYFVORTEX Mousepad</h3>
+                    <div class="product-specs"><span class="spec-tag">60x120cm</span><span class="spec-tag">7 Farben</span><span class="spec-tag">Wärme/Kälte</span></div>
+                    <ul class="product-features"><li>Premium Qualität</li><li>Wärme- & Kältefunktion</li><li>7 Duofarben verfügbar</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">50€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card" data-id="hub-connect" data-name="VORTEX Connect Hub" data-price="45" data-emoji="🔌">
+                <div class="product-image">🔌<span class="product-badge new">Produktivität</span>
+                    <div class="product-colors"><div class="color-dot" style="background:#4A4A4A"></div><div class="color-dot" style="background:#C0C0C0"></div></div>
+                </div>
+                <div class="product-content">
+                    <div class="product-category">Docking Station</div>
+                    <h3 class="product-name">VORTEX Connect Hub</h3>
+                    <div class="product-specs"><span class="spec-tag">12 Ports</span><span class="spec-tag">100W PD</span><span class="spec-tag">Dual 4K</span><span class="spec-tag">2.5G LAN</span></div>
+                    <ul class="product-features"><li>HDMI + DisplayPort (Dual 4K)</li><li>100W Power Delivery</li><li>Plug & Play, Aluminium</li></ul>
+                    <div class="product-footer">
+                        <div class="product-price">45€</div>
+                        <div class="cart-controls">
+                            <div class="quantity-selector">
+                                <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+                                <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+                                <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+                            </div>
+                            <button class="add-to-cart-btn" onclick="addToCart(this)">In den Warenkorb</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BUNDLES -->
+<section class="bundle-section" id="bundles">
+    <div class="bundle-container">
+        <div class="section-header">
+            <div class="section-label">⚡ Komplettlösungen</div>
+            <h2 class="section-title">Unsere Setup-Bundles</h2>
+            <p class="section-subtitle">Spare Geld mit unseren vordefinierten Bundles – perfekt abgestimmt.</p>
+        </div>
+        <div class="bundles-grid">
+            <div class="bundle-card" id="starsetup" data-id="bundle-starsetup" data-name="Starsetup Duo Bundle" data-price="2500" data-emoji="🎮">
+                <div class="bundle-header"><div class="bundle-icon">🎮</div><h3 class="bundle-name">Starsetup Duo</h3><p class="bundle-tagline">Dual-Monitor Einstieg</p></div>
+                <div class="bundle-content"><div class="bundle-includes"><h4>Im Paket:</h4><ul><li>2x Vision 24 Monitore</li><li>VORTEX Forge X70 Desktop</li><li>Velitex LED Tastatur</li><li>Pex Office Maus</li><li>NYFVORTEX Mousepad</li><li>Arm Dual Pro</li><li>2x 128GB USB-Sticks</li><li>Clean Kit Ultimate</li></ul></div></div>
+                <div class="bundle-footer"><div class="bundle-price"><span class="bundle-price-value">2.500€</span><span class="bundle-price-label">Komplett</span></div>
+                <div class="cart-controls">
+        <div class="quantity-selector">
+            <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+            <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+            <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+        </div>
+        <button class="add-to-cart-btn bundle-btn" onclick="addToCart(this)">In den Warenkorb</button>
+    </div>
+    </div>
+            </div>
+            <div class="bundle-card" id="dribble" data-id="bundle-dribble" data-name="Dribble Gaming Bundle" data-price="4900" data-emoji="🔥">
+                <div class="bundle-header"><div class="bundle-icon">🔥</div><h3 class="bundle-name">Dribble Gaming</h3><p class="bundle-tagline">Triple-Monitor Pro</p></div>
+                <div class="bundle-content"><div class="bundle-includes"><h4>Im Paket:</h4><ul><li>3x Vision Pro 27 Monitore</li><li>VORTEX Forge X70 Desktop</li><li>Vex Ornata V3 Tastatur</li><li>Areox Matt Gaming Maus</li><li>Logitech Vortex Headset</li><li>Slate Pro Z15 Tablet</li><li>Arm Triple Ultimate</li><li>Office Paket inkl.</li></ul></div></div>
+                <div class="bundle-footer"><div class="bundle-price"><span class="bundle-price-value">4.900€</span><span class="bundle-price-label">Komplett</span></div>
+                <div class="cart-controls">
+    <div class="quantity-selector">
+        <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+        <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+        <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+    </div>
+    <button class="add-to-cart-btn bundle-btn" onclick="addToCart(this)">In den Warenkorb</button>
+</div>
+</div>
+            </div>
+            <div class="bundle-card featured" id="ultimate" data-id="bundle-ultimate" data-name="Ultimate Gaming & IT Bundle" data-price="14500" data-emoji="👑">
+                <div class="bundle-popular">Beliebt</div>
+                <div class="bundle-header"><div class="bundle-icon">👑</div><h3 class="bundle-name">Ultimate Gaming & IT</h3><p class="bundle-tagline">Das Maximum</p></div>
+                <div class="bundle-content"><div class="bundle-includes"><h4>Im Paket:</h4><ul><li>3x Vision Ultra 34 OLED</li><li>VORTEX Apex X95 Beast</li><li>Alura Laptop x98x</li><li>Slate Pro Z15 Tablet</li><li>Office + IT Paket</li><li>Premium-Zubehör-Set</li><li>Lumina Complete Bundle</li><li>🎁 3x 512GB USB-Sticks</li></ul></div></div>
+                <div class="bundle-footer"><div class="bundle-price"><span class="bundle-price-value">14.500€</span><span class="bundle-price-label">Komplett</span></div>
+    <div class="cart-controls">
+    <div class="quantity-selector">
+        <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+        <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+        <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+    </div>
+    <button class="add-to-cart-btn bundle-btn" onclick="addToCart(this)">In den Warenkorb</button>
+</div>
+</div>
+            </div>
+            <div class="bundle-card featured" id="ultimate-it" data-id="bundle-ultimate-it" data-name="Ultimate IT Bundle" data-price="9500" data-emoji="🖥️">
+                <div class="bundle-popular">Beliebt</div>
+                <div class="bundle-header"><div class="bundle-icon">🖥️</div><h3 class="bundle-name">Ultimate IT</h3><p class="bundle-tagline">Das Maximum</p></div>
+                <div class="bundle-content"><div class="bundle-includes"><h4>Im Paket:</h4><ul><li>3x Vision Ultra 34 OLED 5K Curved</li><li>Voro Trackpad ZX</li><li>Alura Laptop x85</li><li>VORTEX Triple-Arm Ultimate</li><li>Office + IT Paket 6 Jahre kostenlos</li><li>Premium-Zubehör-Set</li><li>🎁 3x 512GB USB-Sticks</li><li>VORTEX Clean Kit Pro</li><li>Vortex Kabel Kit Ultimate</li><li>5 HDMI Kabel</li><li>Vortex 150 Office Mega Tastatur</li><li>Vortex Super Office Maus</li></ul></div></div>
+                <div class="bundle-footer"><div class="bundle-price"><span class="bundle-price-value">9.500€</span><span class="bundle-price-label">Komplett</span></div>
+    <div class="cart-controls">
+    <div class="quantity-selector">
+        <button class="quantity-btn minus" onclick="decreaseQuantity(this)">-</button>
+        <input type="number" class="quantity-input" value="1" min="1" max="5" readonly>
+        <button class="quantity-btn plus" onclick="increaseQuantity(this)">+</button>
+    </div>
+    <button class="add-to-cart-btn bundle-btn" onclick="addToCart(this)">In den Warenkorb</button>
+</div>
+</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <p class="footer-copyright">© 2025 VORTEX Systems. Alle Rechte vorbehalten.</p>
+            <div class="footer-links"><a href="index.html">Startseite</a><a href="software.html">Software</a><a href="zubehoer.html">Zubehör</a><a href="index.html#kontakt">Kontakt</a></div>
+        </div>
+    </footer>
+
+<!-- TOAST NOTIFICATION -->
+<div class="toast" id="toast">
+    <span class="toast-icon">✓</span>
+    <span class="toast-message"></span>
+</div>
+
+<!-- WARENKORB MODAL -->
+<div class="cart-modal-overlay" id="cartModal">
+    <div class="cart-modal">
+        <div class="cart-modal-header">
+            <h2 class="cart-modal-title">🛒 Dein Warenkorb</h2>
+            <button class="cart-modal-close" onclick="closeCartModal()">✕</button>
+        </div>
+        <div class="cart-modal-body" id="cartModalBody">
+            <!-- Cart items will be inserted here -->
+        </div>
+        <div class="cart-modal-footer">
+            <div class="cart-total-wrapper">
+                <span class="cart-total-label">Gesamtpreis:</span>
+                <span class="cart-total-value" id="cartTotalValue">0€</span>
+            </div>
+            <button class="cart-checkout-btn" id="checkoutBtn" onclick="openCheckout()">Zur Kasse</button>
+        </div>
+    </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="cart-modal-overlay" id="checkoutModal">
+    <div class="checkout-modal">
+        <div class="cart-modal-header">
+            <h2 class="cart-modal-title">💳 Bestellung abschließen</h2>
+            <button class="cart-modal-close" onclick="closeCheckout()">✕</button>
+        </div>
+        <div class="checkout-form">
+            <div class="order-summary">
+                <h3 class="order-summary-title">Bestellübersicht</h3>
+                <div id="orderSummaryItems"></div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Vollständiger Name</label>
+                <input type="text" class="form-input" id="checkoutName" placeholder="Max Mustermann" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Straße & Hausnummer</label>
+                <input type="text" class="form-input" id="checkoutStreet" placeholder="Musterstraße 123" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">PLZ & Stadt</label>
+                <input type="text" class="form-input" id="checkoutCity" placeholder="12345 Musterstadt" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Zahlungsart wählen</label>
+                <div class="payment-options">
+                    <div class="payment-option" onclick="selectPayment(this, 'kreditkarte')">
+                        <div class="payment-option-icon">💳</div>
+                        <div class="payment-option-name">Kreditkarte</div>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment(this, 'paypal')">
+                        <div class="payment-option-icon">🅿️</div>
+                        <div class="payment-option-name">PayPal</div>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment(this, 'überweisung')">
+                        <div class="payment-option-icon">🏦</div>
+                        <div class="payment-option-name">Überweisung</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="place-order-btn" onclick="placeOrder()">Jetzt bestellen</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ===========================================
+    // WARENKORB SYSTEM - JAVASCRIPT
+    // ===========================================
+
+    // Global Variables
+    let cart = [];
+    let selectedPayment = '';
+
+    // ===========================================
+    // LOCALSTORAGE FUNCTIONS
+    // ===========================================
+
+    // Warenkorb aus localStorage laden
+    function loadCart() {
+        const savedCart = localStorage.getItem('vortex_warenkorb');
+        if (savedCart) {
+            cart = JSON.parse(savedCart);
+            updateCartCount();
+        }
+    }
+
+    // Warenkorb in localStorage speichern
+    function saveCart() {
+        localStorage.setItem('vortex_warenkorb', JSON.stringify(cart));
+        updateCartCount();
+    }
+
+    // Warenkorb leeren
+    function clearCart() {
+        cart = [];
+        localStorage.removeItem('vortex_warenkorb');
+        updateCartCount();
+    }
+
+    // ===========================================
+    // QUANTITY SELECTOR FUNCTIONS
+    // ===========================================
+
+    // Menge erhöhen
+    function increaseQuantity(button) {
+        const input = button.parentElement.querySelector('.quantity-input');
+        let value = parseInt(input.value);
+        if (value < 5) {
+            input.value = value + 1;
+        }
+    }
+
+    // Menge verringern
+    function decreaseQuantity(button) {
+        const input = button.parentElement.querySelector('.quantity-input');
+        let value = parseInt(input.value);
+        if (value > 1) {
+            input.value = value - 1;
+        }
+    }
+
+    // ===========================================
+    // WARENKORB FUNCTIONS
+    // ===========================================
+
+    // Artikel zum Warenkorb hinzufügen
+    function addToCart(button) {
+        const productCard = button.closest('.product-card, .bundle-card');
+        const productId = productCard.getAttribute('data-id');
+        const productName = productCard.getAttribute('data-name');
+        const productPrice = parseInt(productCard.getAttribute('data-price'));
+        const productEmoji = productCard.getAttribute('data-emoji');
+        const quantityInput = productCard.querySelector('.quantity-input');
+        const quantity = parseInt(quantityInput.value);
+
+        // Prüfen ob Artikel bereits im Warenkorb
+        const existingItem = cart.find(item => item.id === productId);
+        
+        if (existingItem) {
+            // Menge aktualisieren (max 5)
+            const newQuantity = existingItem.quantity + quantity;
+            existingItem.quantity = newQuantity > 5 ? 5 : newQuantity;
+        } else {
+            // Neuen Artikel hinzufügen
+            cart.push({
+                id: productId,
+                name: productName,
+                price: productPrice,
+                quantity: quantity,
+                emoji: productEmoji
+            });
+        }
+
+        saveCart();
+        showToast('✓ Zum Warenkorb hinzugefügt!');
+        
+        // Menge zurücksetzen
+        quantityInput.value = 1;
+    }
+
+    // Artikel aus Warenkorb entfernen
+    function removeFromCart(productId) {
+        cart = cart.filter(item => item.id !== productId);
+        saveCart();
+        renderCartModal();
+    }
+
+    // Warenkorb-Anzahl aktualisieren
+    function updateCartCount() {
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById('cartCount').textContent = count;
+    }
+
+    // Gesamtpreis berechnen
+    function getCartTotal() {
+        return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    }
+
+    // Anzahl Items im Warenkorb
+    function getCartItemCount() {
+        return cart.reduce((sum, item) => sum + item.quantity, 0);
+    }
+
+    // ===========================================
+    // TOAST NOTIFICATION
+    // ===========================================
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        const toastMessage = toast.querySelector('.toast-message');
+        
+        toastMessage.textContent = message;
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+
+    // ===========================================
+    // WARENKORB MODAL
+    // ===========================================
+
+    function openCartModal() {
+        renderCartModal();
+        document.getElementById('cartModal').classList.add('active');
+    }
+
+    function closeCartModal() {
+        document.getElementById('cartModal').classList.remove('active');
+    }
+
+    function renderCartModal() {
+        const modalBody = document.getElementById('cartModalBody');
+        const totalValue = document.getElementById('cartTotalValue');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        if (cart.length === 0) {
+            modalBody.innerHTML = `
+                <div class="cart-empty">
+                    <div class="cart-empty-icon">🛒</div>
+                    <p>Dein Warenkorb ist leer</p>
+                </div>
+            `;
+            totalValue.textContent = '0€';
+            checkoutBtn.disabled = true;
+        } else {
+            const cartItems = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-emoji">${item.emoji}</div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">${item.price}€ pro Stück</div>
+                        <div class="cart-item-quantity">Menge: ${item.quantity}</div>
+                    </div>
+                    <div class="cart-item-total">${item.price * item.quantity}€</div>
+                    <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">Entfernen</button>
+                </div>
+            `).join('');
+
+            modalBody.innerHTML = `<div class="cart-items">${cartItems}</div>`;
+            totalValue.textContent = getCartTotal().toLocaleString('de-DE') + '€';
+            checkoutBtn.disabled = false;
+        }
+    }
+
+    // ===========================================
+    // CHECKOUT FUNCTIONS
+    // ===========================================
+
+    function openCheckout() {
+        closeCartModal();
+        renderOrderSummary();
+        document.getElementById('checkoutModal').classList.add('active');
+    }
+
+    function closeCheckout() {
+        document.getElementById('checkoutModal').classList.remove('active');
+    }
+
+    function renderOrderSummary() {
+        const summaryItems = document.getElementById('orderSummaryItems');
+        
+        const items = cart.map(item => `
+            <div class="order-item">
+                <span class="order-item-name">${item.quantity}x ${item.name}</span>
+                <span class="order-item-price">${item.price * item.quantity}€</span>
+            </div>
+        `).join('');
+        
+        summaryItems.innerHTML = items + `
+            <div class="order-item" style="font-weight: 700; color: var(--neon-cyan); padding-top: 16px; margin-top: 12px; border-top: 2px solid var(--border-hover);">
+                <span class="order-item-name">GESAMT</span>
+                <span class="order-item-price">${getCartTotal().toLocaleString('de-DE')}€</span>
+            </div>
+        `;
+    }
+
+    function selectPayment(element, method) {
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.classList.remove('selected');
+        });
+        element.classList.add('selected');
+        selectedPayment = method;
+    }
+
+    function placeOrder() {
+        const name = document.getElementById('checkoutName').value;
+        const street = document.getElementById('checkoutStreet').value;
+        const city = document.getElementById('checkoutCity').value;
+
+        if (!name || !street || !city) {
+            alert('Bitte fülle alle Adressfelder aus!');
+            return;
+        }
+
+        if (!selectedPayment) {
+            alert('Bitte wähle eine Zahlungsart!');
+            return;
+        }
+
+        // Bestellung erfolgreich
+        showToast('✓ Bestellung erfolgreich! Wir liefern bald.');
+        
+        // Warenkorb leeren
+        clearCart();
+        
+        // Modals schließen
+        closeCheckout();
+        
+        // Formular zurücksetzen
+        setTimeout(() => {
+            document.getElementById('checkoutName').value = '';
+            document.getElementById('checkoutStreet').value = '';
+            document.getElementById('checkoutCity').value = '';
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            selectedPayment = '';
+        }, 500);
+    }
+
+    // ===========================================
+    // FILTER FUNCTIONS (Original)
+    // ===========================================
+
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const productGrids = document.querySelectorAll('.products-grid');
+    const categoryHeaders = document.querySelectorAll('.category-header');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            
+            if (filter === 'all') {
+                productGrids.forEach(grid => grid.style.display = 'grid');
+                categoryHeaders.forEach(header => header.style.display = 'flex');
+            } else {
+                productGrids.forEach(grid => grid.style.display = grid.dataset.category === filter ? 'grid' : 'none');
+                categoryHeaders.forEach(header => header.style.display = header.id === filter ? 'flex' : 'none');
+            }
+        });
+    });
+
+    // ===========================================
+    // ANIMATIONS (Original)
+    // ===========================================
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { 
+            if (entry.isIntersecting) { 
+                entry.target.style.opacity = '1'; 
+                entry.target.style.transform = 'translateY(0)'; 
+            } 
+        });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.product-card, .bundle-card').forEach(el => {
+        el.style.opacity = '0'; 
+        el.style.transform = 'translateY(30px)'; 
+        el.style.transition = 'all 0.5s ease'; 
+        observer.observe(el);
+    });
+
+    // ===========================================
+    // INITIALIZE
+    // ===========================================
+
+    // Warenkorb beim Laden der Seite initialisieren
+    document.addEventListener('DOMContentLoaded', function() {
+        loadCart();
+    });
+
+    // Modal schließen beim Klick außerhalb
+    document.getElementById('cartModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeCartModal();
+        }
+    });
+
+    document.getElementById('checkoutModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeCheckout();
+        }
+    });
+</script>
+</body>
+</html>

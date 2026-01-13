@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX Systems – Enter the Vortex. Enter the Future.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           VORTEX SYSTEMS - PREMIUM DESIGN
+           Inspired by Raycast + GitKraken + Neon
+        ======================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Backgrounds */
+            --bg-primary: #000000;
+            --bg-secondary: #050508;
+            --bg-tertiary: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --bg-card-hover: rgba(255, 255, 255, 0.05);
+            
+            /* Borders */
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            
+            /* Text */
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --text-tertiary: rgba(255, 186, 186, 0.4);
+            
+            /* Neon Colors */
+            --neon-cyan: #2733a2;
+            --neon-purple: #36034f;
+            --neon-pink: #7e0e0e;
+            --neon-green: #39ff14;
+            --neon-blue: #0066ff;
+            --neon-orange: #ff6b35;
+            
+            /* Gradients */
+            --gradient-main: linear-gradient(135deg, #00f0ff 0%, #bf5af2 50%, #ff375f 100%);
+            --gradient-cyan: linear-gradient(135deg, #00f0ff 0%, #0066ff 100%);
+            --gradient-purple: linear-gradient(135deg, #bf5af2 0%, #ff375f 100%);
+            
+            /* Glows */
+            --glow-cyan: 0 0 30px rgba(0, 240, 255, 0.4);
+            --glow-purple: 0 0 30px rgba(191, 90, 242, 0.4);
+            --glow-pink: 0 0 30px rgba(255, 55, 95, 0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-hover);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-cyan);
+        }
+
+        /* ========== NAVIGATION ========== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 40px;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-main);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 22px;
+            color: var(--bg-primary);
+            box-shadow: var(--glow-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(-5deg) scale(1.05);
+            box-shadow: var(--glow-purple);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-card-hover);
+        }
+
+        .nav-link.active {
+            color: var(--neon-cyan);
+        }
+
+        .nav-cta {
+            background: var(--gradient-main);
+            color: var(--bg-primary);
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-left: 16px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 40px 80px;
+            overflow: hidden;
+        }
+
+        /* ANIMATION 2: Animated Background - Gradient wird per JS animiert */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            /* Startzustand für Gradient-Animation */
+            background: radial-gradient(ellipse at 20% 20%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(191, 90, 242, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, rgba(255, 55, 95, 0.05) 0%, transparent 50%);
+        }
+
+        /* Grid Pattern */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+        }
+
+        /* ANIMATION 3: Floating Orbs - Parallax Effekt */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
+            /* Wird per JavaScript animiert mit Parallax */
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--neon-cyan);
+            top: 10%;
+            left: 10%;
+        }
+
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--neon-purple);
+            top: 60%;
+            right: 10%;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--neon-pink);
+            bottom: 10%;
+            left: 30%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* ANIMATION 1: Hero Title - Buchstaben einzeln animiert */
+        .hero-title {
+            font-size: clamp(48px, 8vw, 90px);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -3px;
+            margin-bottom: 24px;
+        }
+
+        /* Jeder Buchstabe wird per JavaScript in <span> verpackt und animiert */
+        .hero-title span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(-30px);
+            /* Animation wird per JavaScript getriggert */
+        }
+
+        /* Neon-Farben für Buchstaben (wechseln per JS) */
+        .hero-title span.color-1 {
+            color: #00f0ff;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+        }
+
+        .hero-title span.color-2 {
+            color: #bf5af2;
+            text-shadow: 0 0 20px rgba(191, 90, 242, 0.6);
+        }
+
+        .hero-title span.color-3 {
+            color: #ff375f;
+            text-shadow: 0 0 20px rgba(255, 55, 95, 0.6);
+        }
+
+        .hero-title-gradient {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            font-weight: 400;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.3s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-main);
+            color: var(--bg-primary);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .btn-icon {
+            font-size: 20px;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-tertiary);
+            font-size: 12px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--neon-cyan), transparent);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* ========== SECTIONS COMMON ========== */
+        section {
+            padding: 120px 40px;
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--gradient-cyan);
+        }
+
+        .section-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ========== CATEGORIES SECTION ========== */
+        .categories {
+            background: var(--bg-secondary);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        /* ANIMATION 4: Category Cards - von links/rechts einfliegend */
+        .category-card {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 48px 40px;
+            text-decoration: none;
+            color: var(--text-primary);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            /* Startzustand für Animation */
+            opacity: 0;
+            /* Wird per JavaScript gesetzt: translateX(-100px) oder translateX(100px) */
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(0, 240, 255, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .category-card:hover::before {
+            opacity: 1;
+        }
+
+        .category-card:nth-child(2):hover {
+            border-color: var(--neon-purple);
+            box-shadow: var(--glow-purple);
+        }
+
+        .category-card:nth-child(3):hover {
+            border-color: var(--neon-pink);
+            box-shadow: var(--glow-pink);
+        }
+
+        .category-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-card:nth-child(1) .category-icon {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 102, 255, 0.2) 100%);
+            color: var(--neon-cyan);
+        }
+
+        .category-card:nth-child(2) .category-icon {
+            background: linear-gradient(135deg, rgba(191, 90, 242, 0.2) 0%, rgba(255, 55, 95, 0.2) 100%);
+            color: var(--neon-purple);
+        }
+
+        .category-card:nth-child(3) .category-icon {
+            background: linear-gradient(135deg, rgba(255, 55, 95, 0.2) 0%, rgba(255, 107, 53, 0.2) 100%);
+            color: var(--neon-pink);
+        }
+
+        .category-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-desc {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-arrow {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg-card-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .category-arrow {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+            transform: translateX(5px);
+        }
+
+        .category-card:nth-child(2):hover .category-arrow {
+            background: var(--neon-purple);
+        }
+
+        .category-card:nth-child(3):hover .category-arrow {
+            background: var(--neon-pink);
+        }
+
+        /* ========== FEATURED PRODUCTS ========== */
+        .featured {
+            background: var(--bg-primary);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        /* ANIMATION 5: Product Cards - von unten einfliegend (staggered) */
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text-primary);
+            /* Startzustand für Animation */
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-hover);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-image {
+            height: 200px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, var(--bg-card) 100%);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            z-index: 1;
+        }
+
+        .product-badge.hot {
+            background: var(--neon-pink);
+        }
+
+        .product-badge.new {
+            background: var(--neon-green);
+        }
+
+        .product-info {
+            padding: 24px;
+        }
+
+        .product-category {
+            font-size: 11px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--neon-cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .product-price span {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        /* ========== ABOUT SECTION ========== */
+        .about {
+            background: var(--bg-secondary);
+            overflow: hidden;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .about-title {
+            font-size: clamp(36px, 4vw, 52px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .about-founder {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+        }
+
+        .founder-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--bg-primary);
+        }
+
+        .founder-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .founder-info p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: var(--bg-tertiary);
+            border-radius: 24px;
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: conic-gradient(from 0deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink), var(--neon-cyan));
+            animation: rotate 10s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* ========== BUNDLES SECTION ========== */
+        .bundles {
+            background: var(--bg-primary);
+            position: relative;
+        }
+
+        .bundles::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), var(--neon-pink), transparent);
+        }
+
+        .bundles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .bundle-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .bundle-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--border-hover);
+        }
+
+        .bundle-card.featured {
+            border-color: var(--neon-purple);
+            box-shadow: var(--glow-purple);
+        }
+
+        .bundle-card.featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-purple);
+        }
+
+        .bundle-popular {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-purple);
+            color: var(--text-primary);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .bundle-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        .bundle-card:nth-child(1) .bundle-icon {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 102, 255, 0.2) 100%);
+        }
+
+        .bundle-card:nth-child(2) .bundle-icon {
+            background: linear-gradient(135deg, rgba(191, 90, 242, 0.2) 0%, rgba(255, 55, 95, 0.2) 100%)
+        }
+
+        .bundle-card:nth-child(3) .bundle-icon {
+        background: linear-gradient(135deg, rgba(57, 255, 20, 0.2) 0%, rgba(0, 240, 255, 0.2) 100%);
+    }
+
+    .bundle-card:nth-child(4) .bundle-icon {
+        background: linear-gradient(135deg, rgba(218, 208, 12, 0.967) 0%, rgba(0, 240, 255, 0.2) 100%);
+    }
+
+    .bundle-name {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .bundle-desc {
+        color: var(--text-secondary);
+        font-size: 14px;
+        margin-bottom: 24px;
+        line-height: 1.6;
+    }
+
+    .bundle-includes {
+        margin-bottom: 32px;
+    }
+
+    .bundle-includes h4 {
+        font-size: 12px;
+        color: var(--text-tertiary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 16px;
+    }
+
+    .bundle-includes ul {
+        list-style: none;
+    }
+
+    .bundle-includes li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: var(--text-secondary);
+        padding: 8px 0;
+        border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .bundle-includes li:last-child {
+        border-bottom: none;
+    }
+
+    .bundle-includes li::before {
+        content: '✓';
+        color: var(--neon-green);
+        font-weight: 700;
+    }
+
+    .bundle-price {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 24px;
+    }
+
+    .bundle-price-value {
+        font-size: 36px;
+        font-weight: 800;
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    .bundle-card:nth-child(1) .bundle-price-value {
+        color: var(--neon-cyan);
+    }
+
+    .bundle-card:nth-child(2) .bundle-price-value {
+        color: var(--neon-purple);
+    }
+
+    .bundle-card:nth-child(3) .bundle-price-value {
+        color: var(--neon-green);
+    }
+
+    .bundle-card:nth-child(4) .bundle-price-value {
+        color: var(--neon-yellow);
+    }
+
+    .bundle-price-label {
+        font-size: 14px;
+        color: var(--text-tertiary);
+    }
+
+    .bundle-btn {
+        width: 100%;
+        padding: 16px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: block;
+    }
+
+    .bundle-card:nth-child(1) .bundle-btn {
+        background: var(--bg-card-hover);
+        color: var(--text-primary);
+        border: 1px solid var(--border-subtle);
+    }
+
+    .bundle-card:nth-child(1) .bundle-btn:hover {
+        border-color: var(--neon-cyan);
+        box-shadow: var(--glow-cyan);
+    }
+
+    .bundle-card:nth-child(2) .bundle-btn {
+        background: var(--bg-card-hover);
+        color: var(--text-primary);
+        border: 1px solid var(--border-subtle);
+    }
+
+    .bundle-card:nth-child(2) .bundle-btn:hover {
+        border-color: var(--neon-purple);
+        box-shadow: var(--glow-purple);
+    }
+
+    .bundle-card:nth-child(3) .bundle-btn {
+        background: var(--gradient-purple);
+        color: var(--text-primary);
+    }
+
+    .bundle-card:nth-child(3) .bundle-btn:hover {
+        box-shadow: var(--glow-purple);
+        transform: translateY(-2px);
+    }
+    
+    .bundle-card:nth-child(4) .bundle-btn {
+        background: var(--gradient-purple);
+        color: var(--text-primary);
+    }
+
+    .bundle-card:nth-child(4) .bundle-btn:hover {
+        box-shadow: var(--glow-purple);
+        transform: translateY(-2px);
+    }
+
+    /* ========== CONTACT SECTION ========== */
+    .contact {
+        background: var(--bg-secondary);
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+    }
+
+    .contact-info h3 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 24px;
+    }
+
+    .contact-info p {
+        color: var(--text-secondary);
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 40px;
+    }
+
+    .contact-details {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .contact-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .contact-text h4 {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .contact-text p {
+        font-size: 14px;
+        color: var(--text-secondary);
+        margin: 0;
+    }
+
+    .contact-text a {
+        color: var(--neon-cyan);
+        text-decoration: none;
+    }
+
+    .contact-text a:hover {
+        text-decoration: underline;
+    }
+
+    .contact-buildings {
+        background: var(--bg-card);
+        border: 1px solid var(--border-subtle);
+        border-radius: 20px;
+        padding: 32px;
+    }
+
+    .contact-buildings h4 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .building-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .building-item {
+        padding: 16px;
+        background: var(--bg-tertiary);
+        border-radius: 12px;
+        border: 1px solid var(--border-subtle);
+    }
+
+    .building-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--neon-cyan);
+        margin-bottom: 4px;
+    }
+
+    .building-desc {
+        font-size: 12px;
+        color: var(--text-secondary);
+        margin-bottom: 8px;
+    }
+
+    .building-hours {
+        font-size: 11px;
+        color: var(--text-tertiary);
+        font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ========== FOOTER ========== */
+    .footer {
+        background: var(--bg-primary);
+        border-top: 1px solid var(--border-subtle);
+        padding: 80px 40px 40px;
+    }
+
+    .footer-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .footer-top {
+        display: grid;
+        grid-template-columns: 2fr repeat(4, 1fr);
+        gap: 60px;
+        margin-bottom: 60px;
+    }
+
+    .footer-brand p {
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.7;
+        margin-top: 20px;
+        max-width: 300px;
+    }
+
+    .footer-column h4 {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        color: var(--text-primary);
+    }
+
+    .footer-column ul {
+        list-style: none;
+    }
+
+    .footer-column li {
+        margin-bottom: 12px;
+    }
+
+    .footer-column a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s ease;
+    }
+
+    .footer-column a:hover {
+        color: var(--neon-cyan);
+    }
+
+    .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 40px;
+        border-top: 1px solid var(--border-subtle);
+    }
+
+    .footer-copyright {
+        font-size: 13px;
+        color: var(--text-tertiary);
+    }
+
+    .footer-made {
+        font-size: 13px;
+        color: var(--text-tertiary);
+    }
+
+    .footer-made span {
+        color: var(--neon-pink);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1200px) {
+        .categories-grid,
+        .bundles-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .featured-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .footer-top {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 968px) {
+        section {
+            padding: 80px 24px;
+        }
+
+        .nav {
+            padding: 16px 24px;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        .about-container,
+        .contact-grid {
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+
+        .featured-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .footer-top {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            padding: 100px 24px 60px;
+        }
+
+        .categories-grid,
+        .bundles-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .featured-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .about-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .building-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-top {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-bottom {
+            flex-direction: column;
+            gap: 16px;
+            text-align: center;
+        }
+
+        /* Mobile: Orbs deaktivieren */
+        .orb {
+            display: none;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">V</div><span class="logo-text">VORTEX <span>Systems</span></span></a>
+                <div class="nav-links"><a href="index.html" class="nav-link active">Startseite</a>
+                <a href="hardware.html" class="nav-link">Hardware</a>
+                <a href="software.html" class="nav-link">Software</a>
+                <a href="zubehoer.html" class="nav-link">Zubehör</a>
+                <a href="vortcoin.html" class="nav-link"> VORTEX Aktien</a>
+                <a href="contact.html" class="nav-cta">Kontakt</a>
+                <a href="vortex-code-ki.html" class="nav-link">Code KI</a>
+                <a href="login.html" class="nav-link">LOGIN</a>
+                <a href="account.html" class="nav-link">Benutzer</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+<section class="hero">
+    <!-- ANIMATION 2 & 3: Background + Orbs -->
+    <div class="hero-bg" id="hero-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="hero-grid"></div>
+    </div>
+    
+    <div class="hero-content">
+        <div class="hero-badge">
+            <div class="hero-badge-dot"></div>
+            Neu: VORTEX Apex X95 – Das ultimative Beast
+        </div>
+        <!-- ANIMATION 1: Hero Title - Text wird per JS in Buchstaben aufgeteilt -->
+        <h1 class="hero-title" id="hero-title-1">
+            Enter the Vortex.
+        </h1>
+        <h1 class="hero-title" id="hero-title-2">
+            Enter the Future.
+        </h1>
+        <p class="hero-subtitle">
+            Erlebe die nächste Generation von Technologie. Premium Hardware, 
+            revolutionäre Software und innovatives Zubehör – alles aus einer Hand.
+        </p>
+        <div class="hero-buttons">
+            <a href="hardware.html" class="btn btn-primary">
+                <span class="btn-icon">🚀</span>
+                Shop erkunden
+            </a>
+            <a href="#ueber-uns" class="btn btn-secondary">
+                <span class="btn-icon">📖</span>
+                Unsere Geschichte
+            </a>
+        </div>
+    </div>
+
+    <div class="scroll-indicator">
+        <span>Scroll</span>
+        <div class="scroll-indicator-line"></div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories" id="kategorien">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">Unser Sortiment</div>
+            <h2 class="section-title">Entdecke unsere Kategorien</h2>
+            <p class="section-subtitle">
+                Von leistungsstarker Hardware über innovative Software bis hin zu premium Zubehör – 
+                wir haben alles, was du brauchst.
+            </p>
+        </div>
+
+        <!-- ANIMATION 4: Category Cards -->
+        <div class="categories-grid">
+            <a href="hardware.html" class="category-card">
+                <div class="category-icon">🖥️</div>
+                <h3 class="category-title">Hardware</h3>
+                <p class="category-desc">
+                    Laptops, Desktop-PCs, Tablets, Monitore, Tastaturen, Mäuse und mehr. 
+                    Erlebe Performance auf höchstem Niveau.
+                </p>
+                <span class="category-count">16+ Produkte</span>
+                <div class="category-arrow">→</div>
+            </a>
+
+            <a href="software.html" class="category-card">
+                <div class="category-icon">💿</div>
+                <h3 class="category-title">Software</h3>
+                <p class="category-desc">
+                    Vorto 12.0 Betriebssystem, Office Paket, IT Paket und unsere eigene 
+                    KI-Technologie. Die Zukunft beginnt hier.
+                </p>
+                <span class="category-count">3 Pakete</span>
+                <div class="category-arrow">→</div>
+            </a>
+
+            <a href="zubehoer.html" class="category-card">
+                <div class="category-icon">🔧</div>
+                <h3 class="category-title">Zubehör</h3>
+                <p class="category-desc">
+                    Monitor-Arme, Kabel-Kits, RGB-Beleuchtung, USB-Sticks und Reinigungszubehör. 
+                    Perfektioniere dein Setup.
+                </p>
+                <span class="category-count">10+ Produkte</span>
+                <div class="category-arrow">→</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured" id="produkte">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">Bestseller</div>
+            <h2 class="section-title">Unsere Top-Produkte</h2>
+            <p class="section-subtitle">
+                Die beliebtesten Produkte unserer Kunden – von Experten entwickelt, 
+                von Gamern und Profis geliebt.
+            </p>
+        </div>
+
+        <!-- ANIMATION 5: Product Cards -->
+        <div class="featured-grid">
+            <a href="hardware.html#apex-x95" class="product-card">
+                <div class="product-image">
+                    🖥️
+                    <span class="product-badge hot">Beast</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Desktop PC</div>
+                    <h3 class="product-name">VORTEX Apex X95</h3>
+                    <p class="product-desc">Ultimate Beast – i9-14900KS, RTX 4090, 128GB RAM</p>
+                    <div class="product-price">5.200€</div>
+                </div>
+            </a>
+
+            <a href="hardware.html#alura-x98x" class="product-card">
+                <div class="product-image">
+                    💻
+                    <span class="product-badge new">Neu</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Laptop</div>
+                    <h3 class="product-name">Alura Laptop x98x</h3>
+                    <p class="product-desc">17.3" QHD 240Hz, i9-14900HX, RTX 4080</p>
+                    <div class="product-price">2.250€</div>
+                </div>
+            </a>
+
+            <a href="hardware.html#vision-ultra-34" class="product-card">
+                <div class="product-image">
+                    🖥️
+                    <span class="product-badge">Premium</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Monitor</div>
+                    <h3 class="product-name">Vision Ultra 34 5K Curved</h3>
+                    <p class="product-desc">34" QD-OLED Ultrawide, 240Hz, 0.03ms</p>
+                    <div class="product-price">1.400€</div>
+                </div>
+            </a>
+
+            <a href="software.html#vorto" class="product-card">
+                <div class="product-image">
+                    💿
+                    <span class="product-badge new">Neu</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Betriebssystem</div>
+                    <h3 class="product-name">Vorto 12.0</h3>
+                    <p class="product-desc">Das revolutionäre OS für Gamer & Developer</p>
+                    <div class="product-price">Kostenlos</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about" id="ueber-uns">
+    <div class="section-container">
+        <div class="about-container">
+            <div class="about-content">
+                <div class="about-label">Über uns</div>
+                <h2 class="about-title">Die Geschichte hinter VORTEX Systems</h2>
+                <p class="about-text">
+                    Wir sind ein Unternehmen, das sich darauf konzentriert hat, eine ganz neue 
+                    Technologie zu entwickeln und zu verkaufen. Von Hardware bis Software – 
+                    unsere Webseite ist nicht nur ein Shop, sondern eines unserer Herzstücke. 
+                    Sie zeigt unsere Geschichte und die Technologie, die wir mit der Welt teilen wollen.
+                </p>
+                <p class="about-text">
+                    VORTEX Systems mit Sitz in Berlin ist ein Lebenswerk, und wir freuen uns, 
+                    unsere Produkte zu präsentieren. Wir werden die Technologie auf ein neues Level 
+                    bringen – wie es niemand vorher geschafft hat.
+                </p>
+                <div class="about-founder">
+                    <div class="founder-avatar">LB</div>
+                    <div class="founder-info">
+                        <h4>Leon Bytyqi</h4>
+                        <p>Gründer & CEO – Fachinformatiker für Systemintegration</p>
+                    </div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="about-image">🏢</div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Gebäude</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">24+</div>
+                        <div class="stat-label">Produkte</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">∞</div>
+                        <div class="stat-label">Innovation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bundles Section -->
+<section class="bundles" id="bundles">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">Komplettlösungen</div>
+            <h2 class="section-title">Unsere Setup-Bundles</h2>
+            <p class="section-subtitle">
+                Spare Geld mit unseren vordefinierten Bundles – perfekt abgestimmt für 
+                jeden Anwendungsfall.
+            </p>
+        </div>
+        <div class="bundles-grid">
+
+            <!-- Starter Bundle -->
+            <div class="bundle-card">
+                <div class="bundle-icon">🎮</div>
+                <h3 class="bundle-name">Starsetup Duo</h3>
+                <p class="bundle-desc">
+                    Der perfekte Einstieg für Gaming und Produktivität mit Dual-Monitor-Setup.
+                </p>
+                <div class="bundle-includes">
+                    <h4>Enthält:</h4>
+                    <ul>
+                        <li>2x Vision 24 Monitore</li>
+                        <li>VORTEX Forge X70 Desktop</li>
+                        <li>Velitex LED Tastatur</li>
+                        <li>Pex Office Maus</li>
+                        <li>Arm Dual Pro Monitorständer</li>
+                        <li>+ Zubehör & Kabel</li>
+                    </ul>
+                </div>
+                <div class="bundle-price">
+                    <span class="bundle-price-value">2.500€</span>
+                    <span class="bundle-price-label">Komplett</span>
+                </div>
+                <a href="hardware.html#starsetup" class="bundle-btn">Bundle ansehen</a>
+            </div>
+
+            <!-- Pro Bundle -->
+            <div class="bundle-card">
+                <div class="bundle-icon">🔥</div>
+                <h3 class="bundle-name">Dribble Gaming</h3>
+                <p class="bundle-desc">
+                    Für ambitionierte Gamer und Creator mit Triple-Monitor-Setup.
+                </p>
+                <div class="bundle-includes">
+                    <h4>Enthält:</h4>
+                    <ul>
+                        <li>3x Vision Pro 27 Monitore</li>
+                        <li>VORTEX Forge X70 Desktop</li>
+                        <li>Vex Ornata V3 Tastatur</li>
+                        <li>Logitech Vortex Headset</li>
+                        <li>Slate Pro Z15 Tablet</li>
+                        <li>+ Komplettes Zubehör</li>
+                    </ul>
+                </div>
+                <div class="bundle-price">
+                    <span class="bundle-price-value">4.900€</span>
+                    <span class="bundle-price-label">Komplett</span>
+                </div>
+                <a href="hardware.html#dribble" class="bundle-btn">Bundle ansehen</a>
+            </div>
+
+            <!-- Ultimate Bundle -->
+            <div class="bundle-card featured">
+                <span class="bundle-popular">Beliebt</span>
+                <div class="bundle-icon">👑</div>
+                <h3 class="bundle-name">Ultimate Gaming & IT</h3>
+                <p class="bundle-desc">
+                    Das absolute Maximum – für Profis, die keine Kompromisse eingehen.
+                </p>
+                <div class="bundle-includes">
+                    <h4>Enthält:</h4>
+                    <ul>
+                        <li>3x Vision Ultra 34 Monitore</li>
+                        <li>VORTEX Apex X95 Beast</li>
+                        <li>Alura Laptop x98x</li>
+                        <li>Office + IT Paket</li>
+                        <li>Komplettes Zubehör-Set</li>
+                        <li>+ Bonus: 3x 512GB USB-Sticks</li>
+                    </ul>
+                </div>
+                <div class="bundle-price">
+                    <span class="bundle-price-value">14.500€</span>
+                    <span class="bundle-price-label">Komplett</span>
+                </div>
+                <a href="hardware.html#ultimate" class="bundle-btn">Bundle ansehen</a>
+            </div>
+            
+            <!-- Ultimate IT Bundle -->
+            <div class="bundle-card featured">
+                <span class="bundle-popular">sehr Beliebt</span>
+                <div class="bundle-icon">🖥️</div>
+                <h3 class="bundle-name">Ultimate IT Bundle</h3>
+                <p class="bundle-desc">
+                    Das absolute Maximum - für IT Profis, die keine Kompromisse eingehen.
+                </p>
+                <div class="bundle-includes">
+                    <h4>Enthält:</h4>
+                    <ul>
+                        <li>3x Vision Ultra 34 OLED 5K Curved mit Hauptrechner</li>
+                        <li>Voro Trackpad ZX</li>
+                        <li>Alura Laptop x85</li>
+                        <li>VORTEX Triple-Arm Ultimate</li>
+                        <li>Vortex Super Office Maus und Vortex 150 Office Mega Tastatur</li>
+                        <li>Office + IT Paket 6 Jahre kostenlos</li>
+                        <li>5 HDMI Kabel</li> 
+                        <li>🎁 3x 512GB USB-Sticks</li>
+                        <li>Vortex Kabel Kit Ultimate und VORTEX Clean Kit Pro</li>
+                    </ul>
+                </div>
+                <div class="bundle-price">
+                    <span class="bundle-price-value">9.500€</span>
+                    <span class="bundle-price-label">Komplett</span>
+                </div>
+                <a href="hardware.html#ultimate-it" class="bundle-btn">Bundle ansehen</a>
+            </div>
+        </div>  
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact" id="kontakt">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-label">Kontakt</div>
+            <h2 class="section-title">Wir sind für dich da</h2>
+            <p class="section-subtitle">
+                Hast du Fragen oder möchtest du mehr erfahren? Kontaktiere uns!
+            </p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>VORTEX Systems</h3>
+                <p>
+                    Besuche uns in unserer Zentrale in Berlin oder kontaktiere uns 
+                    über die untenstehenden Kanäle. Wir freuen uns auf dich!
+                </p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <h4>Adresse</h4>
+                            <p>Hellnerweg Haus 24A bis 24F<br>104578 Berlin</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">
+                            <h4>Telefon</h4>
+                            <p><a href="tel:03983270425897">039832 / 70425897</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text">
+                            <h4>E-Mail</h4>
+                            <p><a href="mailto:vortex.info@0x.de">vortex.info@0x.de</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📠</div>
+                        <div class="contact-text">
+                        <h4>Fax</h4><p>vortex.fix@ix9.de</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-buildings">
+                <h4>🏢 Unsere 6 Gebäude</h4>
+                <div class="building-grid">
+                    <div class="building-item">
+                        <div class="building-name">Haus 24A – Fabrik 1</div>
+                        <div class="building-desc">Hardware-Herstellung</div>
+                        <div class="building-hours">Mo–Fr: 05:00–22:00</div>
+                    </div>
+                    <div class="building-item">
+                        <div class="building-name">Haus 24B – Lager</div>
+                        <div class="building-desc">Logistik & Versand</div>
+                        <div class="building-hours">Mo–Do: 10:00–22:00 | Fr–Sa: 08:00–17:30</div>
+                    </div>
+                    <div class="building-item">
+                        <div class="building-name">Haus 24C–24D – Verwaltung</div>
+                        <div class="building-desc">Administration & Management</div>
+                        <div class="building-hours">Mo–Fr: 08:00–17:00</div>
+                    </div>
+                    <div class="building-item">
+                        <div class="building-name">Haus 24E – Fabrik 2</div>
+                        <div class="building-desc">Software & IT-Entwicklung</div>
+                        <div class="building-hours">Mo–Fr: 07:00–18:00</div>
+                    </div>
+                    <div class="building-item">
+                        <div class="building-name">Haus 24F – Mensa</div>
+                        <div class="building-desc">Küche & Pausenraum</div>
+                        <div class="building-hours">Mo–Sa: 08:30–14:30</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">V</div>
+                    <span class="logo-text">VORTEX <span>Systems</span></span>
+                </a>
+                <p>
+                    Enter the Vortex. Enter the Future.<br>
+                    Premium Technologie aus Berlin für die ganze Welt.
+                </p>
+            </div>
+            <div class="footer-column">
+                <h4>Produkte</h4>
+                <ul>
+                    <li><a href="hardware.html">Hardware</a></li>
+                    <li><a href="software.html">Software</a></li>
+                    <li><a href="zubehoer.html">Zubehör</a></li>
+                    <li><a href="hardware.html#bundles">Bundles</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Software</h4>
+                <ul>
+                    <li><a href="software.html#vorto">Vorto 12.0</a></li>
+                    <li><a href="software.html#office">Office Paket</a></li>
+                    <li><a href="software.html#it-paket">IT Paket</a></li>
+                    <li><a href="software.html#vortnex-ki">Vortnex KI</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Unternehmen</h4>
+                <ul>
+                    <li><a href="#ueber-uns">Über uns</a></li>
+                    <li><a href="#kontakt">Kontakt</a></li>
+                    <li><a href="#">Karriere</a></li>
+                    <li><a href="#">Presse</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Rechtliches</h4>
+                <ul>
+                    <li><a href="#">Impressum</a></li>
+                    <li><a href="#">Datenschutz</a></li>
+                    <li><a href="#">AGB</a></li>
+                    <li><a href="#">Widerruf</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 VORTEX Systems. Alle Rechte vorbehalten.</p>
+            <p class="footer-made">Made with <span>♥</span> in Berlin</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ==================== JAVASCRIPT - ALLE 5 ANIMATIONEN ==================== -->
+<script>
+    // ==================== ANIMATION 1: HERO TEXT - Buchstaben einzeln einfliegen ====================
+    
+    function animateHeroText() {
+        const titles = [
+            document.getElementById('hero-title-1'),
+            document.getElementById('hero-title-2')
+        ];
+        
+        const colors = ['color-1', 'color-2', 'color-3'];
+        let colorIndex = 0;
+        let totalDelay = 0;
+        
+        titles.forEach((title, titleIndex) => {
+            const text = title.textContent.trim();
+            title.innerHTML = ''; // Leeren
+            
+            // Jeden Buchstaben in ein <span> verpacken
+            text.split('').forEach((char, charIndex) => {
+                const span = document.createElement('span');
+                span.textContent = char === ' ' ? '\u00A0' : char; // Leerzeichen erhalten
+                
+                if (char !== ' ') {
+                    span.classList.add(colors[colorIndex % colors.length]);
+                    colorIndex++;
+                }
+                
+                title.appendChild(span);
+                
+                // Animation starten mit Verzögerung (40ms pro Buchstabe)
+                setTimeout(() => {
+                    span.style.transition = 'all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0)';
+                }, totalDelay + (charIndex * 40));
+            });
+            
+            // Gesamtverzögerung für nächsten Titel erhöhen
+            totalDelay += text.length * 40 + 200;
+        });
+        
+        // Neon-Farben Loop: Farben wechseln alle 3 Sekunden
+        setInterval(() => {
+            titles.forEach(title => {
+                const spans = title.querySelectorAll('span');
+                spans.forEach((span, index) => {
+                    if (span.textContent.trim() !== '') {
+                        // Alle Farb-Klassen entfernen
+                        span.classList.remove('color-1', 'color-2', 'color-3');
+                        // Neue Farbe hinzufügen (rotierend)
+                        const newColorIndex = (Math.floor(Date.now() / 3000) + index) % colors.length;
+                        span.classList.add(colors[newColorIndex]);
+                    }
+                });
+            });
+        }, 3000); // Alle 3 Sekunden
+    }
+    
+    // Beim Laden der Seite starten
+    window.addEventListener('load', animateHeroText);
+
+    
+    // ==================== ANIMATION 2: HERO BACKGROUND - Gradient Pulsing ====================
+    
+    let pulsePhase = 0;
+    
+    function animateHeroBackground() {
+        const heroBg = document.getElementById('hero-bg');
+        const hero = document.querySelector('.hero');
+        
+        // Nur animieren wenn Hero im Viewport ist
+        const rect = hero.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+        
+        if (isInView) {
+            pulsePhase += 0.005; // Langsame Animation
+            
+            // Sanftes Pulsieren der Radial Gradients
+            const scale1 = 1 + Math.sin(pulsePhase) * 0.1;
+            const scale2 = 1 + Math.sin(pulsePhase + Math.PI / 2) * 0.1;
+            const scale3 = 1 + Math.sin(pulsePhase + Math.PI) * 0.1;
+            
+            heroBg.style.background = `
+                radial-gradient(ellipse at 20% 20%, rgba(0, 240, 255, ${0.08 * scale1}) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(191, 90, 242, ${0.08 * scale2}) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 55, 95, ${0.05 * scale3}) 0%, transparent 50%)
+            `;
+        }
+        
+        requestAnimationFrame(animateHeroBackground);
+    }
+    
+    animateHeroBackground(); // Starten
+
+    
+    // ==================== ANIMATION 3: ORBS - Parallax Effekt ====================
+    
+    const orbs = document.querySelectorAll('.orb');
+    let scrollY = window.scrollY;
+    
+    // Parallax mit unterschiedlichen Geschwindigkeiten
+    function animateOrbs() {
+        const heroHeight = document.querySelector('.hero').offsetHeight;
+        
+        // Nur animieren wenn noch im Hero-Bereich
+        if (scrollY < heroHeight) {
+            orbs.forEach((orb, index) => {
+                // Unterschiedliche Geschwindigkeiten: 0.3x, 0.5x, 0.7x
+                const speed = 0.3 + (index * 0.2);
+                const yPos = scrollY * speed;
+                
+                // Transform mit GPU-Beschleunigung
+                orb.style.transform = `translateY(${yPos}px)`;
+            });
+        }
+        
+        requestAnimationFrame(animateOrbs); // Loop für 60fps
+    }
+    
+    // Scroll-Position tracken
+    window.addEventListener('scroll', () => {
+        scrollY = window.scrollY;
+    });
+    
+    animateOrbs(); // Starten
+
+    
+    // ==================== ANIMATION 4: CATEGORY CARDS - von links/rechts ====================
+    
+    const categoryCards = document.querySelectorAll('.category-card');
+    
+    // Intersection Observer für Scroll-Trigger
+    const categoryObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const card = entry.target;
+                const cardIndex = Array.from(categoryCards).indexOf(card);
+                
+                // Verzögerung: 100ms zwischen Cards
+                setTimeout(() => {
+                    card.style.transition = 'all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateX(0)'; // Zurück zur Mitte
+                }, cardIndex * 100);
+                
+                categoryObserver.unobserve(card); // Nur einmal animieren
+            }
+        });
+    }, {
+        threshold: 0.2 // Trigger wenn 20% sichtbar
+    });
+    
+    // Cards vorbereiten und Observer starten
+    categoryCards.forEach((card, index) => {
+        // Card 1 und 3: von LINKS (-100px)
+        // Card 2: von RECHTS (+100px)
+        if (index === 1) {
+            card.style.transform = 'translateX(100px)';
+        } else {
+            card.style.transform = 'translateX(-100px)';
+        }
+        card.style.opacity = '0';
+        
+        categoryObserver.observe(card);
+    });
+
+    
+    // ==================== ANIMATION 5: PRODUCT CARDS - von unten (staggered) ====================
+    
+    const productCards = document.querySelectorAll('.product-card');
+    
+    // Intersection Observer für Product Cards
+    const productObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const card = entry.target;
+                const cardIndex = Array.from(productCards).indexOf(card);
+                
+                // Staggered: 50ms Verzögerung zwischen Cards
+                setTimeout(() => {
+                    card.style.transition = 'all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)'; // Von unten nach oben
+                }, cardIndex * 50);
+                
+                productObserver.unobserve(card); // Nur einmal animieren
+            }
+        });
+    }, {
+        threshold: 0.15 // Trigger wenn 15% sichtbar
+    });
+    
+    // Alle Product Cards observieren
+    productCards.forEach((card) => {
+        productObserver.observe(card);
+    });
+
+    
+    // ==================== NAVIGATION SCROLL EFFECT ====================
+    
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+
+    
+    // ==================== SMOOTH SCROLL ====================
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX Vortcoin Investment — Investiere in die Zukunft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #050508;
+            --bg-tertiary: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --bg-card-hover: rgba(255, 255, 255, 0.05);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --text-tertiary: rgba(255, 255, 255, 0.4);
+            --neon-cyan: #00f0ff;
+            --neon-purple: #bf5af2;
+            --neon-pink: #ff375f;
+            --neon-green: #39ff14;
+            --gradient-main: linear-gradient(135deg, #00f0ff 0%, #bf5af2 50%, #ff375f 100%);
+            --glow-cyan: 0 0 30px rgba(0, 240, 255, 0.4);
+            --glow-purple: 0 0 30px rgba(191, 90, 242, 0.4);
+            --glow-pink: 0 0 30px rgba(255, 55, 95, 0.4);
+            --glow-green: 0 0 30px rgba(57, 255, 20, 0.4);
+            
+            --vortcoin-price: 10900;
+        }
+
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection { background: var(--neon-cyan); color: var(--bg-primary); }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+
+        /* NAVIGATION */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 40px;
+            background: linear-gradient(180deg, rgba(5, 20, 30, 0.95) 0%, rgba(0, 15, 25, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--gradient-main);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--bg-primary);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        .logo-text span {
+            color: #00d4ff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .nav-link.active {
+            color: #00d4ff;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #00d4ff 0%, #bf5af2 100%);
+            color: #000000;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin-left: 12px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* HERO */
+        .hero {
+            padding: 140px 40px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0, 240, 255, 0.12) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 100%, rgba(191, 90, 242, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--neon-cyan);
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--neon-cyan);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 7vw, 80px);
+            font-weight: 900;
+            letter-spacing: -3px;
+            margin-bottom: 24px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.8s ease 0.1s backwards;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 48px;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        /* STATS GRID */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 40px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s;
+            animation: fadeInUp 0.8s ease backwards;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.3s; }
+        .stat-card:nth-child(2) { animation-delay: 0.4s; }
+        .stat-card:nth-child(3) { animation-delay: 0.5s; }
+        .stat-card:nth-child(4) { animation-delay: 0.6s; }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-hover);
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 8px;
+        }
+
+        .stat-card:nth-child(1) .stat-value { color: var(--neon-cyan); }
+        .stat-card:nth-child(2) .stat-value { color: var(--neon-green); }
+        .stat-card:nth-child(3) .stat-value { color: var(--neon-purple); }
+        .stat-card:nth-child(4) .stat-value { color: var(--neon-pink); }
+
+        .stat-change {
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.positive { color: var(--neon-green); }
+        .stat-change.negative { color: var(--neon-pink); }
+
+        /* MAIN CONTAINER */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 80px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 32px;
+        }
+
+        /* PORTFOLIO SECTION */
+        .portfolio-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .portfolio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .portfolio-title {
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .portfolio-balance {
+            text-align: right;
+        }
+
+        .balance-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .balance-value {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+        }
+
+        .portfolio-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-tertiary);
+        }
+
+        .portfolio-empty-icon {
+            font-size: 80px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .portfolio-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 20px;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .portfolio-item:hover {
+            border-color: var(--border-hover);
+            transform: translateX(4px);
+        }
+
+        .portfolio-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .portfolio-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .portfolio-amount {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .portfolio-bought {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        .portfolio-value {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: right;
+        }
+
+        .portfolio-current {
+            font-size: 24px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+        }
+
+        .portfolio-profit {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            justify-content: flex-end;
+        }
+
+        .portfolio-profit.positive {
+            color: var(--neon-green);
+        }
+
+        .portfolio-profit.negative {
+            color: var(--neon-pink);
+        }
+
+        .sell-btn {
+            padding: 10px 20px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--neon-pink);
+            border-radius: 10px;
+            color: var(--neon-pink);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            margin-top: 12px;
+        }
+
+        .sell-btn:hover {
+            background: var(--neon-pink);
+            color: var(--bg-primary);
+            box-shadow: var(--glow-pink);
+        }
+
+        /* CHART SECTION */
+        .chart-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 32px;
+            animation: fadeInUp 0.8s ease 0.7s backwards;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .chart-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .chart-timeframe {
+            display: flex;
+            gap: 8px;
+        }
+
+        .timeframe-btn {
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .timeframe-btn:hover,
+        .timeframe-btn.active {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+            border-color: var(--neon-cyan);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-bottom: 24px;
+        }
+
+        .chart-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .chart-info-item {
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+        }
+
+        .chart-info-label {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .chart-info-value {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* BUY SECTION */
+        .buy-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 32px;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            animation: fadeInUp 0.8s ease 0.8s backwards;
+        }
+
+        .buy-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .buy-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .current-price {
+            font-size: 48px;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+            margin-bottom: 8px;
+        }
+
+        .price-change {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--neon-green);
+        }
+
+        .buy-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1);
+        }
+
+        .quantity-controls {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .qty-btn {
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .qty-btn:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+            border-color: var(--neon-cyan);
+        }
+
+        .total-price {
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1), rgba(191, 90, 242, 0.1));
+            border: 1px solid var(--neon-cyan);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .total-label {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+        }
+
+        .total-value {
+            font-size: 36px;
+            font-weight: 900;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .payment-option {
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-subtle);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-option:hover {
+            border-color: var(--neon-cyan);
+            background: var(--bg-card-hover);
+        }
+
+        .payment-option.selected {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.1);
+        }
+
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .payment-name {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient-main);
+            border: none;
+            border-radius: 12px;
+            color: var(--bg-primary);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            box-shadow: var(--glow-cyan);
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.6);
+        }
+
+        .buy-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* SUCCESS MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 2px solid var(--neon-green);
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--glow-green), 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: modalPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-icon {
+            font-size: 120px;
+            margin-bottom: 24px;
+            animation: bounce 0.8s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .modal-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #39ff14, #00f0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modal-message {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .modal-summary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--neon-green);
+        }
+
+        .modal-btn {
+            padding: 16px 40px;
+            background: var(--gradient-main);
+            border: none;
+            border-radius: 12px;
+            color: var(--bg-primary);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .buy-section {
+                position: static;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 16px 20px;
+            }
+
+            .hero {
+                padding: 120px 20px 40px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+
+            .main-container {
+                padding: 0 20px 60px;
+            }
+
+            .chart-section,
+            .buy-section {
+                padding: 24px;
+            }
+
+            .chart-container {
+                height: 300px;
+            }
+
+            .chart-info {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                padding: 32px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">V</div>
+                <span class="logo-text">VORTEX <span>Systems</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Startseite</a>
+                <a href="hardware.html" class="nav-link">Hardware</a>
+                <a href="software.html" class="nav-link">Software</a>
+                <a href="zubehoer.html" class="nav-link">Zubehör</a>
+                <a href="vortcoin.html" class="nav-link active">VORTEX Aktien</a>
+                <a href="contact.html" class="nav-cta">Kontakt</a>
+                <a href="vortex-code-ki.html" class="nav-link">Code KI</a>
+                <a href="login.html" class="nav-link">LOGIN</a>
+                <a href="account.html" class="nav-link">Benutzer</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🚀 Live-Kurs</div>
+            <h1>Investiere in die Zukunft</h1>
+            <p>Vortcoins kaufen — Die offizielle Kryptowährung von VORTEX Systems. Sichere dir jetzt deinen Anteil an der Technologie von morgen.</p>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Aktueller Preis</div>
+            <div class="stat-value">10.900€</div>
+            <div class="stat-change positive">▲ +8.5%</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">24h Veränderung</div>
+            <div class="stat-value">+8.5%</div>
+            <div class="stat-change positive">▲ +925€</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Market Cap</div>
+            <div class="stat-value">127M€</div>
+            <div class="stat-change positive">▲ +12.3%</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Trading Volume</div>
+            <div class="stat-value">8.4M€</div>
+            <div class="stat-change positive">▲ +18.7%</div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="main-container">
+        <div>
+            <!-- PORTFOLIO SECTION -->
+            <div class="portfolio-section">
+                <div class="portfolio-header">
+                    <h2 class="portfolio-title">💼 Mein Portfolio</h2>
+                    <div class="portfolio-balance">
+                        <div class="balance-label">Gesamtwert</div>
+                        <div class="balance-value" id="portfolioValue">0€</div>
+                    </div>
+                </div>
+                <div id="portfolioContent">
+                    <div class="portfolio-empty">
+                        <div class="portfolio-empty-icon">📊</div>
+                        <p>Du besitzt noch keine Vortcoins.<br>Kaufe jetzt deine ersten Coins!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHART SECTION -->
+            <div class="chart-section">
+            <div class="chart-header">
+                <h2 class="chart-title">📈 Vortcoin Kursverlauf</h2>
+                <div class="chart-timeframe">
+                    <button class="timeframe-btn" onclick="changeTimeframe('1d')">1T</button>
+                    <button class="timeframe-btn active" onclick="changeTimeframe('1w')">1W</button>
+                    <button class="timeframe-btn" onclick="changeTimeframe('1m')">1M</button>
+                    <button class="timeframe-btn" onclick="changeTimeframe('1y')">1J</button>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+
+            <div class="chart-info">
+                <div class="chart-info-item">
+                    <div class="chart-info-label">Höchstwert (24h)</div>
+                    <div class="chart-info-value" style="color: var(--neon-green);">11.200€</div>
+                </div>
+                <div class="chart-info-item">
+                    <div class="chart-info-label">Tiefstwert (24h)</div>
+                    <div class="chart-info-value" style="color: var(--neon-pink);">10.150€</div>
+                </div>
+                <div class="chart-info-item">
+                    <div class="chart-info-label">Durchschnitt (7d)</div>
+                    <div class="chart-info-value" style="color: var(--neon-cyan);">10.650€</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUY SECTION -->
+        <div class="buy-section">
+            <div class="buy-header">
+                <h2 class="buy-title">💎 Vortcoins kaufen</h2>
+                <div class="current-price" id="displayPrice">10.900€</div>
+                <div class="price-change">▲ +8.5% (24h)</div>
+            </div>
+
+            <form class="buy-form" id="buyForm">
+                <div class="form-group">
+                    <label class="form-label">Anzahl Vortcoins</label>
+                    <input type="number" 
+                           id="coinAmount" 
+                           class="form-input" 
+                           value="1" 
+                           min="0.01" 
+                           step="0.01"
+                           oninput="calculateTotal()">
+                </div>
+
+                <div class="quantity-controls">
+                    <button type="button" class="qty-btn" onclick="setAmount(0.1)">0.1</button>
+                    <button type="button" class="qty-btn" onclick="setAmount(0.5)">0.5</button>
+                    <button type="button" class="qty-btn" onclick="setAmount(1)">1</button>
+                    <button type="button" class="qty-btn" onclick="setAmount(5)">5</button>
+                </div>
+
+                <div class="total-price">
+                    <div class="total-label">Gesamtpreis</div>
+                    <div class="total-value" id="totalPrice">10.900€</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Zahlungsmethode</label>
+                    <div class="payment-options">
+                        <div class="payment-option selected" onclick="selectPayment(this)" data-method="paypal">
+                            <div class="payment-icon">💳</div>
+                            <div class="payment-name">PayPal</div>
+                        </div>
+                        <div class="payment-option" onclick="selectPayment(this)" data-method="card">
+                            <div class="payment-icon">💎</div>
+                            <div class="payment-name">Kreditkarte</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="buy-btn">
+                    🚀 Jetzt kaufen
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SUCCESS MODAL -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">🎉</div>
+            <h2 class="modal-title">Kauf erfolgreich!</h2>
+            <p class="modal-message">
+                Glückwunsch! Deine Vortcoins wurden erfolgreich gekauft und sind jetzt in deinem Wallet.
+            </p>
+            <div class="modal-summary">
+                <div class="summary-row">
+                    <span>Anzahl Vortcoins:</span>
+                    <span id="summaryAmount">-</span>
+                </div>
+                <div class="summary-row">
+                    <span>Preis pro Coin:</span>
+                    <span>10.900€</span>
+                </div>
+                <div class="summary-row">
+                    <span>Zahlungsmethode:</span>
+                    <span id="summaryPayment">-</span>
+                </div>
+                <div class="summary-row">
+                    <span>Gesamtbetrag:</span>
+                    <span id="summaryTotal">-</span>
+                </div>
+            </div>
+            <button class="modal-btn" onclick="closeModal()">Verstanden</button>
+        </div>
+    </div>
+
+    <!-- SELL MODAL -->
+    <div class="modal" id="sellModal">
+        <div class="modal-content" style="border-color: var(--neon-pink); box-shadow: var(--glow-pink), 0 20px 60px rgba(0, 0, 0, 0.8);">
+            <div class="modal-icon">💰</div>
+            <h2 class="modal-title" style="background: linear-gradient(135deg, #ff375f, #bf5af2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Vortcoins verkaufen</h2>
+            <p class="modal-message">Wie viele Coins möchtest du verkaufen?</p>
+            
+            <form id="sellForm" style="margin: 24px 0;">
+                <div class="form-group">
+                    <label class="form-label">Anzahl Vortcoins</label>
+                    <input type="number" 
+                           id="sellAmount" 
+                           class="form-input" 
+                           value="0" 
+                           min="0.01" 
+                           step="0.01"
+                           oninput="calculateSellTotal()">
+                </div>
+                
+                <div class="total-price" style="margin-top: 20px;">
+                    <div class="total-label">Du erhältst</div>
+                    <div class="total-value" id="sellTotalPrice">0€</div>
+                </div>
+
+                <div style="display: flex; gap: 12px; margin-top: 24px;">
+                    <button type="button" class="modal-btn" onclick="closeSellModal()" style="background: var(--bg-tertiary); color: var(--text-primary);">Abbrechen</button>
+                    <button type="submit" class="modal-btn" style="background: var(--gradient-pink);">Verkaufen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // PREISE
+        const VORTCOIN_PRICE = 10900;
+        let selectedPayment = 'paypal';
+        let portfolio = [];
+
+        // PORTFOLIO LADEN
+        function loadPortfolio() {
+            const saved = localStorage.getItem('vortex_portfolio');
+            if (saved) {
+                portfolio = JSON.parse(saved);
+                renderPortfolio();
+            }
+        }
+
+        // PORTFOLIO SPEICHERN
+        function savePortfolio() {
+            localStorage.setItem('vortex_portfolio', JSON.stringify(portfolio));
+            renderPortfolio();
+        }
+
+        // PORTFOLIO ANZEIGEN
+        function renderPortfolio() {
+            const container = document.getElementById('portfolioContent');
+            
+            if (portfolio.length === 0) {
+                container.innerHTML = `
+                    <div class="portfolio-empty">
+                        <div class="portfolio-empty-icon">📊</div>
+                        <p>Du besitzt noch keine Vortcoins.<br>Kaufe jetzt deine ersten Coins!</p>
+                    </div>
+                `;
+                document.getElementById('portfolioValue').textContent = '0€';
+                return;
+            }
+
+            const totalValue = portfolio.reduce((sum, item) => sum + (item.amount * VORTCOIN_PRICE), 0);
+            document.getElementById('portfolioValue').textContent = totalValue.toLocaleString('de-DE', {
+                style: 'currency',
+                currency: 'EUR'
+            });
+
+            container.innerHTML = portfolio.map((item, index) => {
+                const currentValue = item.amount * VORTCOIN_PRICE;
+                const boughtValue = item.amount * item.boughtPrice;
+                const profit = currentValue - boughtValue;
+                const profitPercent = ((profit / boughtValue) * 100).toFixed(2);
+                const isProfit = profit >= 0;
+
+                return `
+                    <div class="portfolio-item">
+                        <div class="portfolio-icon">💎</div>
+                        <div class="portfolio-details">
+                            <div class="portfolio-amount">${item.amount.toFixed(4)} VTC</div>
+                            <div class="portfolio-bought">Gekauft für ${item.boughtPrice.toLocaleString('de-DE')}€/Coin</div>
+                        </div>
+                        <div class="portfolio-value">
+                            <div class="portfolio-current">${currentValue.toLocaleString('de-DE', {
+                                style: 'currency',
+                                currency: 'EUR'
+                            })}</div>
+                            <div class="portfolio-profit ${isProfit ? 'positive' : 'negative'}">
+                                ${isProfit ? '▲' : '▼'} ${Math.abs(profit).toLocaleString('de-DE', {
+                                    style: 'currency',
+                                    currency: 'EUR'
+                                })} (${profitPercent}%)
+                            </div>
+                            <button class="sell-btn" onclick="openSellModal(${index})">Verkaufen</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        let currentSellIndex = null;
+
+        function openSellModal(index) {
+            currentSellIndex = index;
+            const item = portfolio[index];
+            document.getElementById('sellAmount').max = item.amount;
+            document.getElementById('sellAmount').value = item.amount;
+            calculateSellTotal();
+            document.getElementById('sellModal').classList.add('active');
+        }
+
+        function closeSellModal() {
+            document.getElementById('sellModal').classList.remove('active');
+            currentSellIndex = null;
+        }
+
+        function calculateSellTotal() {
+            const amount = parseFloat(document.getElementById('sellAmount').value) || 0;
+            const total = amount * VORTCOIN_PRICE;
+            document.getElementById('sellTotalPrice').textContent = total.toLocaleString('de-DE', {
+                style: 'currency',
+                currency: 'EUR'
+            });
+        }
+
+        // VERKAUFEN
+        document.getElementById('sellForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const sellAmount = parseFloat(document.getElementById('sellAmount').value);
+            const item = portfolio[currentSellIndex];
+
+            if (sellAmount <= 0 || sellAmount > item.amount) {
+                alert('Ungültige Anzahl!');
+                return;
+            }
+
+            // Coins verkaufen
+            if (sellAmount === item.amount) {
+                // Alle Coins verkaufen - Item entfernen
+                portfolio.splice(currentSellIndex, 1);
+            } else {
+                // Teilweise verkaufen - Menge reduzieren
+                portfolio[currentSellIndex].amount -= sellAmount;
+            }
+
+            const soldValue = sellAmount * VORTCOIN_PRICE;
+            
+            savePortfolio();
+            closeSellModal();
+
+            // Erfolgs-Meldung
+            alert(`✅ Erfolgreich verkauft!\n\n${sellAmount} VTC für ${soldValue.toLocaleString('de-DE', {
+                style: 'currency',
+                currency: 'EUR'
+            })}`);
+        });
+
+        // TOTAL BERECHNEN
+        function calculateTotal() {
+            const amount = parseFloat(document.getElementById('coinAmount').value) || 0;
+            const total = amount * VORTCOIN_PRICE;
+            document.getElementById('totalPrice').textContent = total.toLocaleString('de-DE', {
+                style: 'currency',
+                currency: 'EUR'
+            });
+        }
+
+        // AMOUNT SETZEN
+        function setAmount(value) {
+            document.getElementById('coinAmount').value = value;
+            calculateTotal();
+        }
+
+        // PAYMENT SELECTION
+        function selectPayment(element) {
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedPayment = element.dataset.method;
+        }
+
+        // FORM SUBMIT
+        document.getElementById('buyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const amount = parseFloat(document.getElementById('coinAmount').value);
+            const total = amount * VORTCOIN_PRICE;
+            
+            if (amount <= 0) {
+                alert('Bitte gib eine gültige Anzahl ein!');
+                return;
+            }
+
+            // Summary füllen
+            document.getElementById('summaryAmount').textContent = amount + ' VTC';
+            document.getElementById('summaryPayment').textContent = selectedPayment === 'paypal' ? 'PayPal' : 'Kreditkarte';
+            document.getElementById('summaryTotal').textContent = total.toLocaleString('de-DE', {
+                style: 'currency',
+                currency: 'EUR'
+            });
+
+            // Zu Portfolio hinzufügen
+            portfolio.push({
+                amount: amount,
+                boughtPrice: VORTCOIN_PRICE,
+                date: new Date().toISOString()
+            });
+            savePortfolio();
+
+            // Modal öffnen
+            document.getElementById('successModal').classList.add('active');
+        });
+
+        // MODAL SCHLIESSEN
+        function closeModal() {
+            document.getElementById('successModal').classList.remove('active');
+            document.getElementById('coinAmount').value = 1;
+            calculateTotal();
+        }
+
+        // CHART ERSTELLEN MIT ANIMATION
+        const ctx = document.getElementById('priceChart').getContext('2d');
+        
+        // Realistische Daten generieren (letzten 7 Tage)
+        function generatePriceData() {
+            const data = [];
+            const labels = [];
+            let currentPrice = 10000;
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                labels.push(date.toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'short' }));
+                
+                // Realistischer Preisverlauf mit Schwankungen
+                const change = (Math.random() - 0.3) * 800; // Tendenz nach oben
+                currentPrice = Math.max(9500, Math.min(11500, currentPrice + change));
+                data.push(Math.round(currentPrice));
+            }
+            
+            // Heute auf aktuellen Preis setzen
+            data[data.length - 1] = VORTCOIN_PRICE;
+            
+            return { labels, data };
+        }
+
+        const priceData = generatePriceData();
+
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: priceData.labels,
+                datasets: [
+                    {
+                        label: 'Vortcoin Preis (EUR)',
+                        data: priceData.data,
+                        borderColor: '#00f0ff',
+                        backgroundColor: 'rgba(0, 240, 255, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        pointBackgroundColor: '#00f0ff',
+                        pointBorderColor: '#000',
+                        pointBorderWidth: 2,
+                    },
+                    {
+                        label: 'Durchschnitt',
+                        data: priceData.data.map(() => 10650),
+                        borderColor: '#bf5af2',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: false,
+                        pointRadius: 0,
+                    },
+                    {
+                        label: 'Trend',
+                        data: priceData.data.map(() => 11000),
+                        borderColor: '#39ff14',
+                        borderWidth: 2,
+                        borderDash: [10, 5],
+                        fill: false,
+                        pointRadius: 0,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart',
+                    onProgress: function(animation) {
+                        // Smooth animation von unten nach oben
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: 'rgba(255, 255, 255, 0.65)',
+                            font: {
+                                family: 'Outfit',
+                                size: 12
+                            },
+                            padding: 15,
+                            usePointStyle: true,
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(5, 5, 8, 0.95)',
+                        borderColor: 'rgba(0, 240, 255, 0.3)',
+                        borderWidth: 1,
+                        titleColor: '#00f0ff',
+                        bodyColor: '#ffffff',
+                        padding: 12,
+                        displayColors: true,
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + 
+                                       context.parsed.y.toLocaleString('de-DE') + '€';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.06)',
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.4)',
+                            font: {
+                                family: 'Outfit',
+                                size: 11
+                            }
+                        }
+                    },
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.06)',
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.4)',
+                            font: {
+                                family: 'JetBrains Mono',
+                                size: 11
+                            },
+                            callback: function(value) {
+                                return value.toLocaleString('de-DE') + '€';
+                            }
+                        },
+                        beginAtZero: false,
+                        min: 9000,
+                        max: 12000
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                }
+            }
+        });
+
+        // TIMEFRAME WECHSELN
+        function changeTimeframe(period) {
+            // Alle Buttons deaktivieren
+            document.querySelectorAll('.timeframe-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Aktuellen Button aktivieren
+            event.target.classList.add('active');
+            
+            // Neue Daten generieren basierend auf Zeitraum
+            let newData, newLabels;
+            
+            switch(period) {
+                case '1d':
+                    // Stündliche Daten für 24h
+                    newLabels = Array.from({length: 24}, (_, i) => i + ':00');
+                    newData = Array.from({length: 24}, () => 
+                        VORTCOIN_PRICE + (Math.random() - 0.5) * 600
+                    );
+                    break;
+                case '1w':
+                    // Aktuelle Wochendaten
+                    newLabels = priceData.labels;
+                    newData = priceData.data;
+                    break;
+                case '1m':
+                    // 30 Tage
+                    newLabels = Array.from({length: 30}, (_, i) => {
+                        const d = new Date();
+                        d.setDate(d.getDate() - (29 - i));
+                        return d.getDate() + '.' + (d.getMonth() + 1);
+                    });
+                    newData = Array.from({length: 30}, (_, i) => 
+                        9000 + (i * 60) + (Math.random() - 0.5) * 800
+                    );
+                    break;
+                case '1y':
+                    // 12 Monate
+                    const months = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
+                    const currentMonth = new Date().getMonth();
+                    newLabels = [];
+                    for (let i = 0; i < 12; i++) {
+                        newLabels.push(months[(currentMonth - 11 + i + 12) % 12]);
+                    }
+                    newData = Array.from({length: 12}, (_, i) => 
+                        5000 + (i * 500) + (Math.random() - 0.5) * 1000
+                    );
+                    break;
+            }
+            
+            // Chart updaten mit Animation
+            chart.data.labels = newLabels;
+            chart.data.datasets[0].data = newData;
+            chart.update('active');
+        }
+
+        // INITIAL CALCULATION
+        calculateTotal();
+        loadPortfolio();
+
+        // MODAL CLOSE ON OUTSIDE CLICK
+        document.getElementById('successModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.getElementById('sellModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSellModal();
+            }
+        });
+    </script>
+</body>
+</html>

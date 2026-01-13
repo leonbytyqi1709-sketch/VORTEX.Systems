@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software – VORTEX Systems Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #050508;
+            --bg-tertiary: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --bg-card-hover: rgba(255, 255, 255, 0.05);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --text-tertiary: rgba(255, 255, 255, 0.4);
+            --neon-cyan: #00f0ff;
+            --neon-purple: #bf5af2;
+            --neon-pink: #ff375f;
+            --neon-green: #39ff14;
+            --neon-orange: #ff6b35;
+            --neon-blue: #0066ff;
+            --gradient-main: linear-gradient(135deg, #00f0ff 0%, #bf5af2 50%, #ff375f 100%);
+            --gradient-purple: linear-gradient(135deg, #bf5af2 0%, #ff375f 100%);
+            --gradient-orange: linear-gradient(135deg, #ff6b35 0%, #ff375f 100%);
+            --gradient-blue: linear-gradient(135deg, #0066ff 0%, #00f0ff 100%);
+            --gradient-pink: linear-gradient(135deg, #ff375f 0%, #bf5af2 100%);
+            --glow-cyan: 0 0 30px rgba(0, 240, 255, 0.4);
+            --glow-purple: 0 0 30px rgba(191, 90, 242, 0.4);
+            --glow-orange: 0 0 30px rgba(255, 107, 53, 0.4);
+            --glow-pink: 0 0 30px rgba(255, 55, 95, 0.4);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        ::selection { background: var(--neon-purple); color: var(--bg-primary); }
+
+        .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 40px; background: rgba(0,0,0,0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-subtle); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-primary); }
+        .logo-icon { width: 42px; height: 42px; background: var(--gradient-main); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 22px; color: var(--bg-primary); box-shadow: var(--glow-cyan); }
+        .logo-text { font-weight: 700; font-size: 20px; }
+        .logo-text span { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-link { color: var(--text-secondary); text-decoration: none; padding: 10px 18px; font-size: 14px; font-weight: 500; border-radius: 8px; transition: all 0.2s; }
+        .nav-link:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+        .nav-link.active { color: var(--neon-purple); }
+        .nav-cta { background: var(--gradient-main); color: var(--bg-primary); padding: 10px 22px; border-radius: 8px; font-weight: 600; font-size: 14px; text-decoration: none; margin-left: 16px; }
+
+        /* WARENKORB ICON */
+        .cart-icon { position: relative; cursor: pointer; font-size: 24px; margin-left: 16px; transition: transform 0.3s; }
+        .cart-icon:hover { transform: scale(1.1); }
+        .cart-badge { position: absolute; top: -8px; right: -8px; background: var(--neon-pink); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+
+        .page-header { padding: 140px 40px 80px; text-align: center; position: relative; overflow: hidden; }
+        .page-header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 0%, rgba(191, 90, 242, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 100%, rgba(255, 55, 95, 0.1) 0%, transparent 50%); }
+        .page-header-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .page-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-card); border: 1px solid var(--neon-purple); padding: 8px 16px; border-radius: 100px; font-size: 13px; color: var(--neon-purple); margin-bottom: 24px; }
+        .page-title { font-size: clamp(42px, 6vw, 72px); font-weight: 900; letter-spacing: -2px; margin-bottom: 20px; }
+        .page-title span { background: var(--gradient-purple); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-subtitle { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        /* SOFTWARE SECTIONS */
+        .software-section { padding: 100px 40px; position: relative; }
+        .software-section:nth-child(odd) { background: var(--bg-secondary); }
+        .software-container { max-width: 1200px; margin: 0 auto; }
+
+        /* VORTO HERO */
+        .vorto-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .vorto-content .section-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--neon-cyan); padding: 6px 14px; border-radius: 100px; font-size: 12px; color: var(--neon-cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .vorto-content h2 { font-size: clamp(36px, 4vw, 52px); font-weight: 800; letter-spacing: -1px; margin-bottom: 20px; line-height: 1.1; }
+        .vorto-content h2 span { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .vorto-content p { color: var(--text-secondary); font-size: 17px; line-height: 1.8; margin-bottom: 24px; }
+        .vorto-features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+        .vorto-feature { display: flex; align-items: center; gap: 12px; padding: 16px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; font-size: 14px; transition: all 0.3s; }
+        .vorto-feature:hover { border-color: var(--neon-cyan); background: var(--bg-card-hover); }
+        .vorto-feature-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 102, 255, 0.2)); display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .vorto-price { display: flex; align-items: center; gap: 16px; }
+        .vorto-price-tag { font-size: 32px; font-weight: 800; color: var(--neon-green); font-family: 'JetBrains Mono', monospace; }
+        .vorto-price-note { font-size: 14px; color: var(--text-tertiary); }
+        .vorto-visual { position: relative; }
+        .vorto-mockup { width: 100%; aspect-ratio: 16/10; background: var(--bg-tertiary); border: 1px solid var(--border-subtle); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 120px; position: relative; overflow: hidden; }
+        .vorto-mockup::before { content: ''; position: absolute; inset: -50%; background: conic-gradient(from 0deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink), var(--neon-cyan)); animation: rotate 15s linear infinite; opacity: 0.1; }
+        @keyframes rotate { to { transform: rotate(360deg); } }
+        .vorto-glow { position: absolute; top: 50%; left: 50%; width: 300px; height: 300px; background: var(--neon-cyan); border-radius: 50%; filter: blur(100px); opacity: 0.2; transform: translate(-50%, -50%); }
+
+        /* OFFICE PAKET */
+        .office-section { background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-label { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--neon-purple); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+        .section-title { font-size: clamp(32px, 4vw, 48px); font-weight: 800; margin-bottom: 16px; }
+        .section-subtitle { font-size: 17px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+
+        .apps-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-bottom: 48px; }
+        .app-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 32px 24px; text-align: center; transition: all 0.4s; }
+        .app-card:hover { transform: translateY(-8px); border-color: var(--neon-purple); box-shadow: var(--glow-purple); }
+        .app-icon { width: 72px; height: 72px; margin: 0 auto 20px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+        .app-card:nth-child(1) .app-icon { background: linear-gradient(135deg, #ff6b35, #ff375f); }
+        .app-card:nth-child(2) .app-icon { background: linear-gradient(135deg, #0066ff, #00f0ff); }
+        .app-card:nth-child(3) .app-icon { background: linear-gradient(135deg, #39ff14, #00f0ff); }
+        .app-card:nth-child(4) .app-icon { background: linear-gradient(135deg, #bf5af2, #ff375f); }
+        .app-card:nth-child(5) .app-icon { background: linear-gradient(135deg, #ff375f, #bf5af2); }
+        .app-name { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .app-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+        .pricing-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 800px; margin: 0 auto; }
+        .pricing-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 24px; padding: 40px; text-align: center; transition: all 0.4s; position: relative; }
+        .pricing-card:hover { transform: translateY(-5px); }
+        .pricing-card.featured { border-color: var(--neon-purple); box-shadow: var(--glow-purple); }
+        .pricing-card.featured::before { content: 'Empfohlen'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gradient-purple); color: #fff; padding: 6px 20px; border-radius: 100px; font-size: 12px; font-weight: 700; }
+        .pricing-name { font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--text-secondary); }
+        .pricing-price { font-size: 48px; font-weight: 800; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+        .pricing-card:first-child .pricing-price { color: var(--neon-cyan); }
+        .pricing-card.featured .pricing-price { color: var(--neon-purple); }
+        .pricing-period { font-size: 14px; color: var(--text-tertiary); margin-bottom: 32px; }
+        .pricing-btn { width: 100%; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; font-family: inherit; }
+        .pricing-card:first-child .pricing-btn { background: var(--bg-card-hover); color: var(--text-primary); border: 1px solid var(--border-subtle); }
+        .pricing-card.featured .pricing-btn { background: var(--gradient-purple); color: #fff; }
+        .pricing-btn:hover { transform: translateY(-2px); }
+
+        /* CART CONTROLS FÜR PRICING CARDS */
+        .cart-controls { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+        .quantity-control { display: flex; align-items: center; gap: 8px; background: var(--bg-card-hover); padding: 8px; border-radius: 8px; border: 1px solid var(--border-subtle); }
+        .quantity-btn { background: var(--gradient-main); color: var(--bg-primary); border: none; width: 24px; height: 24px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .quantity-btn:hover { transform: scale(1.1); }
+        .quantity-display { min-width: 24px; text-align: center; font-weight: 700; font-size: 15px; }
+        .add-to-cart-btn { flex: 1; background: var(--gradient-main); color: var(--bg-primary); border: none; padding: 8px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .add-to-cart-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(0, 240, 255, 0.4); }
+
+        /* DESIGN LAB SECTION */
+        .design-section { position: relative; overflow: hidden; }
+        .design-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--neon-pink), var(--neon-purple), transparent); }
+        .design-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 60px; }
+        .design-content .section-badge { background: rgba(255, 55, 95, 0.1); border-color: var(--neon-pink); color: var(--neon-pink); }
+        .design-content h2 span { background: var(--gradient-pink); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .design-features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 60px; }
+        .design-feature-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 28px; text-align: center; transition: all 0.4s; }
+        .design-feature-card:hover { transform: translateY(-8px); border-color: var(--neon-pink); box-shadow: var(--glow-pink); }
+        .design-feature-icon { width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+        .design-feature-card:nth-child(1) .design-feature-icon { background: linear-gradient(135deg, rgba(255, 55, 95, 0.2), rgba(191, 90, 242, 0.2)); }
+        .design-feature-card:nth-child(2) .design-feature-icon { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 102, 255, 0.2)); }
+        .design-feature-card:nth-child(3) .design-feature-icon { background: linear-gradient(135deg, rgba(57, 255, 20, 0.2), rgba(0, 240, 255, 0.2)); }
+        .design-feature-card:nth-child(4) .design-feature-icon { background: linear-gradient(135deg, rgba(191, 90, 242, 0.2), rgba(255, 55, 95, 0.2)); }
+        .design-feature-name { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .design-feature-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+        .design-pricing { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 800px; margin: 0 auto; }
+        .design-pricing-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 24px; padding: 40px; text-align: center; transition: all 0.4s; position: relative; }
+        .design-pricing-card:hover { transform: translateY(-5px); }
+        .design-pricing-card.featured { border-color: var(--neon-pink); box-shadow: var(--glow-pink); }
+        .design-pricing-card.featured::before { content: 'Spare 18€'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gradient-pink); color: #fff; padding: 6px 20px; border-radius: 100px; font-size: 12px; font-weight: 700; }
+        .design-pricing-name { font-size: 20px; font-weight: 600; margin-bottom: 16px; color: var(--text-secondary); }
+        .design-pricing-price { font-size: 48px; font-weight: 800; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+        .design-pricing-card:first-child .design-pricing-price { color: var(--neon-cyan); }
+        .design-pricing-card.featured .design-pricing-price { color: var(--neon-pink); }
+        .design-pricing-period { font-size: 14px; color: var(--text-tertiary); margin-bottom: 32px; }
+        .design-pricing-btn { width: 100%; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; font-family: inherit; }
+        .design-pricing-card:first-child .design-pricing-btn { background: var(--bg-card-hover); color: var(--text-primary); border: 1px solid var(--border-subtle); }
+        .design-pricing-card.featured .design-pricing-btn { background: var(--gradient-pink); color: #fff; }
+
+        /* IT PAKET */
+        .it-section { position: relative; overflow: hidden; }
+        .it-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--neon-orange), var(--neon-pink), transparent); }
+        .it-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 80px; }
+        .it-content .section-badge { background: rgba(255, 107, 53, 0.1); border-color: var(--neon-orange); color: var(--neon-orange); }
+        .it-content h2 span { background: var(--gradient-orange); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .it-tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 60px; }
+        .it-tool-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 20px; padding: 32px; transition: all 0.4s; }
+        .it-tool-card:hover { transform: translateY(-8px); border-color: var(--neon-orange); box-shadow: var(--glow-orange); }
+        .it-tool-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 20px; }
+        .it-tool-card:nth-child(1) .it-tool-icon { background: linear-gradient(135deg, rgba(191, 90, 242, 0.2), rgba(255, 55, 95, 0.2)); }
+        .it-tool-card:nth-child(2) .it-tool-icon { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 102, 255, 0.2)); }
+        .it-tool-card:nth-child(3) .it-tool-icon { background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 55, 95, 0.2)); }
+        .it-tool-name { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+        .it-tool-desc { color: var(--text-secondary); font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+        .it-tool-features { list-style: none; }
+        .it-tool-features li { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); padding: 8px 0; border-bottom: 1px solid var(--border-subtle); }
+        .it-tool-features li:last-child { border-bottom: none; }
+        .it-tool-features li::before { content: '✓'; color: var(--neon-green); font-weight: 700; }
+
+        /* KI VERSIONS */
+        .ki-versions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 60px; }
+        .ki-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 24px; padding: 36px; text-align: center; transition: all 0.4s; position: relative; }
+        .ki-card:hover { transform: translateY(-8px); }
+        .ki-card.featured { border-color: var(--neon-purple); box-shadow: var(--glow-purple); }
+        .ki-card.featured::before { content: 'Beliebt'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gradient-purple); color: #fff; padding: 6px 20px; border-radius: 100px; font-size: 12px; font-weight: 700; }
+        .ki-name { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .ki-card:nth-child(1) .ki-name { color: var(--neon-cyan); }
+        .ki-card:nth-child(2) .ki-name { color: var(--neon-purple); }
+        .ki-card:nth-child(3) .ki-name { color: var(--neon-orange); }
+        .ki-price { font-size: 36px; font-weight: 800; margin: 20px 0 8px; font-family: 'JetBrains Mono', monospace; }
+        .ki-period { font-size: 14px; color: var(--text-tertiary); margin-bottom: 24px; }
+        .ki-features { list-style: none; text-align: left; margin-bottom: 28px; }
+        .ki-features li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-secondary); padding: 10px 0; border-bottom: 1px solid var(--border-subtle); }
+        .ki-features li:last-child { border-bottom: none; }
+        .ki-features li::before { content: '✓'; color: var(--neon-green); font-weight: 700; }
+        .ki-btn { width: 100%; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border-subtle); font-family: inherit; background: var(--bg-card-hover); color: var(--text-primary); }
+        .ki-card.featured .ki-btn { background: var(--gradient-purple); border: none; }
+
+        /* IT PRICING */
+        .it-pricing { display: grid; grid-template-columns: 1fr; gap: 32px; max-width: 900px; margin: 0 auto; }
+        .it-pricing-card { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 24px; padding: 48px; transition: all 0.4s; position: relative; overflow: hidden; }
+        .it-pricing-card:hover { transform: translateY(-5px); }
+        .it-pricing-card.featured { border-color: var(--neon-orange); box-shadow: var(--glow-orange); }
+        .it-pricing-card.featured::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-orange); }
+        .it-pricing-badge { display: inline-block; background: rgba(255, 107, 53, 0.1); color: var(--neon-orange); padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; margin-bottom: 20px; }
+        .it-pricing-name { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .it-pricing-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
+        .it-pricing-price { font-size: 48px; font-weight: 800; font-family: 'JetBrains Mono', monospace; margin-bottom: 8px; }
+        .it-pricing-card:first-child .it-pricing-price { color: var(--neon-cyan); }
+        .it-pricing-card.featured .it-pricing-price { color: var(--neon-orange); }
+        .it-pricing-period { font-size: 14px; color: var(--text-tertiary); margin-bottom: 32px; }
+        .it-pricing-includes { margin-bottom: 32px; }
+        .it-pricing-includes h4 { font-size: 13px; color: (var--text-tertiary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .it-pricing-includes ul { list-style: none; }
+        .it-pricing-includes li { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-secondary); padding: 10px 0; border-bottom: 1px solid var(--border-subtle); }
+        .it-pricing-includes li:last-child { border-bottom: none; }
+        .it-pricing-includes li::before { content: '✓'; color: var(--neon-green); font-weight: 700; }
+        .it-pricing-btn { width: 100%; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; border: none; font-family: inherit; }
+        .it-pricing-card:first-child .it-pricing-btn { background: var(--bg-card-hover); color: var(--text-primary); border: 1px solid var(--border-subtle); }
+        .it-pricing-card.featured .it-pricing-btn { background: var(--gradient-orange); color: #fff; }
+
+        /* SPECIAL OFFER */
+        .special-offer { background: linear-gradient(135deg, rgba(191, 90, 242, 0.1), rgba(255, 55, 95, 0.1)); border: 1px solid var(--neon-purple); border-radius: 24px; padding: 48px; text-align: center; margin-top: 80px; }
+        .special-offer h3 { font-size: 28px; font-weight: 700; margin-bottom: 16px; }
+        .special-offer p { color: var(--text-secondary); font-size: 16px; max-width: 600px; margin: 0 auto; }
+        .special-offer .highlight { color: var(--neon-green); font-weight: 700; }
+
+        /* MODAL STYLES */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 2000; justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: 24px; padding: 40px; max-width: 600px; width: 90%; max-height: 85vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+        .modal-header h2 { font-size: 28px; font-weight: 800; }
+        .close-btn { background: none; border: none; font-size: 32px; cursor: pointer; color: var(--text-secondary); transition: color 0.3s; }
+        .close-btn:hover { color: var(--text-primary); }
+        
+        .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 20px; border-bottom: 1px solid var(--border-subtle); background: var(--bg-card); border-radius: 12px; margin-bottom: 12px; }
+        .cart-item-info { flex: 1; }
+        .cart-item-name { font-weight: 700; margin-bottom: 8px; font-size: 16px; }
+        .cart-item-price { color: var(--neon-cyan); font-family: 'JetBrains Mono', monospace; }
+        .cart-item-actions { display: flex; align-items: center; gap: 16px; }
+        .remove-btn { background: var(--neon-pink); color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .remove-btn:hover { background: #ff5577; transform: scale(1.05); }
+        
+        .cart-total { margin-top: 24px; padding-top: 24px; border-top: 2px solid var(--border-subtle); text-align: right; }
+        .cart-total h3 { font-size: 24px; color: var(--text-primary); font-family: 'JetBrains Mono', monospace; }
+        .checkout-btn { width: 100%; margin-top: 20px; background: var(--gradient-main); color: var(--bg-primary); border: none; padding: 18px; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: inherit; }
+        .checkout-btn:hover { transform: translateY(-2px); box-shadow: var(--glow-cyan); }
+        
+        .empty-cart { text-align: center; padding: 60px 20px; color: var(--text-secondary); font-size: 18px; }
+        
+        .checkout-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-weight: 600; color: var(--text-primary); font-size: 14px; }
+        .form-group input { padding: 14px; border: 1px solid var(--border-subtle); background: var(--bg-card); color: var(--text-primary); border-radius: 10px; font-size: 15px; font-family: inherit; }
+        .form-group input:focus { outline: none; border-color: var(--neon-cyan); background: var(--bg-card-hover); }
+        
+        .success-message { text-align: center; padding: 40px 20px; }
+        .success-message h2 { color: var(--neon-green); margin-bottom: 20px; font-size: 32px; }
+        .success-emoji { font-size: 80px; margin-bottom: 20px; }
+
+        .footer { background: var(--bg-primary); border-top: 1px solid var(--border-subtle); padding: 60px 40px 40px; }
+        .footer-container { max-width: 1400px; margin: 0 auto; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+        .footer-copyright { font-size: 13px; color: var(--text-tertiary); }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--neon-cyan); }
+
+        @media (max-width: 1200px) { .apps-grid { grid-template-columns: repeat(3, 1fr); } .it-tools-grid, .ki-versions { grid-template-columns: repeat(2, 1fr); } .design-features-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 968px) { .nav-links { display: none; } .vorto-hero, .it-hero, .design-hero { grid-template-columns: 1fr; gap: 48px; } .apps-grid { grid-template-columns: repeat(2, 1fr); } .pricing-cards, .it-pricing, .design-pricing { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .page-header { padding: 120px 24px 60px; } .software-section { padding: 60px 24px; } .it-tools-grid, .ki-versions { grid-template-columns: 1fr; } .vorto-features { grid-template-columns: 1fr; } .design-features-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">V</div>
+                <span class="logo-text">VORTEX <span>Systems</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Startseite</a>
+                <a href="hardware.html" class="nav-link">Hardware</a>
+                <a href="software.html" class="nav-link active">Software</a>
+                <a href="zubehoer.html" class="nav-link">Zubehör</a>
+                <a href="vortcoin.html" class="nav-link"> VORTEX Aktien</a>
+                <a href="vortex-code-ki.html" class="nav-link">Code KI</a>
+                <a href="contact.html" class="nav-cta">Kontakt</a>
+                <a href="login.html" class="nav-link">LOGIN</a>
+                <a href="account.html" class="nav-link">Benutzer</a>
+                <div class="cart-icon" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-badge" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-content">
+            <div class="page-badge">💿 Software Shop</div>
+            <h1 class="page-title">Innovative <span>Software</span></h1>
+            <p class="page-subtitle">Von unserem revolutionären Betriebssystem bis hin zu KI-gestützten Tools – entdecke die Zukunft.</p>
+        </div>
+    </header>
+
+    <!-- VORTO 12.0 SECTION -->
+    <section class="software-section" id="vorto">
+        <div class="software-container">
+            <div class="vorto-hero">
+                <div class="vorto-content">
+                    <div class="section-badge">🚀 Betriebssystem</div>
+                    <h2>Vorto <span>12.0</span></h2>
+                    <p>Wir präsentieren euch ein brandneues Betriebssystem, entwickelt in Kooperation mit Microsoft Windows. Speziell für Gamer, Developer und alle, die den ganzen Tag am PC verbringen.</p>
+                    <p>Vorto 12.0 ist nicht nur für unsere PCs gedacht – mit unserem speziellen Antragssystem kannst du es auch auf Apple Hardware und anderen Geräten installieren.</p>
+                    
+                    <div class="vorto-features">
+                        <div class="vorto-feature">
+                            <div class="vorto-feature-icon">📦</div>
+                            <span>Office Paket integriert</span>
+                        </div>
+                        <div class="vorto-feature">
+                            <div class="vorto-feature-icon">🤖</div>
+                            <span>Eigene KI-Technologie</span>
+                        </div>
+                        <div class="vorto-feature">
+                            <div class="vorto-feature-icon">🌐</div>
+                            <span>Nexify Browser</span>
+                        </div>
+                        <div class="vorto-feature">
+                            <div class="vorto-feature-icon">💻</div>
+                            <span>Neues Terminal</span>
+                        </div>
+                    </div>
+
+                    <div class="vorto-price">
+                        <span class="vorto-price-tag">Kostenlos</span>
+                        <span class="vorto-price-note">Für alle VORTEX Geräte vorinstalliert</span>
+                    </div>
+                </div>
+                <div class="vorto-visual">
+                    <div class="vorto-glow"></div>
+                    <div class="vorto-mockup">💿</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OFFICE PAKET SECTION -->
+    <section class="software-section office-section" id="office">
+        <div class="software-container">
+            <div class="section-header">
+                <div class="section-label">📊 Produktivität</div>
+                <h2 class="section-title">Vortex Office Paket</h2>
+                <p class="section-subtitle">Eine Verbesserung des klassischen Office Pakets – mit KI-Integration und modernem Design.</p>
+            </div>
+
+            <div class="apps-grid">
+                <div class="app-card">
+                    <div class="app-icon">📊</div>
+                    <h3 class="app-name">Votalpent</h3>
+                    <p class="app-desc">Präsentationen mit KI-Unterstützung. Wähle zwischen Claude, ChatGPT, Gemini oder unserer eigenen KI.</p>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">📝</div>
+                    <h3 class="app-name">Voword</h3>
+                    <p class="app-desc">Textverarbeitung der nächsten Generation mit KI-Integration und vielen Layouts.</p>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">📈</div>
+                    <h3 class="app-name">Excel</h3>
+                    <p class="app-desc">Das originale Microsoft Excel – durch unsere Partnerschaft kostenlos im Paket.</p>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">📧</div>
+                    <h3 class="app-name">Vortamail</h3>
+                    <p class="app-desc">E-Mail-Client mit automatischer Rechtschreibkorrektur durch KI. Keine Fehler mehr!</p>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">🎨</div>
+                    <h3 class="app-name">Vox.Logopony</h3>
+                    <p class="app-desc">Logos und Broschüren erstellen mit KI. Premium-Version ohne Zusatzkosten.</p>
+                </div>
+            </div>
+
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-name">Monatlich</div>
+                    <div class="pricing-price">15€</div>
+                    <div class="pricing-period">pro Monat</div>
+                    <div class="cart-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <span class="quantity-display">1</span>
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"
+                                data-id="office-monthly"
+                                data-name="Office Paket (Monatlich)"
+                                data-price="15"
+                                data-emoji="📊"
+                                onclick="addToCart(this)">
+                            In den Warenkorb
+                        </button>
+                    </div>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-name">Jährlich</div>
+                    <div class="pricing-price">145€</div>
+                    <div class="pricing-period">pro Jahr (spare 35€)</div>
+                    <div class="cart-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <span class="quantity-display">1</span>
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"
+                                data-id="office-yearly"
+                                data-name="Office Paket (Jährlich)"
+                                data-price="145"
+                                data-emoji="📊"
+                                onclick="addToCart(this)">
+                            In den Warenkorb
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEU: VORTEX DESIGN LAB SECTION -->
+    <section class="software-section design-section" id="design-lab">
+        <div class="software-container">
+            <div class="design-hero">
+                <div class="vorto-content design-content">
+                    <div class="section-badge">🎨 Kreativ-App</div>
+                    <h2>VORTEX <span>Design Lab</span></h2>
+                    <p>Deine All-in-One Kreativ-App für alles – Social Media Posts, Präsentationen, Logos, Flyer, Videos und mehr. Kein Profi-Wissen nötig.</p>
+                    <p>Mit über 10.000 Templates, 1 Million Stockfotos und KI-Unterstützung erstellst du in Minuten professionelle Designs.</p>
+                    
+                    <div class="vorto-features">
+                        <div class="vorto-feature">
+                            <div class="vorto-feature-icon">📱</div>
+                            <span>Social Media Posts & Stories</span>
+                        </div>
+                        <div class="vorto-feature">
+                            <div class="vorto-feature-icon">🤖</div>
+                            <span>KI-Assistent integriert</span>
+                        </div>
+                        <div class="vorto-feature">
+                            <div class="vorto-feature-icon">🎬</div>
+                            <span>Video & Foto Bearbeitung</span>
+                        </div>
+                        <div class="vorto-feature">
+                            <div class="vorto-feature-icon">👥</div>
+                            <span>Team-Funktion</span>
+                        </div>
+                    </div>
+
+                    <div class="vorto-price">
+                        <span class="vorto-price-tag">ab 4€/Monat</span>
+                        <span class="vorto-price-note">14 Tage kostenlos testen</span>
+                    </div>
+                </div>
+                <div class="vorto-visual">
+                    <div class="vorto-glow" style="background: var(--neon-pink);"></div>
+                    <div class="vorto-mockup">🎨</div>
+                </div>
+            </div>
+
+            <div class="design-features-grid">
+                <div class="design-feature-card">
+                    <div class="design-feature-icon">📄</div>
+                    <h3 class="design-feature-name">10.000+ Templates</h3>
+                    <p class="design-feature-desc">Vorlagen für jeden Anlass – ständig neue hinzugefügt.</p>
+                </div>
+                <div class="design-feature-card">
+                    <div class="design-feature-icon">🖼️</div>
+                    <h3 class="design-feature-name">1 Mio+ Stockfotos</h3>
+                    <p class="design-feature-desc">Riesige Bibliothek an Fotos, Icons und Grafiken.</p>
+                </div>
+                <div class="design-feature-card">
+                    <div class="design-feature-icon">✨</div>
+                    <h3 class="design-feature-name">KI-Features</h3>
+                    <p class="design-feature-desc">Texte generieren, Bilder erstellen, Hintergrund entfernen.</p>
+                </div>
+                <div class="design-feature-card">
+                    <div class="design-feature-icon">☁️</div>
+                    <h3 class="design-feature-name">50GB Cloud</h3>
+                    <p class="design-feature-desc">Speicher für alle deine Projekte und Assets.</p>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <div class="section-label" style="color: var(--neon-pink);">💰 Preise</div>
+                <h2 class="section-title">Design Lab Abo</h2>
+                <p class="section-subtitle">Für Content Creator, Startups, Studenten und alle die schnell gute Designs brauchen.</p>
+            </div>
+
+            <div class="design-pricing">
+                <div class="design-pricing-card">
+                    <div class="design-pricing-name">Monatlich</div>
+                    <div class="design-pricing-price">4€</div>
+                    <div class="design-pricing-period">pro Monat</div>
+                    <div class="cart-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <span class="quantity-display">1</span>
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"
+                                data-id="design-monthly"
+                                data-name="Design Lab (Monatlich)"
+                                data-price="4"
+                                data-emoji="🎨"
+                                onclick="addToCart(this)">
+                            In den Warenkorb
+                        </button>
+                    </div>
+                </div>
+                <div class="design-pricing-card featured">
+                    <div class="design-pricing-name">Jährlich</div>
+                    <div class="design-pricing-price">30€</div>
+                    <div class="design-pricing-period">pro Jahr</div>
+                    <div class="cart-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <span class="quantity-display">1</span>
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"
+                                data-id="design-yearly"
+                                data-name="Design Lab (Jährlich)"
+                                data-price="30"
+                                data-emoji="🎨"
+                                onclick="addToCart(this)">
+                            In den Warenkorb
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IT PAKET SECTION -->
+    <section class="software-section it-section" id="it-paket">
+        <div class="software-container">
+            <div class="it-hero">
+                <div class="vorto-content it-content">
+                    <div class="section-badge">🛠️ Für Developer</div>
+                    <h2>Vortex <span>IT Paket</span></h2>
+                    <p>Nicht nur für Gamer – wir haben das ultimative Paket für ITler in der ganzen Welt entwickelt. Tools, die es so nicht gibt.</p>
+                    <p>Ob Schüler, Student oder Profi-Entwickler – unsere Tools helfen dir bei allem, was mit Code und IT zu tun hat.</p>
+                </div>
+                <div class="vorto-visual">
+                    <div class="vorto-glow" style="background: var(--neon-orange);"></div>
+                    <div class="vorto-mockup">🛠️</div>
+                </div>
+            </div>
+
+            <div class="it-tools-grid">
+                <div class="it-tool-card" id="vortnex-ki">
+                    <div class="it-tool-icon">🤖</div>
+                    <h3 class="it-tool-name">Vortnex Code KI</h3>
+                    <p class="it-tool-desc">Unsere eigene KI, entwickelt von Leon Bytyqi und seinem Team. Ein Jahr Entwicklung für die perfekte Code-KI.</p>
+                    <ul class="it-tool-features">
+                        <li>Alle Programmiersprachen</li>
+                        <li>VS Code Integration</li>
+                        <li>Projekt-Management</li>
+                        <li>Offline-Modus (MAX)</li>
+                    </ul>
+                </div>
+                <div class="it-tool-card">
+                    <div class="it-tool-icon">💻</div>
+                    <h3 class="it-tool-name">Vortterminal</h3>
+                    <p class="it-tool-desc">Terminal und Editor in einem – plus integrierte Lernseiten für Git und Linux Befehle.</p>
+                    <ul class="it-tool-features">
+                        <li>Terminal + Editor kombiniert</li>
+                        <li>Git Befehle lernen</li>
+                        <li>Linux Befehle lernen</li>
+                        <li>Einmaliger Kauf: 4€</li>
+                    </ul>
+                </div>
+                <div class="it-tool-card">
+                    <div class="it-tool-icon">🌐</div>
+                    <h3 class="it-tool-name">Nexify + Wellow</h3>
+                    <p class="it-tool-desc">Unser eigener Browser mit unserer eigenen Suchmaschine. Schnell, präzise, anpassbar.</p>
+                    <ul class="it-tool-features">
+                        <li>Eigene Suchmaschine Wellow</li>
+                        <li>Hochgradig anpassbar</li>
+                        <li>Design-Themes</li>
+                        <li>Fehlerfreie Suche</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Vortnex KI Versionen -->
+            <div class="section-header" style="margin-top: 80px;">
+                <div class="section-label">🤖 KI-Versionen</div>
+                <h2 class="section-title">Vortnex Code KI</h2>
+                <p class="section-subtitle">Wähle die Version, die zu dir passt.</p>
+            </div>
+
+            <div class="ki-versions">
+                <div class="ki-card">
+                    <h3 class="ki-name">Basic</h3>
+                    <div class="ki-price">0€</div>
+                    <div class="ki-period">Kostenlos</div>
+                    <ul class="ki-features">
+                        <li>800 Chats pro Tag</li>
+                        <li>Basis Coding-Tools</li>
+                        <li>Browser & App</li>
+                        <li>Chat-Verlauf speichern</li>
+                    </ul>
+                    <div class="cart-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <span class="quantity-display">1</span>
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"
+                                data-id="ki-basic"
+                                data-name="Vortnex Code KI (Basic)"
+                                data-price="0"
+                                data-emoji="🤖"
+                                onclick="addToCart(this)">
+                            Kostenlos starten
+                        </button>
+                    </div>
+                </div>
+                <div class="ki-card featured">
+                    <h3 class="ki-name">Plus</h3>
+                    <div class="ki-price">20€</div>
+                    <div class="ki-period">pro Monat</div>
+                    <ul class="ki-features">
+                        <li>Unbegrenzte Chats</li>
+                        <li>Erweiterte Coding-Tools</li>
+                        <li>Multi-Tab Zugriff</li>
+                        <li>Projekt-Management</li>
+                    </ul>
+                    <div class="cart-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <span class="quantity-display">1</span>
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"
+                                data-id="ki-plus"
+                                data-name="Vortnex Code KI (Plus)"
+                                data-price="20"
+                                data-emoji="🤖"
+                                onclick="addToCart(this)">
+                            In den Warenkorb
+                        </button>
+                    </div>
+                </div>
+                <div class="ki-card">
+                    <h3 class="ki-name">MAX</h3>
+                    <div class="ki-price">45€</div>
+                    <div class="ki-period">pro Monat</div>
+                    <ul class="ki-features">
+                        <li>Alles aus Plus</li>
+                        <li>Offline-Modus</li>
+                        <li>Frühzeitiger Zugriff</li>
+                        <li>VS Code Integration</li>
+                    </ul>
+                    <div class="cart-controls">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <span class="quantity-display">1</span>
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart-btn"
+                                data-id="ki-max"
+                                data-name="Vortnex Code KI (MAX)"
+                                data-price="45"
+                                data-emoji="🤖"
+                                onclick="addToCart(this)">
+                            In den Warenkorb
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IT Paket Pricing -->
+            <div class="section-header" style="margin-top: 80px;">
+                <div class="section-label">💰 Preise</div>
+                <h2 class="section-title">IT Paket Optionen</h2>
+                <p class="section-subtitle">Das komplette IT Paket mit Vortnex KI MAX inklusive.</p>
+            </div>
+
+                <div class="it-pricing-card featured">
+                <div class="it-pricing-badge">Beste Wahl</div>
+                <h3 class="it-pricing-name">IT Paket Pro</h3>
+                <p class="it-pricing-desc">2 Jahre zum Preis von ~12 Monaten</p>
+                <div class="it-pricing-price">300€</div>
+                <div class="it-pricing-period">einmalig für 2 Jahre</div>
+                <div class="it-pricing-includes"><h4>Inklusive:</h4>
+            <ul>
+                <li>Vortnex Code KI (MAX)</li><li>Vortterminal</li><li>Nexify Browser + Wellow</li><li>Alle Updates</li><li>Priority Support</li>
+            </ul>
+            </div>
+            <div class="cart-controls">
+            <div class="quantity-control"><button class="quantity-btn" onclick="decreaseQuantity(this)">-</button><span class="quantity-display">1</span>
+            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+            </div>
+            <button class="add-to-cart-btn" data-id="it-pro" data-name="IT Paket Pro" data-price="300" data-emoji="🛠️" onclick="addToCart(this)">In den Warenkorb</button>
+        </div>
+    </div>
+</div>
+
+    </div>
+</section>
+
+<!-- WARENKORB MODAL -->
+<div class="modal" id="cartModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>🛒 Warenkorb</h2>
+            <button class="close-btn" onclick="toggleCart()">&times;</button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-total">
+            <h3>Gesamt: <span id="cartTotal">0,00 €</span></h3>
+            <button class="checkout-btn" onclick="showCheckout()">Zur Kasse</button>
+        </div>
+    </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal" id="checkoutModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>💳 Checkout</h2>
+            <button class="close-btn" onclick="closeCheckout()">&times;</button>
+        </div>
+        <div id="checkoutContent">
+            <form class="checkout-form" onsubmit="completeCheckout(event)">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" required placeholder="Max Mustermann">
+                </div>
+                <div class="form-group">
+                    <label>E-Mail</label>
+                    <input type="email" required placeholder="max@beispiel.de">
+                </div>
+                <div class="form-group">
+                    <label>Adresse</label>
+                    <input type="text" required placeholder="Musterstraße 123">
+                </div>
+                <div class="form-group">
+                    <label>PLZ / Stadt</label>
+                    <input type="text" required placeholder="12345 Musterstadt">
+                </div>
+                <div class="form-group">
+                    <label>Kartennummer</label>
+                    <input type="text" required placeholder="1234 5678 9012 3456">
+                </div>
+                <button type="submit" class="checkout-btn">Jetzt kaufen</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <p class="footer-copyright">© 2025 VORTEX Systems. Alle Rechte vorbehalten.</p>
+            <div class="footer-links">
+                <a href="index.html">Startseite</a>
+                <a href="hardware.html">Hardware</a>
+                <a href="zubehoer.html">Zubehör</a>
+                <a href="index.html#kontakt">Kontakt</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Warenkorb Funktionen
+    function loadCart() {
+        const cart = JSON.parse(localStorage.getItem('vortex_warenkorb') || '[]');
+        return cart;
+    }
+
+    function saveCart(cart) {
+        localStorage.setItem('vortex_warenkorb', JSON.stringify(cart));
+        updateCartCount();
+    }
+
+    function updateCartCount() {
+        const cart = loadCart();
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById('cartCount').textContent = totalItems;
+    }
+
+    function increaseQuantity(btn) {
+        const quantityDisplay = btn.parentElement.querySelector('.quantity-display');
+        let quantity = parseInt(quantityDisplay.textContent);
+        quantity++;
+        quantityDisplay.textContent = quantity;
+    }
+
+    function decreaseQuantity(btn) {
+        const quantityDisplay = btn.parentElement.querySelector('.quantity-display');
+        let quantity = parseInt(quantityDisplay.textContent);
+        if (quantity > 1) {
+            quantity--;
+            quantityDisplay.textContent = quantity;
+        }
+    }
+
+    function addToCart(btn) {
+        const card = btn.closest('.pricing-card, .design-pricing-card, .ki-card, .it-pricing-card');
+        const quantity = parseInt(card.querySelector('.quantity-display').textContent);
+        
+        const item = {
+            id: btn.dataset.id,
+            name: btn.dataset.name,
+            price: parseFloat(btn.dataset.price),
+            emoji: btn.dataset.emoji,
+            quantity: quantity
+        };
+
+        let cart = loadCart();
+        
+        const existingItem = cart.find(cartItem => cartItem.id === item.id);
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push(item);
+        }
+
+        saveCart(cart);
+        
+        // Visuelles Feedback
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Hinzugefügt!';
+        btn.style.background = 'var(--neon-green)';
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.background = '';
+        }, 1500);
+
+        // Menge zurücksetzen
+        card.querySelector('.quantity-display').textContent = '1';
+    }
+
+    function toggleCart() {
+        const modal = document.getElementById('cartModal');
+        modal.classList.toggle('active');
+        if (modal.classList.contains('active')) {
+            displayCart();
+        }
+    }
+
+    function displayCart() {
+        const cart = loadCart();
+        const cartItemsDiv = document.getElementById('cartItems');
+        
+        if (cart.length === 0) {
+            cartItemsDiv.innerHTML = '<div class="empty-cart">Dein Warenkorb ist leer 🛒</div>';
+            document.getElementById('cartTotal').textContent = '0,00 €';
+            return;
+        }
+
+        let html = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            
+            html += `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${item.emoji} ${item.name}</div>
+                        <div class="cart-item-price">${item.price.toFixed(2)} € × ${item.quantity} = ${itemTotal.toFixed(2)} €</div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <button class="remove-btn" onclick="removeFromCart('${item.id}')">Entfernen</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        cartItemsDiv.innerHTML = html;
+        document.getElementById('cartTotal').textContent = total.toFixed(2).replace('.', ',') + ' €';
+    }
+
+    function removeFromCart(itemId) {
+        let cart = loadCart();
+        cart = cart.filter(item => item.id !== itemId);
+        saveCart(cart);
+        displayCart();
+    }
+
+    function showCheckout() {
+        const cart = loadCart();
+        if (cart.length === 0) {
+            alert('Dein Warenkorb ist leer!');
+            return;
+        }
+        document.getElementById('cartModal').classList.remove('active');
+        document.getElementById('checkoutModal').classList.add('active');
+    }
+
+    function closeCheckout() {
+        document.getElementById('checkoutModal').classList.remove('active');
+    }
+
+    function completeCheckout(event) {
+        event.preventDefault();
+        
+        const checkoutContent = document.getElementById('checkoutContent');
+        checkoutContent.innerHTML = `
+            <div class="success-message">
+                <div class="success-emoji">🎉</div>
+                <h2>Vielen Dank für deinen Einkauf!</h2>
+                <p>Deine Bestellung wurde erfolgreich aufgegeben.</p>
+                <p>Du erhältst in Kürze eine Bestätigungs-E-Mail.</p>
+                <button class="checkout-btn" onclick="finishCheckout()">Schließen</button>
+            </div>
+        `;
+
+        localStorage.removeItem('vortex_warenkorb');
+        updateCartCount();
+    }
+
+    function finishCheckout() {
+        document.getElementById('checkoutModal').classList.remove('active');
+        location.reload();
+    }
+
+    // Animation Observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.app-card, .it-tool-card, .ki-card, .pricing-card, .it-pricing-card, .vorto-feature, .design-feature-card, .design-pricing-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'all 0.5s ease';
+        observer.observe(el);
+    });
+
+    // Cart beim Laden aktualisieren
+    document.addEventListener('DOMContentLoaded', () => {
+        updateCartCount();
+    });
+</script>
+</body>
+</html>

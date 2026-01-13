@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt & Über uns – VORTEX Systems</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ========================================
+           VORTEX SYSTEMS - CONTACT & ABOUT PAGE
+           Premium Design mit Raycast + GitKraken Inspiration
+        ======================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Backgrounds */
+            --bg-primary: #000000;
+            --bg-secondary: #050508;
+            --bg-tertiary: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --bg-card-hover: rgba(255, 255, 255, 0.05);
+            
+            /* Borders */
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            
+            /* Text */
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --text-tertiary: rgba(255, 255, 255, 0.4);
+            
+            /* Neon Colors */
+            --neon-cyan: #00f0ff;
+            --neon-purple: #bf5af2;
+            --neon-pink: #ff375f;
+            --neon-green: #39ff14;
+            --neon-blue: #0066ff;
+            --neon-orange: #ff6b35;
+            
+            /* Gradients */
+            --gradient-main: linear-gradient(135deg, #00f0ff 0%, #bf5af2 50%, #ff375f 100%);
+            --gradient-cyan: linear-gradient(135deg, #00f0ff 0%, #0066ff 100%);
+            --gradient-purple: linear-gradient(135deg, #bf5af2 0%, #ff375f 100%);
+            
+            /* Glows */
+            --glow-cyan: 0 0 30px rgba(0, 240, 255, 0.4);
+            --glow-purple: 0 0 30px rgba(191, 90, 242, 0.4);
+            --glow-pink: 0 0 30px rgba(255, 55, 95, 0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-hover);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-cyan);
+        }
+
+        /* ========== NAVIGATION ========== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 40px;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-main);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 22px;
+            color: var(--bg-primary);
+            box-shadow: var(--glow-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(-5deg) scale(1.05);
+            box-shadow: var(--glow-purple);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-card-hover);
+        }
+
+        .nav-link.active {
+            color: var(--neon-cyan);
+        }
+
+        .nav-cta {
+            background: var(--gradient-main);
+            color: var(--bg-primary);
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-left: 16px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* ========== PAGE HEADER ========== */
+        .page-header {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 160px 40px 80px;
+            overflow: hidden;
+        }
+
+        /* Animated Background */
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            background: radial-gradient(ellipse at 30% 30%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 70%, rgba(191, 90, 242, 0.08) 0%, transparent 50%);
+        }
+
+        /* Grid Pattern */
+        .header-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-title {
+            font-size: clamp(48px, 7vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -3px;
+            margin-bottom: 24px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease 0.1s backwards;
+        }
+
+        .page-subtitle {
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: var(--text-secondary);
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        /* ========== ABOUT SECTION ========== */
+        .about-section {
+            padding: 120px 40px;
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 100px;
+        }
+
+        .about-content {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .about-content.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--gradient-cyan);
+        }
+
+        .about-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .founder-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            margin-top: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .founder-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+            transform: translateY(-3px);
+        }
+
+        .founder-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--bg-primary);
+            flex-shrink: 0;
+        }
+
+        .founder-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .founder-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .about-visual {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .about-visual.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: var(--bg-tertiary);
+            border-radius: 24px;
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: conic-gradient(from 0deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink), var(--neon-cyan));
+            animation: rotate 10s linear infinite;
+            opacity: 0.1;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 80px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 32px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .stat-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 42px;
+            margin-bottom: 16px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Buildings Section */
+        .buildings-section {
+            margin-top: 100px;
+            padding: 60px 0;
+        }
+
+        .buildings-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .buildings-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .building-card {
+            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .building-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .building-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+            transform: translateY(-5px);
+        }
+
+        .building-card:nth-child(2):hover {
+            border-color: var(--neon-purple);
+            box-shadow: var(--glow-purple);
+        }
+
+        .building-card:nth-child(3):hover {
+            border-color: var(--neon-pink);
+            box-shadow: var(--glow-pink);
+        }
+
+        .building-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .building-card:nth-child(1) .building-icon {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 102, 255, 0.2) 100%);
+        }
+
+        .building-card:nth-child(2) .building-icon {
+            background: linear-gradient(135deg, rgba(191, 90, 242, 0.2) 0%, rgba(255, 55, 95, 0.2) 100%);
+        }
+
+        .building-card:nth-child(3) .building-icon {
+            background: linear-gradient(135deg, rgba(255, 55, 95, 0.2) 0%, rgba(255, 107, 53, 0.2) 100%);
+        }
+
+        .building-card:nth-child(4) .building-icon {
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.2) 0%, rgba(0, 240, 255, 0.2) 100%);
+        }
+
+        .building-card:nth-child(5) .building-icon {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(191, 90, 242, 0.2) 100%);
+        }
+
+        .building-card:nth-child(6) .building-icon {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2) 0%, rgba(57, 255, 20, 0.2) 100%);
+        }
+
+        .building-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            margin-bottom: 8px;
+        }
+
+        .building-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .building-hours {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ========== CONTACT SECTION ========== */
+        .contact-section {
+            padding: 120px 40px;
+            background: var(--bg-primary);
+            position: relative;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), var(--neon-pink), transparent);
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .contact-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .contact-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        /* Contact Form */
+        .contact-form-wrapper {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .contact-form-wrapper.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+            background: var(--bg-card-hover);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .form-btn {
+            width: 100%;
+            padding: 16px 32px;
+            background: var(--gradient-main);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .form-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* Contact Info */
+        .contact-info-wrapper {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .contact-info-wrapper.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .contact-info-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .contact-info-text {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: var(--border-hover);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .contact-item:nth-child(1) .contact-icon {
+            color: var(--neon-cyan);
+        }
+
+        .contact-item:nth-child(2) .contact-icon {
+            color: var(--neon-purple);
+        }
+
+        .contact-item:nth-child(3) .contact-icon {
+            color: var(--neon-pink);
+        }
+
+        .contact-item:nth-child(4) .contact-icon {
+            color: var(--neon-green);
+        }
+
+        .contact-text h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .contact-text p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .contact-text a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contact-text a:hover {
+            color: var(--neon-purple);
+            text-decoration: underline;
+        }
+
+        /* Map Placeholder */
+        .map-section {
+            width: 100%;
+            height: 400px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .map-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .map-section::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: conic-gradient(from 0deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink), var(--neon-cyan));
+            animation: rotate 15s linear infinite;
+            opacity: 0.05;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: 80px 40px 40px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-top: 20px;
+            max-width: 300px;
+        }
+
+        .footer-column h4 {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-made {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        .footer-made span {
+            color: var(--neon-pink);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1200px) {
+            .buildings-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .buildings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 140px 24px 60px;
+            }
+
+            .about-section,
+            .contact-section {
+                padding: 80px 24px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">V</div>
+            <span class="logo-text">VORTEX <span>Systems</span></span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-link">Startseite</a>
+            <a href="hardware.html" class="nav-link">Hardware</a>
+            <a href="software.html" class="nav-link">Software</a>
+            <a href="zubehoer.html" class="nav-link">Zubehör</a>
+            <a href="vortcoin.html" class="nav-link"> VORTEX Aktien</a>
+            <a href="contact.html" class="nav-link active">Kontakt</a>
+            <a href="vortex-code-ki.html" class="nav-link active">Code KI</a>
+            <a href="login.html" class="nav-link">LOGIN</a>
+            <a href="account.html" class="nav-link">Benutzer</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="header-bg">
+        <div class="header-grid"></div>
+    </div>
+    
+    <div class="page-header-content">
+        <div class="page-badge">
+            📍 Berlin, Deutschland
+        </div>
+        <h1 class="page-title">Kontakt & Über uns</h1>
+        <p class="page-subtitle">
+            Lerne das Team hinter VORTEX Systems kennen und erfahre, wie du uns erreichen kannst.
+        </p>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="section-container">
+        <!-- Main About Content -->
+        <div class="about-grid">
+            <div class="about-content">
+                <div class="section-label">Über uns</div>
+                <h2 class="about-title">Die Geschichte hinter VORTEX Systems</h2>
+                <p class="about-text">
+                    Wir sind ein Unternehmen, das sich darauf konzentriert hat, eine ganz neue 
+                    Technologie zu entwickeln und zu verkaufen. Von Hardware bis Software – 
+                    unsere Webseite ist nicht nur ein Shop, sondern eines unserer Herzstücke. 
+                    Sie zeigt unsere Geschichte und die Technologie, die wir mit der Welt teilen wollen.
+                </p>
+                <p class="about-text">
+                    VORTEX Systems mit Sitz in Berlin ist ein Lebenswerk, und wir freuen uns, 
+                    unsere Produkte zu präsentieren. Wir werden die Technologie auf ein neues Level 
+                    bringen – wie es niemand vorher geschafft hat.
+                </p>
+                <p class="about-text">
+                    Unser Ziel ist es, nicht nur Hardware und Software zu verkaufen, sondern eine 
+                    Community aufzubauen, die gemeinsam die Zukunft der Technologie gestaltet. Mit 
+                    innovativen Produkten, einem starken Team und der Vision, die Grenzen des Machbaren 
+                    zu verschieben.
+                </p>
+                
+                <div class="founder-card">
+                    <div class="founder-avatar">LB</div>
+                    <div class="founder-info">
+                        <h4>Leon Bytyqi</h4>
+                        <p>Gründer & CEO – Fachinformatiker für Systemintegration<br>
+                        "Innovation ist nicht das, was wir tun – es ist, wer wir sind."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="about-visual">
+                <div class="about-image">🏢</div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🏢</div>
+                <div class="stat-value">6</div>
+                <div class="stat-label">Gebäude</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-value">24+</div>
+                <div class="stat-label">Produkte</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value">50+</div>
+                <div class="stat-label">Mitarbeiter</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🚀</div>
+                <div class="stat-value">∞</div>
+                <div class="stat-label">Innovation</div>
+            </div>
+        </div>
+
+        <!-- Buildings Section -->
+        <div class="buildings-section">
+            <h2 class="buildings-title">Unsere 6 Gebäude in Berlin</h2>
+            <div class="buildings-grid">
+                <div class="building-card">
+                    <div class="building-icon">🏭</div>
+                    <div class="building-name">Haus 24A – Fabrik 1</div>
+                    <div class="building-desc">Hardware-Herstellung und Produktionsstätte für alle Desktop-PCs, Laptops und Monitore</div>
+                    <div class="building-hours">Mo–Fr: 05:00–22:00</div>
+                </div>
+                
+                <div class="building-card">
+                    <div class="building-icon">📦</div>
+                    <div class="building-name">Haus 24B – Lager</div>
+                    <div class="building-desc">Logistik & Versand – Von hier aus werden alle Produkte weltweit verschickt</div>
+                    <div class="building-hours">Mo–Do: 10:00–22:00 | Fr–Sa: 08:00–17:30</div>
+                </div>
+                
+                <div class="building-card">
+                    <div class="building-icon">🏛️</div>
+                    <div class="building-name">Haus 24C–24D – Verwaltung</div>
+                    <div class="building-desc">Administration, Management, HR, Finanzen und strategische Planung</div>
+                    <div class="building-hours">Mo–Fr: 08:00–17:00</div>
+                </div>
+                
+                <div class="building-card">
+                    <div class="building-icon">💻</div>
+                    <div class="building-name">Haus 24E – Fabrik 2</div>
+                    <div class="building-desc">Software & IT-Entwicklung – Hier entsteht Vorto 12.0, Vortnex KI und alle Software-Pakete</div>
+                    <div class="building-hours">Mo–Fr: 07:00–18:00</div>
+                </div>
+                
+                <div class="building-card">
+                    <div class="building-icon">🍽️</div>
+                    <div class="building-name">Haus 24F – Mensa</div>
+                    <div class="building-desc">Küche, Pausenraum und Entspannungsbereich für alle Mitarbeiter</div>
+                    <div class="building-hours">Mo–Sa: 08:30–14:30</div>
+                </div>
+                
+                <div class="building-card">
+                    <div class="building-icon">🔬</div>
+                    <div class="building-name">Research Lab (Geplant)</div>
+                    <div class="building-desc">Zukünftiges Forschungs- und Entwicklungszentrum für neue Technologien</div>
+                    <div class="building-hours">Coming Soon 2026</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section" id="kontakt">
+    <div class="section-container">
+        <div class="contact-header">
+            <div class="section-label">Kontakt</div>
+            <h2 class="contact-title">Lass uns in Kontakt treten</h2>
+            <p class="contact-subtitle">
+                Hast du Fragen oder möchtest du mehr erfahren? Wir freuen uns auf deine Nachricht!
+            </p>
+        </div>
+
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Name *</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            class="form-input" 
+                            placeholder="Dein vollständiger Name" 
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">E-Mail *</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-input" 
+                            placeholder="deine@email.de" 
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="form-label">Betreff *</label>
+                        <input 
+                            type="text" 
+                            id="subject" 
+                            name="subject" 
+                            class="form-input" 
+                            placeholder="Worum geht es?" 
+                            required
+                        >
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Nachricht *</label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            class="form-textarea" 
+                            placeholder="Schreibe deine Nachricht hier..."
+                            required
+                        ></textarea>
+                    </div>
+                    
+                    <button type="submit" class="form-btn">
+                        <span>✉️</span>
+                        Nachricht senden
+                    </button>
+                </form>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="contact-info-wrapper">
+                <h3 class="contact-info-title">VORTEX Systems</h3>
+                <p class="contact-info-text">
+                    Besuche uns in unserer Zentrale in Berlin oder kontaktiere uns 
+                    über die untenstehenden Kanäle. Wir freuen uns auf dich!
+                </p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <h4>Adresse</h4>
+                            <p>Hellnerweg Haus 24A bis 24F<br>104578 Berlin, Deutschland</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">
+                            <h4>Telefon</h4>
+                            <p><a href="tel:03983270425897">039832 / 70425897</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text">
+                            <h4>E-Mail</h4>
+                            <p><a href="mailto:vortex.info@0x.de">vortex.info@0x.de</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📠</div>
+                        <div class="contact-text">
+                            <h4>Fax</h4>
+                            <p>vortex.fix@ix9.de</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Placeholder -->
+        <div class="map-section">
+            🗺️
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">V</div>
+                    <span class="logo-text">VORTEX <span>Systems</span></span>
+                </a>
+                <p>
+                    Enter the Vortex. Enter the Future.<br>
+                    Premium Technologie aus Berlin für die ganze Welt.
+                </p>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Produkte</h4>
+                <ul>
+                    <li><a href="hardware.html">Hardware</a></li>
+                    <li><a href="software.html">Software</a></li>
+                    <li><a href="zubehoer.html">Zubehör</a></li>
+                    <li><a href="hardware.html#bundles">Bundles</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Software</h4>
+                <ul>
+                    <li><a href="software.html#vorto">Vorto 12.0</a></li>
+                    <li><a href="software.html#office">Office Paket</a></li>
+                    <li><a href="software.html#it-paket">IT Paket</a></li>
+                    <li><a href="software.html#vortnex-ki">Vortnex KI</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Unternehmen</h4>
+                <ul>
+                    <li><a href="contact.html">Über uns</a></li>
+                    <li><a href="contact.html#kontakt">Kontakt</a></li>
+                    <li><a href="#">Karriere</a></li>
+                    <li><a href="#">Presse</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Rechtliches</h4>
+                <ul>
+                    <li><a href="#">Impressum</a></li>
+                    <li><a href="#">Datenschutz</a></li>
+                    <li><a href="#">AGB</a></li>
+                    <li><a href="#">Widerruf</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2025 VORTEX Systems. Alle Rechte vorbehalten.</p>
+            <p class="footer-made">Made with <span>♥</span> in Berlin</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // ==================== NAVIGATION SCROLL EFFECT ====================
+    const nav = document.getElementById('nav');
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+
+    // ==================== SCROLL ANIMATIONS ====================
+    
+    // Intersection Observer für Scroll-Animationen
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const fadeInObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                fadeInObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Alle animierbaren Elemente beobachten
+    const animatedElements = [
+        '.about-content',
+        '.about-visual',
+        '.stat-card',
+        '.building-card',
+        '.contact-form-wrapper',
+        '.contact-info-wrapper',
+        '.map-section'
+    ];
+
+    animatedElements.forEach(selector => {
+        document.querySelectorAll(selector).forEach((element, index) => {
+            // Staggered Animation für Cards
+            if (selector.includes('card')) {
+                element.style.transitionDelay = `${index * 0.1}s`;
+            }
+            fadeInObserver.observe(element);
+        });
+    });
+
+    // ==================== CONTACT FORM HANDLING ====================
+    
+    const contactForm = document.getElementById('contactForm');
+    
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Formular-Daten sammeln
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            subject: document.getElementById('subject').value,
+            message: document.getElementById('message').value
+        };
+        
+        // Hier würdest du normalerweise die Daten an einen Server senden
+        console.log('Formular-Daten:', formData);
+        
+        // Erfolgs-Feedback (Platzhalter)
+        alert('Vielen Dank für deine Nachricht! Wir melden uns so schnell wie möglich bei dir. 🚀');
+        
+        // Formular zurücksetzen
+        contactForm.reset();
+    });
+
+    // ==================== SMOOTH SCROLL ====================
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // ==================== FORM INPUT ANIMATIONS ====================
+    
+    const formInputs = document.querySelectorAll('.form-input, .form-textarea');
+    
+    formInputs.forEach(input => {
+        // Label Animation beim Focus
+        input.addEventListener('focus', () => {
+            input.style.transform = 'scale(1.01)';
+        });
+        
+        input.addEventListener('blur', () => {
+            input.style.transform = 'scale(1)';
+        });
+    });
+
+    // ==================== PARALLAX EFFECT FÜR HEADER ====================
+    
+    const headerBg = document.querySelector('.header-bg');
+    let ticking = false;
+    
+    function updateParallax() {
+        const scrolled = window.scrollY;
+        const rate = scrolled * 0.5;
+        
+        if (headerBg && scrolled < 800) {
+            headerBg.style.transform = `translateY(${rate}px)`;
+        }
+        
+        ticking = false;
+    }
+    
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    });
+</script>
+</body>
+</html>

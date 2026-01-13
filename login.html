@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX Systems - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #000000;
+            --bg-dark: #050508;
+            --neon-green: #00ff88;
+            --neon-blue: #0066ff;
+            --neon-cyan: #2733a2;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --gradient-main: linear-gradient(135deg, #00f0ff 0%, #bf5af2 50%, #ff375f 100%);
+        }
+
+        /* ========== NAVIGATION ========== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 40px;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-main);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 22px;
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(-5deg) scale(1.05);
+            box-shadow: 0 0 30px rgba(191, 90, 242, 0.4);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active {
+            color: #00ff88;
+        }
+
+        .nav-cta {
+            background: var(--gradient-main);
+            color: var(--bg-primary);
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-left: 16px;
+            border: none;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+        }
+
+        /* ========== USER PROFILE ========== */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-left: 16px;
+        }
+
+        .user-name {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00ff88 0%, #0066ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #000000;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .logout-btn:hover {
+            color: var(--text-primary);
+            border-color: #ff375f;
+            background: rgba(255, 55, 95, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 16px 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ========== WAVE CONTAINERS ========== */
+        .wave-container {
+            position: fixed;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .wave-top {
+            top: 0;
+            left: 0;
+            width: 600px;
+            height: 600px;
+        }
+
+        .wave-bottom {
+            bottom: 0;
+            right: 0;
+            width: 600px;
+            height: 600px;
+        }
+
+        .wave-svg {
+            width: 100%;
+            height: 100%;
+            filter: blur(0.5px);
+        }
+
+        /* ========== LOGIN CONTAINER ========== */
+        .login-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: rgba(20, 20, 30, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 136, 0.1);
+            border-radius: 24px;
+            padding: 60px 48px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: slideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .login-logo {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #00ff88 0%, #0066ff 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 28px;
+            color: #000000;
+            margin: 0 auto 24px;
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.3);
+            animation: fadeIn 0.6s ease 0.2s backwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #00ff88 0%, #0066ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeIn 0.6s ease 0.3s backwards;
+        }
+
+        .login-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            animation: fadeIn 0.6s ease 0.4s backwards;
+        }
+
+        /* ========== FORM CONTAINER ========== */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.6s ease 0.5s backwards;
+        }
+
+        .login-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .login-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        /* ========== BUTTONS ========== */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .login-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-family: 'Outfit', sans-serif;
+            animation: fadeIn 0.6s ease backwards;
+        }
+
+        .login-btn:nth-child(1) { animation-delay: 0.6s; }
+        .login-btn:nth-child(2) { animation-delay: 0.7s; }
+        .login-btn:nth-child(3) { animation-delay: 0.8s; }
+
+        .login-btn:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(0, 255, 136, 0.3);
+            box-shadow: 0 12px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .login-btn.google:hover {
+            box-shadow: 0 12px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .login-btn.apple:hover {
+            box-shadow: 0 12px 30px rgba(0, 102, 255, 0.2);
+        }
+
+        .login-btn.phone:hover {
+            box-shadow: 0 12px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .login-btn.signin {
+            background: linear-gradient(135deg, #00ff88 0%, #0066ff 100%);
+            color: #000000;
+            font-weight: 700;
+            border: none;
+        }
+
+        .login-btn.signin:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 255, 136, 0.4);
+        }
+
+        .btn-icon {
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-icon svg {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .google-icon {
+            background: linear-gradient(135deg, #4285F4 0%, #EA4335 25%, #FBBC04 50%, #34A853 75%, #EA4335 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        .apple-icon::before {
+            content: '';
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.02 2.29.69 3.07.68.9-.01 1.74-.7 3.08-.68 5.05.29 5.93 5.75 1.85 9.97zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>');
+            -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.02 2.29.69 3.07.68.9-.01 1.74-.7 3.08-.68 5.05.29 5.93 5.75 1.85 9.97zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>');
+            mask-size: contain;
+            -webkit-mask-size: contain;
+        }
+
+        /* ========== FOOTER ========== */
+        .login-footer {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            animation: fadeIn 0.6s ease 0.9s backwards;
+        }
+
+        .login-footer p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .login-footer a {
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .login-footer a:hover {
+            color: #0066ff;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .wave-container {
+                width: 400px;
+                height: 400px;
+            }
+
+            .login-box {
+                padding: 40px 32px;
+            }
+
+            .login-title {
+                font-size: 24px;
+            }
+
+            .login-subtitle {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .wave-top,
+            .wave-bottom {
+                width: 300px;
+                height: 300px;
+            }
+
+            .login-wrapper {
+                padding: 16px;
+            }
+
+            .login-box {
+                padding: 32px 24px;
+            }
+
+            .login-logo {
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+            }
+
+            .login-title {
+                font-size: 20px;
+            }
+
+            .login-subtitle {
+                font-size: 13px;
+            }
+
+            .login-input,
+            .login-btn {
+                padding: 14px 18px;
+                font-size: 14px;
+            }
+
+            .btn-icon {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">V</div>
+                <span class="logo-text">VORTEX <span>Systems</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Startseite</a>
+                <a href="hardware.html" class="nav-link">Hardware</a>
+                <a href="software.html" class="nav-link">Software</a>
+                <a href="zubehoer.html" class="nav-link">Zubehör</a>
+                <a href="vortcoin.html" class="nav-link"> VORTEX Aktien</a>
+                <a href="login.html" class="nav-link active" id="loginLink">Login</a>
+                <a href="vortex-code-ki.html" class="nav-link">Code KI</a>
+                <a href="contact.html" class="nav-cta">Kontakt</a>
+                <a href="account.html" class="nav-link">Benutzer</a>
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <span class="user-name" id="userName">Benutzer</span>
+                    <div class="user-avatar" id="userAvatar">B</div>
+                    <button class="logout-btn" onclick="handleLogout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Wave Top Left -->
+    <div class="wave-container wave-top">
+        <svg class="wave-svg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="glow-green">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            
+            <path d="M 0 100 Q 100 50 200 100 T 400 100 T 600 100 L 600 0 L 0 0 Z" 
+                  fill="none" stroke="#00ff88" stroke-width="2" opacity="0.3" filter="url(#glow-green)"/>
+            
+            <path d="M 0 150 Q 100 100 200 150 T 400 150 T 600 150 L 600 0 L 0 0 Z" 
+                  fill="none" stroke="#0066ff" stroke-width="2" opacity="0.2" filter="url(#glow-green)"/>
+            
+            <path d="M 0 200 Q 100 150 200 200 T 400 200 T 600 200 L 600 0 L 0 0 Z" 
+                  fill="none" stroke="#00ff88" stroke-width="1.5" opacity="0.15" filter="url(#glow-green)"/>
+            
+            <circle cx="50" cy="50" r="60" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.1" filter="url(#glow-green)"/>
+            <circle cx="150" cy="80" r="80" fill="none" stroke="#0066ff" stroke-width="1" opacity="0.08" filter="url(#glow-green)"/>
+        </svg>
+    </div>
+
+    <!-- Wave Bottom Right -->
+    <div class="wave-container wave-bottom">
+        <svg class="wave-svg" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="glow-blue">
+                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                    <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                </filter>
+            </defs>
+            
+            <path d="M 600 500 Q 500 550 400 500 T 200 500 T 0 500 L 0 600 L 600 600 Z" 
+                  fill="none" stroke="#0066ff" stroke-width="2" opacity="0.3" filter="url(#glow-blue)"/>
+            
+            <path d="M 600 450 Q 500 500 400 450 T 200 450 T 0 450 L 0 600 L 600 600 Z" 
+                  fill="none" stroke="#00ff88" stroke-width="2" opacity="0.2" filter="url(#glow-blue)"/>
+            
+            <path d="M 600 400 Q 500 450 400 400 T 200 400 T 0 400 L 0 600 L 600 600 Z" 
+                  fill="none" stroke="#0066ff" stroke-width="1.5" opacity="0.15" filter="url(#glow-blue)"/>
+            
+            <circle cx="550" cy="550" r="60" fill="none" stroke="#0066ff" stroke-width="1" opacity="0.1" filter="url(#glow-blue)"/>
+            <circle cx="450" cy="520" r="80" fill="none" stroke="#00ff88" stroke-width="1" opacity="0.08" filter="url(#glow-blue)"/>
+        </svg>
+    </div>
+
+    <!-- Login Box -->
+    <div class="login-wrapper">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="login-logo">V</div>
+                <h1 class="login-title">Sign in to your Account</h1>
+                <p class="login-subtitle">Welcome back! Login with your credentials</p>
+            </div>
+
+            <form class="login-form" id="loginForm">
+                <input type="email" class="login-input" placeholder="E-Mail Address" required>
+                <input type="password" class="login-input" placeholder="Password" required>
+            </form>
+
+            <div class="button-group">
+                <button class="login-btn google" onclick="handleGoogleLogin(event)">
+                    <span class="btn-icon google-icon">G</span>
+                    Continue with Google
+                </button>
+                <button class="login-btn apple" onclick="handleAppleLogin(event)">
+                    <span class="btn-icon apple-icon"></span>
+                    Continue with Apple
+                </button>
+                <button class="login-btn phone" onclick="handlePhoneLogin(event)">
+                    <span class="btn-icon">📱</span>
+                    Continue with Phone
+                </button>
+                <button class="login-btn signin" onclick="handleSignIn(event)">
+                    <span class="btn-icon">✓</span>
+                    Anmelden
+                </button>
+            </div>
+
+            <div class="login-footer">
+                <p>Don't have an Account? <a href="#signup">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation Scroll Effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Prevent form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+        });
+
+        // Google Login Handler
+        function handleGoogleLogin(e) {
+            e.preventDefault();
+            console.log('Google Login initiated');
+            alert('🔵 Google Login - Integration ready for OAuth');
+        }
+
+        // Apple Login Handler
+        function handleAppleLogin(e) {
+            e.preventDefault();
+            console.log('Apple Login initiated');
+            alert('🍎 Apple Login - Integration ready for Sign in with Apple');
+        }
+
+        // Phone Login Handler
+        function handlePhoneLogin(e) {
+            e.preventDefault();
+            console.log('Phone Login initiated');
+            alert('📱 Phone Login - SMS verification ready');
+        }
+
+        // Sign In Handler
+        function handleSignIn(e) {
+            e.preventDefault();
+            const emailInput = document.querySelector('.login-input[type="email"]');
+            const email = emailInput.value.trim();
+
+            if (!email) {
+                alert('Bitte geben Sie eine E-Mail-Adresse ein!');
+                return;
+            }
+
+            // Benutzer einloggen
+            const userName = email.split('@')[0];
+            const userInitial = userName.charAt(0).toUpperCase();
+
+            // In Session Storage speichern
+            window.sessionStorage.setItem('isLoggedIn', 'true');
+            window.sessionStorage.setItem('userName', userName);
+            window.sessionStorage.setItem('userEmail', email);
+            window.sessionStorage.setItem('userInitial', userInitial);
+
+            // UI aktualisieren
+            updateUserProfile();
+
+            // Erfolgreiche Anmeldung
+            alert(`✓ Willkommen, ${userName}! Sie sind jetzt angemeldet.`);
+
+            // Optionsl: Redirect nach Index
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        // Logout Handler
+        function handleLogout() {
+            window.sessionStorage.removeItem('isLoggedIn');
+            window.sessionStorage.removeItem('userName');
+            window.sessionStorage.removeItem('userEmail');
+            window.sessionStorage.removeItem('userInitial');
+
+            updateUserProfile();
+            alert('Sie wurden erfolgreich abgemeldet.');
+        }
+
+        // Update User Profile UI
+        function updateUserProfile() {
+            const isLoggedIn = window.sessionStorage.getItem('isLoggedIn') === 'true';
+            const userProfile = document.getElementById('userProfile');
+            const loginLink = document.getElementById('loginLink');
+            const userName = window.sessionStorage.getItem('userName');
+            const userInitial = window.sessionStorage.getItem('userInitial');
+
+            if (isLoggedIn && userName) {
+                loginLink.style.display = 'none';
+                userProfile.style.display = 'flex';
+                document.getElementById('userName').textContent = userName;
+                document.getElementById('userAvatar').textContent = userInitial;
+            } else {
+                loginLink.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        // Check Login Status on Page Load
+        window.addEventListener('DOMContentLoaded', updateUserProfile);
+
+        // Add wave animation
+        const waveTop = document.querySelector('.wave-top');
+        const waveBottom = document.querySelector('.wave-bottom');
+        
+        let waveOffset = 0;
+        setInterval(() => {
+            waveOffset += 1;
+            waveTop.style.transform = `translateX(${waveOffset % 100}px)`;
+            waveBottom.style.transform = `translateX(-${waveOffset % 100}px)`;
+        }, 50);
+
+        // Mouse tracking effect for waves
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            waveTop.style.opacity = 0.5 + x * 0.2;
+            waveBottom.style.opacity = 0.5 + y * 0.2;
+        });
+    </script>
+
+</body>
+</html>

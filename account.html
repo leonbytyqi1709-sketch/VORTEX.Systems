@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mein Account – VORTEX Systems</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #050508;
+            --bg-tertiary: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --bg-card-hover: rgba(255, 255, 255, 0.05);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.65);
+            --text-tertiary: rgba(255, 255, 255, 0.4);
+            --neon-cyan: #00f0ff;
+            --neon-purple: #bf5af2;
+            --neon-pink: #ff375f;
+            --neon-green: #39ff14;
+            --gradient-main: linear-gradient(135deg, #00f0ff 0%, #bf5af2 50%, #ff375f 100%);
+            --glow-cyan: 0 0 30px rgba(0, 240, 255, 0.4);
+            --glow-purple: 0 0 30px rgba(191, 90, 242, 0.4);
+            --glow-pink: 0 0 30px rgba(255, 55, 95, 0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-hover);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-cyan);
+        }
+
+        /* ========== NAVIGATION ========== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 40px;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-main);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 800;
+            font-size: 22px;
+            color: var(--bg-primary);
+            box-shadow: var(--glow-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(-5deg) scale(1.05);
+            box-shadow: var(--glow-purple);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--bg-card-hover);
+        }
+
+        .nav-link.active {
+            color: var(--neon-cyan);
+        }
+
+        .nav-cta {
+            background: var(--gradient-main);
+            color: var(--bg-primary);
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-left: 16px;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* USER PROFILE NAV */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-left: 16px;
+        }
+
+        .user-name {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00f0ff 0%, #bf5af2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--bg-primary);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(191, 90, 242, 0.5);
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .logout-btn:hover {
+            color: var(--text-primary);
+            border-color: #ff375f;
+            background: rgba(255, 55, 95, 0.1);
+        }
+
+        /* ========== PAGE HEADER ========== */
+        .page-header {
+            padding: 140px 40px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 0%, rgba(0, 240, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 100%, rgba(191, 90, 242, 0.08) 0%, transparent 50%);
+        }
+
+        .header-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* USER INFO CARD */
+        .user-info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 48px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            margin-bottom: 60px;
+            transition: all 0.3s;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .user-info-card:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+        }
+
+        .user-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--bg-primary);
+            box-shadow: var(--glow-cyan);
+            flex-shrink: 0;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-welcome {
+            font-size: 16px;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+        }
+
+        .user-name-large {
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .user-email {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 32px;
+        }
+
+        .user-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .user-stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+        }
+
+        .user-stat-label {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            padding: 0 40px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-badge {
+            background: var(--gradient-main);
+            color: var(--bg-primary);
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* CART ITEMS */
+        .cart-container {
+            display: grid;
+            gap: 24px;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .cart-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 28px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            transition: all 0.4s;
+        }
+
+        .cart-item:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateX(8px);
+        }
+
+        .cart-item-emoji {
+            font-size: 64px;
+            width: 100px;
+            height: 100px;
+            background: var(--bg-tertiary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-price-single {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quantity-label {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-card-hover);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: inherit;
+        }
+
+        .qty-btn:hover:not(:disabled) {
+            background: var(--neon-cyan);
+            color: var(--bg-primary);
+            border-color: var(--neon-cyan);
+        }
+
+        .qty-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .qty-display {
+            min-width: 40px;
+            text-align: center;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 15px;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 16px;
+        }
+
+        .cart-item-total {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+        }
+
+        .remove-btn {
+            padding: 10px 20px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .remove-btn:hover {
+            background: var(--neon-pink);
+            color: #fff;
+            border-color: var(--neon-pink);
+            box-shadow: var(--glow-pink);
+        }
+
+        /* EMPTY STATE */
+        .empty-cart {
+            text-align: center;
+            padding: 80px 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .empty-cart-icon {
+            font-size: 120px;
+            margin-bottom: 24px;
+            opacity: 0.3;
+        }
+
+        .empty-cart-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .empty-cart-text {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .shop-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: var(--gradient-main);
+            color: var(--bg-primary);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .shop-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* CHECKOUT SUMMARY */
+        .checkout-summary {
+            position: sticky;
+            top: 100px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 32px;
+            margin-top: 40px;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .summary-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 15px;
+        }
+
+        .summary-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: var(--text-secondary);
+        }
+
+        .summary-value {
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .summary-total {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-hover);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .summary-total-label {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .summary-total-value {
+            font-size: 36px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--neon-cyan);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient-main);
+            border: none;
+            border-radius: 12px;
+            color: var(--bg-primary);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-purple);
+        }
+
+        .checkout-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* SUCCESS MODAL */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            border: 2px solid var(--neon-green);
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            box-shadow: var(--glow-cyan), 0 20px 60px rgba(0, 0, 0, 0.8);
+            animation: modalPop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-icon {
+            font-size: 120px;
+            margin-bottom: 24px;
+            animation: bounce 0.8s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .modal-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #39ff14, #00f0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-message {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .modal-delivery-date {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(57, 255, 20, 0.1), rgba(0, 240, 255, 0.1));
+            border: 1px solid var(--neon-green);
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--neon-green);
+            margin-bottom: 32px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .modal-btn {
+            padding: 16px 40px;
+            background: var(--gradient-main);
+            border: none;
+            border-radius: 12px;
+            color: var(--bg-primary);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* NEON DIVIDERS */
+        .neon-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), var(--neon-pink), transparent);
+            margin: 60px 0;
+            opacity: 0.3;
+        }
+
+        /* LOGIN FORM ON PAGE */
+        .login-container {
+            max-width: 500px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+        }
+
+        .login-icon-large {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: var(--gradient-main);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: var(--glow-cyan);
+        }
+
+        .login-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .login-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1);
+        }
+
+        .login-input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-main);
+            border: none;
+            border-radius: 12px;
+            color: var(--bg-primary);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .social-login-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .social-btn:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-header {
+                padding: 120px 24px 40px;
+            }
+
+            .user-info-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 32px 24px;
+            }
+
+            .user-stats {
+                justify-content: center;
+            }
+
+            .main-content {
+                padding: 0 24px 60px;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cart-item-actions {
+                width: 100%;
+                align-items: center;
+            }
+
+            .modal {
+                padding: 32px 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .user-name-large {
+                font-size: 32px;
+            }
+
+            .user-stats {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .cart-item-emoji {
+                width: 80px;
+                height: 80px;
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">V</div>
+                <span class="logo-text">VORTEX <span>Systems</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Startseite</a>
+                <a href="hardware.html" class="nav-link">Hardware</a>
+                <a href="software.html" class="nav-link">Software</a>
+                <a href="zubehoer.html" class="nav-link">Zubehör</a>
+                <a href="vortcoin.html" class="nav-link"> VORTEX Aktien</a>
+                <a href="vortex-code-ki.html" class="nav-link">Code KI</a>
+                <a href="login.html" class="nav-link" id="loginLink">LOGIN</a>
+                <a href="contact.html" class="nav-cta">Kontakt</a>
+                <a href="account.html" class="nav-link">Benutzer</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="header-bg">
+            <div class="header-grid"></div>
+        </div>
+        
+        <div class="page-header-content">
+            <!-- User Info Card -->
+            <div class="user-info-card">
+                <div class="user-avatar-large" id="avatarLarge">L</div>
+                <div class="user-details">
+                    <div class="user-welcome">Willkommen zurück,</div>
+                    <h1 class="user-name-large" id="userNameLarge">Benutzer</h1>
+                    <p class="user-email" id="userEmailDisplay">user@example.com</p>
+                    <div class="user-stats">
+                        <div class="user-stat">
+                            <div class="user-stat-value" id="cartItemCount">0</div>
+                            <div class="user-stat-label">Artikel im Warenkorb</div>
+                        </div>
+                        <div class="user-stat">
+                            <div class="user-stat-value" id="cartTotalValue">0€</div>
+                            <div class="user-stat-label">Gesamtwert</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- LOGIN FORM (shown when NOT logged in) -->
+        <div class="login-container" id="loginFormContainer" style="display: none;">
+            <div class="login-card">
+                <div class="login-icon-large">🔐</div>
+                <h2 class="login-title">Anmelden</h2>
+                <p class="login-subtitle">Melde dich an, um deinen Warenkorb zu sehen und Bestellungen aufzugeben.</p>
+                
+                <form class="login-form" id="accountLoginForm" onsubmit="handleAccountLogin(event)">
+                    <input type="email" class="login-input" placeholder="E-Mail Adresse" required id="loginEmail">
+                    <input type="password" class="login-input" placeholder="Passwort" required id="loginPassword">
+                    <button type="submit" class="login-btn">🚀 Anmelden</button>
+                </form>
+
+                <div class="login-divider">oder</div>
+
+                <div class="social-login-btns">
+                    <button class="social-btn" onclick="handleSocialLogin('google')">
+                        <span style="color: #4285F4;">G</span>
+                        Mit Google anmelden
+                    </button>
+                    <button class="social-btn" onclick="handleSocialLogin('apple')">
+                        <span>🍎</span>
+                        Mit Apple anmelden
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CART SECTION (shown when logged in) -->
+        <div id="cartSection" style="display: none;">
+            <div class="section-header">
+                <h2 class="section-title">
+                    🛒 Dein Warenkorb
+                    <span class="section-badge" id="itemCountBadge">0 Artikel</span>
+                </h2>
+            </div>
+
+            <!-- Cart Items Container -->
+            <div class="cart-container" id="cartContainer">
+                <!-- Cart items will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Checkout Summary -->
+        <div class="checkout-summary" id="checkoutSummary" style="display: none;">
+            <h3 class="summary-title">💳 Zusammenfassung</h3>
+            
+            <div class="summary-row">
+                <span class="summary-label">Zwischensumme:</span>
+                <span class="summary-value" id="subtotalValue">0,00 €</span>
+            </div>
+            
+            <div class="summary-row">
+                <span class="summary-label">Versandkosten:</span>
+                <span class="summary-value" id="shippingValue">0,00 €</span>
+            </div>
+            
+            <div class="summary-total">
+                <span class="summary-total-label">Gesamt:</span>
+                <span class="summary-total-value" id="totalValue">0,00 €</span>
+            </div>
+            
+            <button class="checkout-btn" id="checkoutButton" onclick="proceedToCheckout()">
+                <span>💳</span>
+                Jetzt bezahlen
+            </button>
+        </div>
+    </main>
+
+    <div class="neon-divider"></div>
+
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal">
+            <div class="modal-icon">🎉</div>
+            <h2 class="modal-title">Vielen Dank für Ihre Bestellung!</h2>
+            <p class="modal-message">
+                Wir danken Ihnen für Ihre Bestellung bei VORTEX Systems.<br>
+                Ihre Bestellung wird zugestellt am:
+            </p>
+            <div class="modal-delivery-date" id="deliveryDate">17.01.2026</div>
+            <button class="modal-btn" onclick="closeSuccessModal()">Verstanden</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // ==================== USER AUTHENTICATION ====================
+        function checkLoginStatus() {
+            const isLoggedIn = window.sessionStorage.getItem('isLoggedIn') === 'true';
+            
+            if (isLoggedIn) {
+                // User ist eingeloggt - zeige Dashboard
+                showDashboard();
+            } else {
+                // User ist NICHT eingeloggt - zeige Login-Formular
+                showLoginForm();
+            }
+        }
+
+        function showLoginForm() {
+            document.getElementById('loginFormContainer').style.display = 'block';
+            document.getElementById('cartSection').style.display = 'none';
+            document.querySelector('.user-info-card').style.display = 'none';
+            document.getElementById('checkoutSummary').style.display = 'none';
+        }
+
+        function showDashboard() {
+            document.getElementById('loginFormContainer').style.display = 'none';
+            document.getElementById('cartSection').style.display = 'block';
+            document.querySelector('.user-info-card').style.display = 'flex';
+            loadUserData();
+            loadCart(); // Warenkorb laden
+            setTimeout(observeCartItems, 100); // Animationen starten
+        }
+
+        function handleAccountLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                alert('Bitte fülle alle Felder aus!');
+                return;
+            }
+
+            // Login durchführen
+            const userName = email.split('@')[0];
+            const userInitial = userName.charAt(0).toUpperCase();
+
+            window.sessionStorage.setItem('isLoggedIn', 'true');
+            window.sessionStorage.setItem('userName', userName);
+            window.sessionStorage.setItem('userEmail', email);
+            window.sessionStorage.setItem('userInitial', userInitial);
+
+            // Dashboard anzeigen
+            showDashboard();
+        }
+
+        function handleSocialLogin(provider) {
+            alert(`${provider.charAt(0).toUpperCase() + provider.slice(1)}-Login wird implementiert...`);
+        }
+
+        function loadUserData() {
+            const userName = window.sessionStorage.getItem('userName') || 'Benutzer';
+            const userEmail = window.sessionStorage.getItem('userEmail') || 'user@example.com';
+            const userInitial = window.sessionStorage.getItem('userInitial') || 'B';
+
+            // Navigation anpassen (nur wenn Elemente existieren)
+            const userNameNav = document.getElementById('userNameNav');
+            const userAvatarNav = document.getElementById('userAvatarNav');
+            const userProfileNav = document.getElementById('userProfileNav');
+            const loginLinkNav = document.getElementById('loginLinkNav');
+            
+            if (userNameNav) userNameNav.textContent = userName;
+            if (userAvatarNav) userAvatarNav.textContent = userInitial;
+            if (userProfileNav) userProfileNav.style.display = 'flex';
+            if (loginLinkNav) loginLinkNav.style.display = 'none';
+
+            // Header Card (nur wenn Elemente existieren)
+            const userNameLarge = document.getElementById('userNameLarge');
+            const userEmailDisplay = document.getElementById('userEmailDisplay');
+            const avatarLarge = document.getElementById('avatarLarge');
+            
+            if (userNameLarge) userNameLarge.textContent = userName;
+            if (userEmailDisplay) userEmailDisplay.textContent = userEmail;
+            if (avatarLarge) avatarLarge.textContent = userInitial;
+        }
+
+        function handleLogout() {
+            if (confirm('Möchten Sie sich wirklich abmelden?')) {
+                window.sessionStorage.clear();
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ==================== CART MANAGEMENT ====================
+        let cart = [];
+
+        function loadCart() {
+            const savedCart = localStorage.getItem('vortex_warenkorb');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+            }
+            updateCartDisplay();
+        }
+
+        function saveCart() {
+            localStorage.setItem('vortex_warenkorb', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const container = document.getElementById('cartContainer');
+            const summary = document.getElementById('checkoutSummary');
+            
+            // Update stats in header
+            const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalValue = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            document.getElementById('cartItemCount').textContent = itemCount;
+            document.getElementById('cartTotalValue').textContent = totalValue.toFixed(2) + '€';
+            document.getElementById('itemCountBadge').textContent = itemCount + ' Artikel';
+
+            // Empty cart
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <h3 class="empty-cart-title">Dein Warenkorb ist leer</h3>
+                        <p class="empty-cart-text">Entdecke unsere Produkte und füge etwas zu deinem Warenkorb hinzu!</p>
+                        <a href="hardware.html" class="shop-btn">
+                            <span>🚀</span>
+                            Jetzt shoppen
+                        </a>
+                    </div>
+                `;
+                summary.style.display = 'none';
+                return;
+            }
+
+            // Render cart items
+            container.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-emoji">${item.emoji}</div>
+                    <div class="cart-item-details">
+                        <h3 class="cart-item-name">${item.name}</h3>
+                        <p class="cart-item-price-single">${item.price.toFixed(2)}€ pro Stück</p>
+                        <div class="cart-item-quantity">
+                            <span class="quantity-label">Menge:</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="updateQuantity('${item.id}', -1)">−</button>
+                                <span class="qty-display">${item.quantity}</span>
+                                <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-item-actions">
+                        <div class="cart-item-total">${(item.price * item.quantity).toFixed(2)}€</div>
+                        <button class="remove-btn" onclick="removeItem('${item.id}')">🗑️ Entfernen</button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update summary
+            const subtotal = totalValue;
+            const shipping = subtotal >= 100 ? 0 : 4.99;
+            const total = subtotal + shipping;
+
+            document.getElementById('subtotalValue').textContent = subtotal.toFixed(2) + ' €';
+            document.getElementById('shippingValue').textContent = shipping === 0 ? 'Kostenlos ✓' : shipping.toFixed(2) + ' €';
+            document.getElementById('totalValue').textContent = total.toFixed(2) + ' €';
+            
+            summary.style.display = 'block';
+        }
+
+        function updateQuantity(itemId, delta) {
+            const item = cart.find(i => i.id === itemId);
+            if (item) {
+                item.quantity = Math.max(1, item.quantity + delta);
+                saveCart();
+            }
+        }
+
+        function removeItem(itemId) {
+            if (confirm('Möchtest du diesen Artikel wirklich aus dem Warenkorb entfernen?')) {
+                cart = cart.filter(item => item.id !== itemId);
+                saveCart();
+            }
+        }
+
+        // ==================== CHECKOUT ====================
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert('Dein Warenkorb ist leer!');
+                return;
+            }
+
+            // Generate random delivery date (3-7 days from now)
+            const today = new Date();
+            const daysToAdd = Math.floor(Math.random() * 5) + 3; // 3-7 days
+            const deliveryDate = new Date(today.getTime() + (daysToAdd * 24 * 60 * 60 * 1000));
+            
+            const day = String(deliveryDate.getDate()).padStart(2, '0');
+            const month = String(deliveryDate.getMonth() + 1).padStart(2, '0');
+            const year = deliveryDate.getFullYear();
+            
+            const formattedDate = `${day}.${month}.${year}`;
+            
+            // Show success modal
+            document.getElementById('deliveryDate').textContent = formattedDate;
+            document.getElementById('successModal').classList.add('active');
+            
+            // Clear cart
+            cart = [];
+            localStorage.removeItem('vortex_warenkorb');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('active');
+            updateCartDisplay();
+        }
+
+        // ==================== SCROLL ANIMATIONS ====================
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe cart items
+        function observeCartItems() {
+            document.querySelectorAll('.cart-item').forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = `all 0.6s ease ${index * 0.1}s`;
+                observer.observe(item);
+            });
+        }
+
+        // ==================== INITIALIZATION ====================
+        window.addEventListener('DOMContentLoaded', () => {
+            // Check login status and show appropriate view
+            checkLoginStatus();
+            
+            // Observe animations
+            setTimeout(observeCartItems, 100);
+        });
+
+        // Close modal on outside click
+        window.addEventListener('click', (e) => {
+            if (e.target.id === 'successModal') {
+                closeSuccessModal();
+            }
+        });
+
+        // Prevent modal close on modal content click
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.querySelector('.modal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
